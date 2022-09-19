@@ -1,4 +1,17 @@
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      url_sso: import.meta.env.VITE_URL_SSO,
+    };
+  },
+  methods: {
+    loginSSO() {
+      window.location.href = this.url_sso;
+    },
+  },
+};
+</script>
 
 <template>
   <div class="w-full">
@@ -17,8 +30,9 @@
 
     <div class="md:flex md:items-center md:justify-center">
       <button
-        class="mt-10 mb-10 bg-blue-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full md:w-1/2 lg:w-1/2"
+        class="mt-10 md:mt-0 mb-10 bg-blue-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full md:w-1/2 lg:w-1/2"
         type="button"
+        @click="loginSSO"
       >
         Masuk dengan SSO
       </button>
