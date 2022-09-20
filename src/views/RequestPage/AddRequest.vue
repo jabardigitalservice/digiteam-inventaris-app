@@ -1,10 +1,8 @@
 <script>
-import TableRequest from "../../components/RequestComponents/TableRequest.vue";
-import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
+import FormRequest from "../../components/RequestComponents/FormRequest.vue";
 export default {
   components: {
-    TableRequest,
-    HeaderTable,
+    FormRequest,
   },
 };
 </script>
@@ -13,7 +11,7 @@ export default {
   <div>
     <div class="mb-5 lg:text-center">
       <h1 class="font-bold text-xl md:text-5xl text-slate-70">
-        List Permohonan Inventaris
+        Form Permohonan Inventaris
       </h1>
       <p
         class="mt-1 md:mt-2 font-normal text-sm md:text-2xl text-blue-gray-500"
@@ -22,8 +20,6 @@ export default {
       </p>
     </div>
 
-    <HeaderTable></HeaderTable>
-
-    <TableRequest></TableRequest>
+    <FormRequest></FormRequest>
   </div>
 </template>

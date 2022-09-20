@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import LoginPage from "../views/LoginPage/Index.vue";
 import NotFound from "../views/NotFound.vue";
-import RequestPage from "../views/RequestPage/Index.vue";
-
+import AddRequest from "../views/RequestPage/AddRequest.vue";
+import ListRequest from "../views/RequestPage/Index.vue";
 Vue.use(VueRouter);
 
 // function guardMyroute(to, from, next) {
@@ -25,9 +25,14 @@ const router = new VueRouter({
       component: LoginPage,
     },
     {
-      path: "/request",
-      name: "request",
-      component: RequestPage,
+      path: "/list-request",
+      name: "list-request",
+      component: ListRequest,
+    },
+    {
+      path: "/add-request",
+      name: "add-request",
+      component: AddRequest,
     },
     {
       path: "/:catchAll(.*)",
