@@ -8,7 +8,7 @@ import store from "./store";
 // import "./assets/index.css";
 import "./assets/tailwind.css";
 
-console.log(import.meta.env.VITE_AXIOS_PATH);
+console.log(import.meta.env.VITE_API_URL);
 
 new Vue({
   router,
