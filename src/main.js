@@ -3,12 +3,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 
-// import "./assets/main.css";
 import store from "./store";
-// import "./assets/index.css";
-import "./assets/tailwind.css";
 
-console.log(import.meta.env.VITE_AXIOS_PATH);
+import "./assets/tailwind.css";
 
 new Vue({
   router,

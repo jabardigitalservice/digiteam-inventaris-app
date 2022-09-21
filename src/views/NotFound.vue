@@ -1,7 +1,3 @@
-<script>
-export default {};
-</script>
-
 <template>
   <div class="flex justify-center items-center">
     <div class="text-center">
@@ -10,5 +6,3 @@ export default {};
     </div>
   </div>
 </template>
-
-<style></style>

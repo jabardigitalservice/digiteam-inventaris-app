@@ -2,12 +2,12 @@
 export default {
   data() {
     return {
-      url_sso: import.meta.env.VITE_URL_SSO,
+      urlSso: import.meta.env.VITE_URL_SSO,
     };
   },
   methods: {
     loginSSO() {
-      window.location.href = this.url_sso;
+      window.location.href = this.urlSso;
     },
   },
 };
@@ -25,7 +25,11 @@ export default {
       </p>
     </div>
     <div>
-      <img src="@/assets/logo-jds.png" class="w-25 m-auto" alt="" />
+      <img
+        src="@/assets/logo-jds.png"
+        class="w-25 h-full m-auto"
+        alt="Logo Jabar Digital Service"
+      />
     </div>
 
     <div class="md:flex md:items-center md:justify-center">
