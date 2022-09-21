@@ -1,5 +1,6 @@
 <script>
 import Swal from "sweetalert2";
+import axios from "axios";
 export default {
   name: "FormRequest",
   data() {
@@ -17,6 +18,7 @@ export default {
   },
   methods: {
     handleSubmit() {
+      console.log(this.formRequest);
       Swal.fire({
         title: "Ingin mengirim permohonan?",
         text: "Permohonan akan dikirim ke team HR/GA!",
@@ -28,18 +30,21 @@ export default {
         cancelButtonText: "Batalkan",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Success!",
-            text: "Berhasil mengirim permohonan",
-            icon: "success",
-            confirmButtonText: "OK",
-          }).then((result) => {
-            if (result.value) {
-              this.$router.push("/list-request");
-            } else {
-              console.log(result.value);
-            }
-          });
+          axios
+            .post("item_requests", this.formRequest)
+            .then(() => {
+              Swal.fire({
+                title: "Success!",
+                text: "Berhasil mengirim permohonan",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then((result) => {
+                this.$router.push("/list-request");
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
       });
     },

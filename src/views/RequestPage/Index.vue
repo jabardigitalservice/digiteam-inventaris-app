@@ -22,8 +22,12 @@ export default {
       </p>
     </div>
 
-    <HeaderTable></HeaderTable>
+    <div
+      class="w-full p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    >
+      <HeaderTable></HeaderTable>
 
-    <TableRequest></TableRequest>
+      <TableRequest></TableRequest>
+    </div>
   </div>
 </template>
