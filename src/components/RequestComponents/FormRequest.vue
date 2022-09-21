@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.formRequest);
       Swal.fire({
         title: "Ingin mengirim permohonan?",
         text: "Permohonan akan dikirim ke team HR/GA!",
@@ -38,12 +37,19 @@ export default {
                 text: "Berhasil mengirim permohonan",
                 icon: "success",
                 confirmButtonText: "OK",
-              }).then((result) => {
-                this.$router.push("/list-request");
+              }).then(() => {
+                // todo : redirect to list request page
+                // this.$router.push("/list-request");
               });
             })
             .catch((err) => {
               console.log(err);
+              Swal.fire({
+                title: "Gagal!",
+                text: "Gagal mengirim permohonan",
+                icon: "error",
+                confirmButtonText: "OK",
+              });
             });
         }
       });
@@ -92,9 +98,12 @@ export default {
       />
     </label>
 
-    <label for="divisi" class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >Unit / Divisi</label
+    <label
+      for="divisi"
+      class="block mb-2 text-sm font-bold text-slate-700 mt-5"
     >
+      Unit / Divisi
+    </label>
     <select
       id="divisi"
       v-model="formRequest.divisi"
@@ -107,9 +116,9 @@ export default {
     </select>
 
     <label class="block mt-5">
-      <span class="block text-sm font-bold text-slate-700"
-        >Barang yang diajukan</span
-      >
+      <span class="block text-sm font-bold text-slate-700">
+        Barang yang diajukan
+      </span>
       <input
         v-model="formRequest.item_name"
         type="text"
@@ -120,9 +129,9 @@ export default {
     </label>
 
     <label class="block mt-5">
-      <span class="block text-sm font-bold text-slate-700"
-        >Alasan Pengajuan</span
-      >
+      <span class="block text-sm font-bold text-slate-700">
+        Alasan Pengajuan
+      </span>
       <textarea
         v-model="formRequest.purpose"
         placeholder="Masukan alasan pengajuan"
@@ -134,8 +143,9 @@ export default {
     <label
       for="urgency"
       class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >Tingkat Kebutuhan</label
     >
+      Tingkat Kebutuhan
+    </label>
     <select
       id="urgency"
       v-model="formRequest.urgency"
@@ -151,8 +161,9 @@ export default {
       v-if="isEvidence"
       for="evidence"
       class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >Evidence</label
     >
+      Evidence
+    </label>
 
     <label v-if="isEvidence" class="block mt-5">
       <span class="sr-only">Choose evidance</span>
