@@ -15,6 +15,11 @@ const router = new VueRouter({
       component: LoginPage,
     },
     {
+      path: "/add-request",
+      name: "add-request",
+      component: AddRequest,
+    },
+    {
       path: "/:catchAll(.*)",
       name: "NotFound",
       component: NotFound,
