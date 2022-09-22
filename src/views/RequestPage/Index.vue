@@ -3,16 +3,20 @@ import TableRequest from "../../components/RequestComponents/TableRequest.vue";
 import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
 import axios from "axios";
 import Pagination from "../../components/layouts/Pagination.vue";
+import DataError from "../../components/layouts/DataError.vue";
 export default {
   components: {
     TableRequest,
     HeaderTable,
     Pagination,
+    DataError,
   },
   data() {
     return {
       dataRequest: [],
       pagination: [],
+      offset: 4,
+      isSuccess: false,
     };
   },
   mounted() {
@@ -25,10 +29,10 @@ export default {
         .then((response) => {
           this.dataRequest = response.data.data;
           this.pagination = response.data.meta;
-          console.log(response.data);
+          this.isSuccess = true;
         })
         .catch((error) => {
-          console.log(error);
+          this.isSuccess = false;
         });
     },
   },
@@ -54,11 +58,19 @@ export default {
       <HeaderTable></HeaderTable>
 
       <TableRequest
+        v-if="isSuccess"
         :data-request="dataRequest"
+        :is-success="isSuccess"
         class="mt-10 mb-10"
       ></TableRequest>
 
-      <Pagination :pagination="pagination"></Pagination>
+      <DataError v-if="!isSuccess"></DataError>
+
+      <Pagination
+        v-if="isSuccess"
+        :pagination="pagination"
+        :offset="offset"
+      ></Pagination>
     </div>
   </div>
 </template>
