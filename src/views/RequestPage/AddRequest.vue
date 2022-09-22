@@ -9,7 +9,7 @@ export default {
 
 <template>
   <div>
-    <div class="mb-5 lg:text-center">
+    <div class="mb-5 md:text-center">
       <h1 class="font-bold text-xl md:text-5xl text-slate-70">
         Form Permohonan Inventaris
       </h1>

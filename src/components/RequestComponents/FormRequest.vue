@@ -16,6 +16,15 @@ export default {
       },
     };
   },
+  watch: {
+    "formRequest.request_type"(val) {
+      if (val == 2) {
+        this.isEvidence = true;
+      } else {
+        this.isEvidence = false;
+      }
+    },
+  },
   methods: {
     handleSubmit() {
       Swal.fire({
@@ -45,7 +54,7 @@ export default {
             .catch((err) => {
               console.log(err);
               Swal.fire({
-                title: "Gagal!",
+                title: "Server Error!",
                 text: "Gagal mengirim permohonan",
                 icon: "error",
                 confirmButtonText: "OK",
@@ -53,14 +62,6 @@ export default {
             });
         }
       });
-    },
-    changeRequestType(e) {
-      var valuesOnchange = e.target.value;
-      if (valuesOnchange == 2) {
-        this.isEvidence = true;
-      } else {
-        this.isEvidence = false;
-      }
     },
   },
 };
@@ -79,7 +80,6 @@ export default {
       v-model="formRequest.request_type"
       class="bg-white mt-1 w-full p-2.5 block border border-slate-300 text-sm rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
       required
-      @change="changeRequestType($event)"
     >
       <option selected="" value="" disabled>Pilih Jenis Permohonan</option>
       <option value="1">Baru</option>
