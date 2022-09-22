@@ -1,29 +1,7 @@
 <script>
-import axios from "axios";
-
 export default {
   components: {},
-  data() {
-    return {
-      dataRequest: [],
-    };
-  },
-  mounted() {
-    this.getData();
-  },
-  methods: {
-    getData() {
-      axios
-        .get("item_requests")
-        .then((response) => {
-          this.dataRequest = response.data.data;
-          console.log(response.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
+  props: ["dataRequest"],
 };
 </script>
 

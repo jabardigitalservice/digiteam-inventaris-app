@@ -1,10 +1,36 @@
 <script>
 import TableRequest from "../../components/RequestComponents/TableRequest.vue";
 import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
+import axios from "axios";
+import Pagination from "../../components/layouts/Pagination.vue";
 export default {
   components: {
     TableRequest,
     HeaderTable,
+    Pagination,
+  },
+  data() {
+    return {
+      dataRequest: [],
+      pagination: [],
+    };
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      await axios
+        .get("item_requests")
+        .then((response) => {
+          this.dataRequest = response.data.data;
+          this.pagination = response.data.meta;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
@@ -27,7 +53,12 @@ export default {
     >
       <HeaderTable></HeaderTable>
 
-      <TableRequest></TableRequest>
+      <TableRequest
+        :data-request="dataRequest"
+        class="mt-10 mb-10"
+      ></TableRequest>
+
+      <Pagination :pagination="pagination"></Pagination>
     </div>
   </div>
 </template>
