@@ -21,7 +21,7 @@ export default {
   methods: {
     async getData() {
       await axios
-        .get("item_requests")
+        .get("requests")
         .then((response) => {
           this.dataRequest = response.data.data;
           this.pagination = response.data.meta;
