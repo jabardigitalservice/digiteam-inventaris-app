@@ -52,7 +52,6 @@ export default {
               });
             })
             .catch((err) => {
-              console.log(err);
               Swal.fire({
                 title: "Server Error!",
                 text: "Gagal mengirim permohonan",
