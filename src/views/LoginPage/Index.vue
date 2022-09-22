@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div class="w-full">
-    <div class="text-left md:text-center lg:text-center">
+    <div class="text-left md:text-center">
       <h1 class="font-bold text-2xl md:text-5xl">
         Selamat Datang di
         <span class="text-blue-gray-500">Inventaris Apps</span>
