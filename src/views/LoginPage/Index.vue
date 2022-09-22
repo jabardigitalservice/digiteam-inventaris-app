@@ -2,12 +2,12 @@
 export default {
   data() {
     return {
-      url_sso: import.meta.env.VITE_URL_SSO,
+      urlSso: import.meta.env.VITE_URL_SSO,
     };
   },
   methods: {
     loginSSO() {
-      window.location.href = this.url_sso;
+      window.location.href = this.urlSso;
     },
   },
 };
@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div class="w-full">
-    <div class="text-left md:text-center lg:text-center">
+    <div class="text-left md:text-center">
       <h1 class="font-bold text-2xl md:text-5xl">
         Selamat Datang di
         <span class="text-blue-gray-500">Inventaris Apps</span>
@@ -25,7 +25,11 @@ export default {
       </p>
     </div>
     <div>
-      <img src="@/assets/logo-jds.png" class="w-25 m-auto" alt="" />
+      <img
+        src="@/assets/logo-jds.png"
+        class="w-25 h-full m-auto"
+        alt="Logo Jabar Digital Service"
+      />
     </div>
 
     <div class="md:flex md:items-center md:justify-center">

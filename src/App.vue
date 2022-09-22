@@ -1,6 +1,4 @@
-<script setup>
-// import HelloWorld from "./components/HelloWorld.vue";
-</script>
+<script setup></script>
 
 <template>
   <div id="app" class="mx-10 lg:mt-10 mt-20">
