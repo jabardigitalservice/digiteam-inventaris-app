@@ -1,7 +1,7 @@
 <script>
 export default {
   components: {},
-  props: ["dataRequest"],
+  props: { dataRequest: Array },
 };
 </script>
 

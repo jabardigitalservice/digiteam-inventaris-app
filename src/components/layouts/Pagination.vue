@@ -1,7 +1,11 @@
 <script>
 export default {
   components: {},
-  props: ["pagination", "offset"],
+  // props: ["pagination", "offset"],
+  props: {
+    pagination: [Object, Array],
+    offset: Number,
+  },
   computed: {
     pagesNumber() {
       // todo : i will fix it this code if API is done from backend
