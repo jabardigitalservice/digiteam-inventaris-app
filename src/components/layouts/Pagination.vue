@@ -1,7 +1,6 @@
 <script>
 export default {
   components: {},
-  // props: ["pagination", "offset"],
   props: {
     pagination: [Object, Array],
     offset: Number,
