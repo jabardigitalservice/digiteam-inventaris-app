@@ -16,7 +16,7 @@ export default {
       dataRequest: [],
       pagination: [],
       offset: 4,
-      isSuccess: false,
+      isSuccess: true,
     };
   },
   mounted() {
@@ -24,16 +24,14 @@ export default {
   },
   methods: {
     async getData() {
-      await axios
-        .get("requests")
-        .then((response) => {
-          this.dataRequest = response.data.data;
-          this.pagination = response.data.meta;
-          this.isSuccess = true;
-        })
-        .catch((error) => {
-          this.isSuccess = false;
-        });
+      try {
+        const response = await axios.get("requests");
+        this.dataRequest = response.data.data;
+        this.pagination = response.data.meta;
+        this.isSuccess = true;
+      } catch (error) {
+        this.isSuccess = false;
+      }
     },
   },
 };
