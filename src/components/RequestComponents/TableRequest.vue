@@ -2,6 +2,45 @@
 export default {
   components: {},
   props: { dataRequest: Array },
+  methods: {
+    getStatusLabel(status) {
+      switch (status) {
+        case 1:
+          return "Pengajuan Masuk";
+        case 2:
+          return "Pengajuan Ditolak";
+        case 3:
+          return "Pengajuan Diterima";
+        case 4:
+          return "Permintaan Barang Masuk";
+        case 5:
+          return "Pengecekan Kelayakan";
+        case 6:
+          return "Barang Siap Diambil";
+        case 7:
+          return "Pengajuan Selesai";
+        default:
+          return "-";
+      }
+    },
+    getColorLabel(status) {
+      switch (status) {
+        case 1:
+          return "bg-blue-100 text-blue-800  dark:bg-blue-200 dark:text-blue-800";
+        case 2:
+          return "bg-red-100 text-red-800  dark:bg-red-200 dark:text-red-900";
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+          return "bg-yellow-100 text-yellow-800  dark:bg-yellow-200 dark:text-yellow-900";
+        case 7:
+          return "bg-green-100 text-green-800  dark:bg-green-200 dark:text-green-900";
+        default:
+          return "-";
+      }
+    },
+  },
 };
 </script>
 
@@ -54,49 +93,9 @@ export default {
             <td class="px-6 py-4 text-sm">{{ request.item_name }}</td>
             <td class="px-6 py-4 text-sm">
               <span
-                v-if="request.status == 1"
-                class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800"
-                >Pengajuan Masuk
-              </span>
-
-              <span
-                v-else-if="request.status == 2"
-                class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900"
-                >Pengajuan Ditolak
-              </span>
-
-              <span
-                v-else-if="request.status == 3"
-                class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
-              >
-                Pengajuan Diterima
-              </span>
-
-              <span
-                v-else-if="request.status == 4"
-                class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
-              >
-                Permintaan Barang Masuk
-              </span>
-
-              <span
-                v-else-if="request.status == 5"
-                class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
-              >
-                Pengecekan Kelayakan
-              </span>
-
-              <span
-                v-else-if="request.status == 6"
-                class="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
-              >
-                Barang Siap Diambil
-              </span>
-
-              <span
-                v-else-if="request.status == 7"
-                class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"
-                >Pengajuan Selesai
+                :class="getColorLabel(request.status)"
+                class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                >{{ getStatusLabel(request.status) }}
               </span>
             </td>
             <td class="px-6 py-4 text-sm">{{ request.id }}</td>
