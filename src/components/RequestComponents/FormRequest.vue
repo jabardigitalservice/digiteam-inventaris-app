@@ -1,5 +1,4 @@
 <script>
-import Swal from "sweetalert2";
 export default {
   name: "FormRequest",
   data() {
@@ -26,40 +25,44 @@ export default {
   },
   methods: {
     handleSubmit() {
-      Swal.fire({
-        title: "Ingin mengirim permohonan?",
-        text: "Permohonan akan dikirim ke team HR/GA!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Kirim!",
-        cancelButtonText: "Batalkan",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.$axios
-            .post("item_requests", this.formRequest)
-            .then(() => {
-              Swal.fire({
-                title: "Success!",
-                text: "Berhasil mengirim permohonan",
-                icon: "success",
-                confirmButtonText: "OK",
-              }).then(() => {
-                // todo : redirect to list request page
-                // this.$router.push("/list-request");
+      this.$Swal
+        .fire({
+          title: "Ingin mengirim permohonan?",
+          text: "Permohonan akan dikirim ke team HR/GA!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Kirim!",
+          cancelButtonText: "Batalkan",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .post("item_requests", this.formRequest)
+              .then(() => {
+                this.$Swal
+                  .fire({
+                    title: "Success!",
+                    text: "Berhasil mengirim permohonan",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                  })
+                  .then(() => {
+                    // todo : redirect to list request page
+                    // this.$router.push("/list-request");
+                  });
+              })
+              .catch((err) => {
+                this.$Swal.fire({
+                  title: "Server Error!",
+                  text: "Gagal mengirim permohonan",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
               });
-            })
-            .catch((err) => {
-              Swal.fire({
-                title: "Server Error!",
-                text: "Gagal mengirim permohonan",
-                icon: "error",
-                confirmButtonText: "OK",
-              });
-            });
-        }
-      });
+          }
+        });
     },
   },
 };

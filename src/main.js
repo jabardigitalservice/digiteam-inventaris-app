@@ -9,10 +9,13 @@ import "./assets/tailwind.css";
 
 import http from "./plugins/axios.js";
 
-Vue.use(http);
+import Swal from "./plugins/swal.js";
 
+Vue.use(http);
+Vue.use(Swal);
 new Vue({
   router,
   store,
+  // Swal,
   render: (h) => h(App),
 }).$mount("#app");
