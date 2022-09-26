@@ -1,6 +1,5 @@
 <script>
 import Swal from "sweetalert2";
-import axios from "axios";
 export default {
   name: "FormRequest",
   data() {
@@ -38,7 +37,7 @@ export default {
         cancelButtonText: "Batalkan",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
+          this.$axios
             .post("item_requests", this.formRequest)
             .then(() => {
               Swal.fire({
