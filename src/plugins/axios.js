@@ -1,11 +1,21 @@
 import axios from "axios";
+import Vue from "vue";
 
-const instance = axios.create({
-  baseURL: "myapp/api/",
-});
+const devInstance = createInstance(import.meta.env.VITE_API_URL);
+const productionInstance = createInstance(import.meta.env.VITE_API_URL); // will change later
+
+function createInstance(baseURL) {
+  return axios.create({
+    baseURL,
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   Authorization: `Bearer ${localStorage.token}`,
+    // } << todo,
+  });
+}
 
 export default {
-  install: function (Vue) {
-    Object.defineProperty(Vue.prototype, "$axios", { value: instance });
+  install() {
+    Vue.prototype.$axios = devInstance;
   },
 };

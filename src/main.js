@@ -7,13 +7,12 @@ import store from "./store";
 
 import "./assets/tailwind.css";
 
-import axios from "axios";
-Vue.prototype.$axios = axios;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+import http from "./plugins/axios.js";
+
+Vue.use(http);
 
 new Vue({
   router,
   store,
-  axios,
   render: (h) => h(App),
 }).$mount("#app");
