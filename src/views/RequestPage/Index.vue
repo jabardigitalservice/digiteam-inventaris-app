@@ -24,7 +24,7 @@ export default {
   methods: {
     async getData() {
       try {
-        const response = await this.$axios.get("requests");
+        const response = await this.$axios.get("/requests");
         this.dataRequest = response.data.data;
         this.pagination = response.data.meta;
         this.isSuccess = true;

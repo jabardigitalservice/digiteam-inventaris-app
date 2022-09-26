@@ -39,7 +39,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.$axios
-              .post("item_requests", this.formRequest)
+              .post("/item_requests", this.formRequest)
               .then(() => {
                 this.$Swal
                   .fire({
