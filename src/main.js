@@ -6,10 +6,8 @@ import router from "./router";
 import store from "./store";
 
 import "./assets/tailwind.css";
-
-import axios from "axios";
-Vue.prototype.$axios = axios;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+import axios from "./plugins/axios";
+Vue.use(axios);
 
 new Vue({
   router,
