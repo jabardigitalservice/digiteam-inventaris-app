@@ -13,6 +13,7 @@ module.exports = {
         serif: ["Lora", "serif"],
         roboto: ["Roboto", "serif"],
       },
+
       boxShadow: {
         DEFAULT: "0px 6px 22px rgba(2, 43, 85, 0.08)",
       },
