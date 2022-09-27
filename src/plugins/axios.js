@@ -14,7 +14,6 @@ function createInstance(baseURL) {
   });
 }
 
-console.log(devInstance);
 export default {
   install() {
     Vue.prototype.$axios = devInstance;
