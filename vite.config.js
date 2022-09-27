@@ -19,8 +19,6 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
-      external: ["axios", "sweetalert2"],
-    },
+    rollupOptions: {},
   },
 });
