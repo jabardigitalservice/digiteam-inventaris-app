@@ -18,25 +18,25 @@ export default {
     <div class="grid grid-cols-1 md:grid-cols-2 m-auto">
       <div class="md:col-start-2">
         <div
-          class="p-8 max-w-sm bg-white rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700 shadow-lg shadow-gray-500/50"
+          class="w-[320px] h-[300px] p-8 md:w-[600px] md:h-[360px] bg-white rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700 shadow-lg shadow-gray-500/50"
         >
           <h1
-            class="text-2xl md:invisible text-blue-gray-700 font-bold leading-[68px] text-center"
+            class="text-2xl md:invisible text-blue-gray-700 font-bold leading-[68px] text-center md:hidden"
           >
             Selamat datang di
           </h1>
 
-          <div>
+          <div class="m-10">
             <img
               src="@/assets/logo-inventaris.png"
-              class="w-25 h-full m-auto md:m-0"
+              class="w-25 h-full m-auto"
               alt="Logo Jabar Digital Service"
             />
           </div>
 
           <div class="flex justify-center mt-5 md:mt-0">
             <button
-              class="bg-blue-gray-700 hover:bg-blue-gray-400 text-white py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline text-center md:w-1/2 inline-flex item-center"
+              class="bg-blue-gray-700 hover:bg-blue-gray-400 text-white py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline text-center inline-flex item-center"
               type="button"
               @click="loginSSO"
             >
