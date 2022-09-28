@@ -1,13 +1,7 @@
 <script>
-import { ref } from "vue";
 export default {
-  setup() {
-    const showSidebar = ref(false);
-
-    return {
-      showSidebar,
-    };
-  },
+  components: {},
+  props: { showSidebar: Boolean },
 };
 </script>
 

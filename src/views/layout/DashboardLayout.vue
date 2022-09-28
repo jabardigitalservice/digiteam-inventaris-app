@@ -1,17 +1,28 @@
-<script setup>
+<script>
 import Sidebar from "./Sidebar.vue";
+
+export default {
+  components: { Sidebar },
+  data() {
+    return {
+      showSidebar: false,
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.showSidebar = !this.showSidebar;
+    },
+  },
+};
 </script>
 
 <template>
   <div id="app">
     <div class="relative flex min-h-screen">
-      <Sidebar></Sidebar>
+      <Sidebar :show-sidebar="showSidebar"></Sidebar>
       <div class="flex-1">
         <div class="bg-white shadow px-2 py-4">
-          <button
-            class="text-blue-900 font-extrabold"
-            @click="showSidebar = !showSidebar"
-          >
+          <button class="text-blue-900 font-extrabold" @click="toggleSidebar">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
