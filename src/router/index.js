@@ -4,6 +4,9 @@ import LoginPage from "../views/LoginPage/Index.vue";
 import NotFound from "../views/NotFound.vue";
 import AddRequest from "../views/RequestPage/AddRequest.vue";
 import ListRequest from "../views/RequestPage/Index.vue";
+
+import DashboardLayout from "../views/layout/DashboardLayout.vue";
+import LoginLayout from "../views/layout/LoginLayout.vue";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -12,18 +15,39 @@ const router = new VueRouter({
   routes: [
     {
       path: "/",
-      name: "login",
-      component: LoginPage,
+      component: LoginLayout,
+      redirect: "/login",
+      children: [
+        {
+          path: "/login",
+          name: "login",
+          components: {
+            default: LoginPage,
+          },
+        },
+      ],
     },
     {
-      path: "/add-request",
-      name: "add-request",
-      component: AddRequest,
-    },
-    {
-      path: "/list-request",
-      name: "list-request",
-      component: ListRequest,
+      path: "/request",
+      name: "request",
+      redirect: "/request/list",
+      component: DashboardLayout,
+      children: [
+        {
+          path: "list",
+          name: "list-request",
+          components: {
+            default: ListRequest,
+          },
+        },
+        {
+          path: "add",
+          name: "add-request",
+          components: {
+            default: AddRequest,
+          },
+        },
+      ],
     },
     {
       path: "/:catchAll(.*)",
