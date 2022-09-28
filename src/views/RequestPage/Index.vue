@@ -1,7 +1,6 @@
 <script>
 import TableRequest from "../../components/RequestComponents/TableRequest.vue";
 import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
-import axios from "axios";
 import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
 export default {
@@ -25,7 +24,7 @@ export default {
   methods: {
     async getData() {
       try {
-        const response = await axios.get("requests");
+        const response = await this.$axios.get("/requests");
         this.dataRequest = response.data.data;
         this.pagination = response.data.meta;
         this.isSuccess = true;

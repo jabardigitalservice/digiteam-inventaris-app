@@ -7,12 +7,15 @@ import store from "./store";
 
 import "./assets/tailwind.css";
 
-import axios from "axios";
+import http from "./plugins/axios.js";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+import Swal from "./plugins/swal.js";
 
+Vue.use(http);
+Vue.use(Swal);
 new Vue({
   router,
   store,
+  // Swal,
   render: (h) => h(App),
 }).$mount("#app");
