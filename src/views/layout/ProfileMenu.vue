@@ -14,13 +14,11 @@ export default {
       :class="show ? 'text-blue-900' : 'text-[#788896]'"
       @click="show = !show"
     >
-      <!-- <div class="w-8 h-8"> -->
       <img
         class="rounded-full border border-gray-100 shadow-sm w-8 h-8 mr-2"
         src="https://randomuser.me/api/portraits/women/81.jpg"
         alt="user image"
       />
-      <!-- </div> -->
 
       <span class="mr-4 font-bold">User name</span>
       <svg
