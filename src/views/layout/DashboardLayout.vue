@@ -1,8 +1,9 @@
 <script>
 import Sidebar from "./Sidebar.vue";
+import ProfileMenu from "./ProfileMenu.vue";
 
 export default {
-  components: { Sidebar },
+  components: { Sidebar, ProfileMenu },
   data() {
     return {
       showSidebar: false,
@@ -36,6 +37,10 @@ export default {
               />
             </svg>
           </button>
+
+          <div class="float-right">
+            <ProfileMenu></ProfileMenu>
+          </div>
         </div>
 
         <div class="p-8">
