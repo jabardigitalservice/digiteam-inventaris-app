@@ -9,19 +9,50 @@ export default {
 
 <template>
   <div class="w-full">
-    <div class="shadow overflow-hidden rounded border-b border-blue-700">
-      <table class="min-w-full bg-white">
-        <thead class="text-white text-md bg-blue-700">
-          <tr class="">
-            <th class="px-6 py-2 border border-slate-200">No</th>
-            <th class="px-6 py-2 border border-slate-200">Jenis Permohonan</th>
-            <th class="px-6 py-2 border border-slate-200">Nama Pegawai</th>
-            <th class="px-6 py-2 border border-slate-200">Unit / Divisi</th>
-            <th class="px-6 py-2 border border-slate-200">
-              Barang yang diajukan
+    <div class="shadow overflow-x-auto rounded border-b border-blue-700">
+      <table class="w-full bg-white table-auto">
+        <thead class="text-white bg-blue-700">
+          <tr>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              No
             </th>
-            <th class="px-6 py-2 border border-slate-200">Status</th>
-            <th class="px-6 py-2 border border-slate-200">Action</th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Jenis Permohonan
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Nama Pegawai
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              No Telepon
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Unit / Divisi
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Inventaris
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Status
+            </th>
+            <th
+              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
+            >
+              Action
+            </th>
           </tr>
         </thead>
         <tbody class="text-center text-sm">
@@ -35,12 +66,18 @@ export default {
               <TypeRequest :request-type="request.request_type"></TypeRequest>
             </td>
             <td class="px-6 py-4 border border-slate-200">
-              <div class="">{{ request.user_name }}</div>
+              <div class="">{{ request.username }}</div>
             </td>
-            <td class="px-6 py-4 border border-slate-200">{{ request.id }}</td>
+            <td class="px-6 py-4 border border-slate-200">
+              {{ request.phone_number }}
+            </td>
+            <td class="px-6 py-4 border border-slate-200">
+              {{ request.division }}
+            </td>
             <td class="px-6 py-4 border border-slate-200">
               {{ request.item_name }}
             </td>
+
             <td class="px-6 py-4 border border-slate-200">
               <StatusRequest :status="request.status"></StatusRequest>
             </td>
