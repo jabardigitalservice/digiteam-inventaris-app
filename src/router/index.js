@@ -16,10 +16,10 @@ const router = new VueRouter({
     {
       path: "/",
       component: LoginLayout,
-      redirect: "/login",
+      redirect: "/",
       children: [
         {
-          path: "/login",
+          path: "/",
           name: "login",
           components: {
             default: LoginPage,
