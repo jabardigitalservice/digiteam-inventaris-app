@@ -32,13 +32,13 @@ export default {
           v-if="showSidebar"
           src="@/assets/logo-inventaris.png"
           class="w-84 h-10"
-          alt="Logo Jabar Digital Service"
+          alt="Logo Inventaris"
         />
         <img
           v-else
           src="@/assets/inventaris-logo.png"
           class="w-84 h-10"
-          alt="Logo Jabar Digital Service"
+          alt="Logo Inventaris"
         />
       </a>
 
