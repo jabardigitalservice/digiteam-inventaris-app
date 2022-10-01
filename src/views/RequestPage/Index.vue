@@ -1,13 +1,13 @@
 <script>
 import TableRequest from "../../components/RequestComponents/TableRequest.vue";
-import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
+import AddRequest from "../../components/RequestComponents/AddRequest.vue";
 import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
 import TitleCard from "../../components/layouts/TitleCard.vue";
 export default {
   components: {
     TableRequest,
-    HeaderTable,
+    AddRequest,
     Pagination,
     DataError,
     TitleCard,
@@ -48,7 +48,7 @@ export default {
     <div
       class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
     >
-      <HeaderTable></HeaderTable>
+      <AddRequest></AddRequest>
 
       <TableRequest
         v-if="isSuccess"

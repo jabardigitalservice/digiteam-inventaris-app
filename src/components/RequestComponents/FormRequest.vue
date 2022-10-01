@@ -11,6 +11,7 @@ export default {
         item_name: "",
         purpose: "",
         urgency: "",
+        phone_number: "",
       },
     };
   },
@@ -72,7 +73,7 @@ export default {
   <form @submit.prevent="handleSubmit">
     <label
       for="request_type"
-      class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+      class="block mb-2 text-sm font-bold text-slate-700"
     >
       Jenis Permohonan
     </label>
@@ -94,6 +95,18 @@ export default {
         readonly
         type="text"
         placeholder="Nama pegawai"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+        required
+      />
+    </label>
+
+    <label class="block mt-5">
+      <span class="block text-sm font-bold text-slate-700">No Telepon</span>
+      <input
+        v-model="formRequest.phone_number"
+        readonly
+        type="text"
+        placeholder="No Telepon"
         class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
         required
       />
@@ -167,19 +180,11 @@ export default {
     </label>
 
     <label v-if="isEvidence" class="block mt-5">
-      <span class="sr-only">Choose evidance</span>
+      <span class="sr-only">Tambah File +</span>
       <input
         type="file"
-        class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-100 file:text-blue-gray-700 hover:file:bg-yellow-300"
+        class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
       />
     </label>
-
-    <div class="submit mt-5">
-      <button
-        class="mt-5 md:mt-0 mb-5 bg-green-300 hover:bg-green-600 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-center w-full"
-      >
-        Kirim Permohonan
-      </button>
-    </div>
   </form>
 </template>
