@@ -46,7 +46,7 @@ export default {
     <TitleCard :title-card="titleCard" :text-card="textCard"></TitleCard>
 
     <div
-      class="w-full p-6 bg-white rounded-lg border border-gray-200 shadow-md"
+      class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
     >
       <HeaderTable></HeaderTable>
 
@@ -54,7 +54,7 @@ export default {
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
-        class="mt-10 mb-10"
+        class="mt-5 mb-5"
       ></TableRequest>
 
       <DataError v-if="!isSuccess"></DataError>
