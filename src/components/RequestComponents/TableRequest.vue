@@ -1,107 +1,68 @@
 <script>
+import StatusRequest from "./StatusRequest.vue";
+import TypeRequest from "./TypeRequest.vue";
+import ActionTable from "../layouts/ActionTable.vue";
 export default {
-  components: {},
+  components: { StatusRequest, TypeRequest, ActionTable },
   props: { dataRequest: Array },
-  methods: {
-    getStatusLabel(status) {
-      switch (status) {
-        case 1:
-          return "Pengajuan Masuk";
-        case 2:
-          return "Pengajuan Ditolak";
-        case 3:
-          return "Pengajuan Diterima";
-        case 4:
-          return "Permintaan Barang Masuk";
-        case 5:
-          return "Pengecekan Kelayakan";
-        case 6:
-          return "Barang Siap Diambil";
-        case 7:
-          return "Pengajuan Selesai";
-        default:
-          return "-";
-      }
-    },
-    getColorLabel(status) {
-      switch (status) {
-        case 1:
-          return "bg-blue-100 text-blue-800  dark:bg-blue-200 dark:text-blue-800";
-        case 2:
-          return "bg-red-100 text-red-800  dark:bg-red-200 dark:text-red-900";
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-          return "bg-yellow-100 text-yellow-800  dark:bg-yellow-200 dark:text-yellow-900";
-        case 7:
-          return "bg-green-100 text-green-800  dark:bg-green-200 dark:text-green-900";
-        default:
-          return "-";
-      }
-    },
+  data() {
+    return {
+      show: false,
+    };
   },
 };
 </script>
 
 <template>
   <div class="w-full">
-    <div class="border-b border-gray-200 shadow">
-      <table class="divide-gray-300 w-full">
-        <thead class="bg-green-200">
+    <div class="shadow overflow-x-auto rounded border-b border-blue-700">
+      <table class="w-full bg-white table-auto">
+        <thead class="text-white bg-blue-700">
           <tr>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">No</th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">
-              Jenis Permohonan
-            </th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">Nama Pegawai</th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">
-              Unit / Divisi
-            </th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">
-              Barang yang diajukan
-            </th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">Status</th>
-            <th class="px-6 py-2 text-sm md:text-md font-bold">Action</th>
+            <th class="th-table">No</th>
+            <th class="th-table">Jenis Permohonan</th>
+            <th class="th-table">Nama Pegawai</th>
+            <th class="th-table">No Telepon</th>
+            <th class="th-table">Unit / Divisi</th>
+            <th class="th-table">Inventaris</th>
+            <th class="th-table">Status</th>
+            <th class="th-table">Action</th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-300 text-center">
+        <tbody class="text-center text-sm">
           <tr
             v-for="(request, index) in dataRequest"
             :key="request.id"
-            class="whitespace-nowrap"
+            class="bg-white border-b"
           >
-            <td class="px-6 py-4 text-sm">{{ index + 1 }}</td>
-            <td class="px-6 py-4">
-              <span
-                v-if="request.request_type == 1"
-                class="text-sm bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900"
-              >
-                Baru
-              </span>
-              <span
-                v-if="request.request_type == 2"
-                class="text-sm bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900"
-              >
-                Tukar
-              </span>
+            <td class="td-table">{{ index + 1 }}</td>
+            <td class="td-table">
+              <TypeRequest :request-type="request.request_type"></TypeRequest>
             </td>
-            <td class="px-6 py-4">
-              <div class="text-sm">{{ request.user_name }}</div>
+            <td class="td-table">
+              <div class="">{{ request.username }}</div>
             </td>
-            <td class="px-6 py-4 text-sm">{{ request.id }}</td>
-            <td class="px-6 py-4 text-sm">{{ request.item_name }}</td>
-            <td class="px-6 py-4 text-sm">
-              <span
-                :class="getColorLabel(request.status)"
-                class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                >{{ getStatusLabel(request.status) }}
-              </span>
+            <td class="td-table">
+              {{ request.phone_number }}
             </td>
-            <td class="px-6 py-4 text-sm">{{ request.id }}</td>
+            <td class="td-table">
+              {{ request.division }}
+            </td>
+            <td class="td-table">
+              {{ request.item_name }}
+            </td>
+
+            <td class="td-table">
+              <StatusRequest :status="request.status"></StatusRequest>
+            </td>
+            <td class="td-table">
+              <ActionTable></ActionTable>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </template>
+
+<style></style>

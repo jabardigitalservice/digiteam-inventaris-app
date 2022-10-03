@@ -17,7 +17,9 @@ export default {
     <div class="relative flex min-h-screen">
       <Sidebar :show-sidebar="showSidebar"></Sidebar>
       <div class="flex-1">
-        <div class="bg-white shadow px-2 py-4">
+        <div
+          class="flex flex-wrap justify-between items-center px-2 py-4 bg-white"
+        >
           <button
             class="text-blue-900 font-extrabold"
             @click="showSidebar = !showSidebar"

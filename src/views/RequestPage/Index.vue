@@ -3,15 +3,20 @@ import TableRequest from "../../components/RequestComponents/TableRequest.vue";
 import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
 import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
+import TitleCard from "../../components/layouts/TitleCard.vue";
 export default {
   components: {
     TableRequest,
     HeaderTable,
     Pagination,
     DataError,
+    TitleCard,
   },
   data() {
     return {
+      titleCard: "Daftar Permohonan",
+      textCard:
+        "Daftar permohonan inventaris yang ada di Jabar Digital Service.",
       dataRequest: [],
       pagination: [],
       offset: 4,
@@ -38,19 +43,10 @@ export default {
 
 <template>
   <div>
-    <div class="mb-5 lg:text-center">
-      <h1 class="font-bold text-xl md:text-5xl text-slate-70">
-        List Permohonan Inventaris
-      </h1>
-      <p
-        class="mt-1 md:mt-2 font-normal text-sm md:text-2xl text-blue-gray-500"
-      >
-        Jabar Digital Service
-      </p>
-    </div>
+    <TitleCard :title-card="titleCard" :text-card="textCard"></TitleCard>
 
     <div
-      class="w-full p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+      class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
     >
       <HeaderTable></HeaderTable>
 
@@ -58,7 +54,7 @@ export default {
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
-        class="mt-10 mb-10"
+        class="mt-5 mb-5"
       ></TableRequest>
 
       <DataError v-if="!isSuccess"></DataError>

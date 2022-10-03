@@ -5,6 +5,11 @@ export default {
     pagination: [Object, Array],
     offset: Number,
   },
+  data() {
+    return {
+      itemsPerPage: [5, 15, 25, 50, 100, "All"],
+    };
+  },
   computed: {
     pagesNumber() {
       // todo : i will fix it this code if API is done from backend
@@ -30,37 +35,47 @@ export default {
 </script>
 
 <template>
-  <nav>
-    <ul class="inline-flex -space-x-px">
-      <li>
-        <a
-          href="#"
-          class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >Previous</a
-        >
-      </li>
+  <div class="grid grid-cols-1 tablet:grid-cols-2">
+    <div class="">
+      <span class="mr-2">Tampilkan </span>
+      <select class="mr-2 w-14">
+        <option v-for="page in itemsPerPage" :key="page" :value="page">
+          {{ page }}
+        </option>
+      </select>
+      <span> Item dari total 50</span>
+    </div>
 
-      <li>
-        <a
-          v-for="page in pagesNumber"
-          :key="page"
-          href="#"
-          :class="
-            page == pagination.current_page
-              ? 'py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
-              : 'py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-          "
-          >{{ page }}</a
-        >
-      </li>
+    <div>
+      <div class="inline-block float-right text-blue-gray-800">
+        <nav>
+          <ul class="inline-flex -space-x-px">
+            <li>
+              <a
+                href="#"
+                class="py-2 px-3 ml-0 leading-tight rounded-l-lg border border-gray-300 hover:bg-white hover:text-gray-700"
+                >&lt;</a
+              >
+            </li>
 
-      <li>
-        <a
-          href="#"
-          class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >Next</a
-        >
-      </li>
-    </ul>
-  </nav>
+            <li>
+              <a
+                href="#"
+                class="py-2 px-3 leading-tight rounded-r-lg border border-gray-300 hover:bg-white hover:text-gray-700"
+                >&gt;</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="inline-block float-right mr-2">
+        <span class="mr-2">Halaman</span>
+        <Select class="mr-2 w-14">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </Select>
+      </div>
+    </div>
+  </div>
 </template>
