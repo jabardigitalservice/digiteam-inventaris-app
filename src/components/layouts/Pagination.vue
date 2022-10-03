@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      pageSize: [5, 15, 25, 50, 100, "All"],
+      itemsPerPage: [5, 15, 25, 50, 100, "All"],
     };
   },
   computed: {
@@ -39,7 +39,7 @@ export default {
     <div class="">
       <span class="mr-2">Tampilkan </span>
       <select class="mr-2 w-14">
-        <option v-for="page in pageSize" :key="page" :value="page">
+        <option v-for="page in itemsPerPage" :key="page" :value="page">
           {{ page }}
         </option>
       </select>
