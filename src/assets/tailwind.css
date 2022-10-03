@@ -17,3 +17,12 @@
     font-family: "Lato";
   }
 }
+
+@layer components {
+  .th-table {
+    @apply px-4 py-2 font-semibold text-sm border-r border-slate-200;
+  }
+  .td-table {
+    @apply px-6 py-4 border border-slate-200;
+  }
+}
