@@ -9,7 +9,7 @@ export default {
         case "2":
           return "Tukar";
         default:
-          return "-";
+          return "";
       }
     },
     getColorLabel(requestType) {
@@ -19,7 +19,7 @@ export default {
         case "2":
           return "bg-yellow-100 text-yellow-800 border-yellow-700";
         default:
-          return "-";
+          return "";
       }
     },
   },

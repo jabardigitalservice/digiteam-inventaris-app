@@ -19,7 +19,7 @@ export default {
         case 7:
           return "Pengajuan Selesai";
         default:
-          return "-";
+          return "";
       }
     },
     getColorLabel(status) {
@@ -36,7 +36,7 @@ export default {
         case 7:
           return "bg-green-100 border-green-700";
         default:
-          return "-";
+          return "";
       }
     },
   },
