@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import LoginPage from "../views/LoginPage/Index.vue";
 import NotFound from "../views/NotFound.vue";
-import AddRequest from "../views/RequestPage/AddRequest.vue";
 import ListRequest from "../views/RequestPage/Index.vue";
 
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
