@@ -10,11 +10,6 @@ export default {
           icon: "", // i want add icon with svg next PR and for this code i put svg dummy
           nameRouter: "Permohonan",
         },
-        {
-          routerLinkName: "add-request",
-          icon: "", // i want add icon with svg next PR and for this code i put svg dummy
-          nameRouter: "Add Permohonan",
-        },
       ],
     };
   },

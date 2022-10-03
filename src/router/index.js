@@ -40,13 +40,6 @@ const router = new VueRouter({
             default: ListRequest,
           },
         },
-        {
-          path: "add",
-          name: "add-request",
-          components: {
-            default: AddRequest,
-          },
-        },
       ],
     },
     {
