@@ -19,46 +19,14 @@ export default {
       <table class="w-full bg-white table-auto">
         <thead class="text-white bg-blue-700">
           <tr>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              No
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Jenis Permohonan
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Nama Pegawai
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              No Telepon
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Unit / Divisi
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Inventaris
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Status
-            </th>
-            <th
-              class="px-4 py-2 font-semibold text-sm border-r border-slate-200"
-            >
-              Action
-            </th>
+            <th class="th-table">No</th>
+            <th class="th-table">Jenis Permohonan</th>
+            <th class="th-table">Nama Pegawai</th>
+            <th class="th-table">No Telepon</th>
+            <th class="th-table">Unit / Divisi</th>
+            <th class="th-table">Inventaris</th>
+            <th class="th-table">Status</th>
+            <th class="th-table">Action</th>
           </tr>
         </thead>
         <tbody class="text-center text-sm">
@@ -67,27 +35,27 @@ export default {
             :key="request.id"
             class="bg-white border-b"
           >
-            <td class="px-6 py-4 border border-slate-200">{{ index + 1 }}</td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">{{ index + 1 }}</td>
+            <td class="td-table">
               <TypeRequest :request-type="request.request_type"></TypeRequest>
             </td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               <div class="">{{ request.username }}</div>
             </td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               {{ request.phone_number }}
             </td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               {{ request.division }}
             </td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               {{ request.item_name }}
             </td>
 
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               <StatusRequest :status="request.status"></StatusRequest>
             </td>
-            <td class="px-6 py-4 border border-slate-200">
+            <td class="td-table">
               <ActionTable></ActionTable>
             </td>
           </tr>
