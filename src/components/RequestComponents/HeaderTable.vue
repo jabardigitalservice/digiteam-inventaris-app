@@ -34,7 +34,7 @@ export default {
       :title-modal="titleModal"
       @closeModal="toggleModal"
     >
-      <FormRequest></FormRequest>
+      <FormRequest />
     </Modal>
   </div>
 </template>
