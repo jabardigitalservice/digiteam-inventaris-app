@@ -13,7 +13,7 @@ export default {
   <div>
     <div
       v-if="showModal"
-      class="fixed inset-0 z-50 w-full h-full outline-none overflow-x-hidden overflow-y-auto focus:outline-none"
+      class="fixed inset-0 z-50 w-full max-h-full outline-none overflow-x-hidden overflow-y-auto focus:outline-none"
     >
       <div class="relative w-auto my-6 mx-auto max-w-2xl h-auto">
         <div
