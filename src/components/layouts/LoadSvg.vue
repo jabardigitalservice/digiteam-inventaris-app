@@ -7,14 +7,16 @@ export default {
       type: String,
       required: true,
     },
+    folder: {
+      type: String,
+      required: true,
+    },
   },
 
   computed: {
     dynamicComponent() {
-      const name = this.name;
-
       return defineAsyncComponent(() =>
-        import(`../../assets/icons/${name}.vue`)
+        import(`../../assets/${this.folder}/${this.name}.vue`)
       );
     },
   },
