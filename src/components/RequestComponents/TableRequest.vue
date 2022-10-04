@@ -37,7 +37,7 @@ export default {
           >
             <td class="td-table">{{ index + 1 }}</td>
             <td class="td-table">
-              <TypeRequest :request-type="request.request_type"></TypeRequest>
+              <TypeRequest :request-type="request.request_type" />
             </td>
             <td class="td-table">
               <div class="">{{ request.username }}</div>
@@ -53,10 +53,10 @@ export default {
             </td>
 
             <td class="td-table">
-              <StatusRequest :status="request.status"></StatusRequest>
+              <StatusRequest :status="request.status" />
             </td>
             <td class="td-table">
-              <ActionTable></ActionTable>
+              <ActionTable />
             </td>
           </tr>
         </tbody>

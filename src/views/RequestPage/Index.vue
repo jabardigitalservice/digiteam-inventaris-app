@@ -43,27 +43,23 @@ export default {
 
 <template>
   <div>
-    <TitleCard :title-card="titleCard" :text-card="textCard"></TitleCard>
+    <TitleCard :title-card="titleCard" :text-card="textCard" />
 
     <div
       class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
     >
-      <HeaderTable></HeaderTable>
+      <HeaderTable />
 
       <TableRequest
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
         class="mt-5 mb-5"
-      ></TableRequest>
+      />
 
-      <DataError v-if="!isSuccess"></DataError>
+      <DataError v-if="!isSuccess" />
 
-      <Pagination
-        v-if="isSuccess"
-        :pagination="pagination"
-        :offset="offset"
-      ></Pagination>
+      <Pagination v-if="isSuccess" :pagination="pagination" :offset="offset" />
     </div>
   </div>
 </template>
