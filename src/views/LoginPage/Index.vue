@@ -1,5 +1,9 @@
 <script>
+import LoadSvg from "../../components/layouts/LoadSvg.vue";
 export default {
+  components: {
+    LoadSvg,
+  },
   data() {
     return {
       urlSso: import.meta.env.VITE_URL_SSO,
@@ -85,11 +89,7 @@ export default {
           </h1>
         </div>
         <div class="mt-10">
-          <img
-            src="@/assets/logo-jds-2.png"
-            class="w-25 h-full m-auto desktop:m-0"
-            alt="Logo Jabar Digital Service"
-          />
+          <LoadSvg name="user" class="fill-blue-500" />
         </div>
       </div>
     </div>
