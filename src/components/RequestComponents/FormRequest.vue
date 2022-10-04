@@ -80,7 +80,7 @@ export default {
     <select
       id="request_type"
       v-model="formRequest.request_type"
-      class="bg-white mt-1 w-full p-2.5 block border border-slate-300 text-sm rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+      class="select-form"
       required
     >
       <option selected="" value="" disabled>Pilih Jenis Permohonan</option>
@@ -95,7 +95,7 @@ export default {
         readonly
         type="text"
         placeholder="Nama pegawai"
-        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+        class="input-form"
         required
       />
     </label>
@@ -107,7 +107,7 @@ export default {
         readonly
         type="text"
         placeholder="No Telepon"
-        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+        class="input-form"
         required
       />
     </label>
@@ -121,7 +121,7 @@ export default {
     <select
       id="divisi"
       v-model="formRequest.divisi"
-      class="bg-white mt-1 w-full p-2.5 block border border-slate-300 text-sm rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+      class="select-form"
       required
     >
       <option selected="" value="" disabled>Pilih Team Unit / Divisi</option>
@@ -137,7 +137,7 @@ export default {
         v-model="formRequest.item_name"
         type="text"
         placeholder="Masukan barang yang diajukan"
-        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+        class="input-form"
         required
       />
     </label>
@@ -149,7 +149,7 @@ export default {
       <textarea
         v-model="formRequest.purpose"
         placeholder="Masukan alasan pengajuan"
-        class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+        class="input-form"
         required
       ></textarea>
     </label>
@@ -163,7 +163,7 @@ export default {
     <select
       id="urgency"
       v-model="formRequest.urgency"
-      class="bg-white mt-1 w-full p-2.5 block border border-slate-300 text-sm rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+      class="select-form"
       required
     >
       <option value="" selected="" disabled>Tingkat Kebutuhan</option>
