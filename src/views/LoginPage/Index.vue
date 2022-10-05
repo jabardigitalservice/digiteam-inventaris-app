@@ -4,14 +4,14 @@ export default {
   components: {
     LoadSvg,
   },
-  data() {
-    return {
-      urlSso: import.meta.env.VITE_URL_SSO,
-    };
+  mounted() {
+    this.$keycloak.init();
   },
   methods: {
-    loginSSO() {
-      window.location.href = this.urlSso;
+    login() {
+      this.$keycloak.login({
+        redirectUri: import.meta.env.VITE_KEYCLOCK_REDIRECT_URI,
+      });
     },
   },
 };
@@ -42,7 +42,7 @@ export default {
             <button
               class="bg-blue-gray-700 hover:bg-blue-gray-400 text-white py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline text-center inline-flex item-center"
               type="button"
-              @click="loginSSO"
+              @click="login"
             >
               <LoadSvg name="key" folder="icons" class="mr-2 w-4 h-4 m-auto" />
 

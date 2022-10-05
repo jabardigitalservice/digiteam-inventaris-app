@@ -11,8 +11,12 @@ import http from "./plugins/axios.js";
 
 import Swal from "./plugins/swal.js";
 
+import keycloak from "./plugins/keycloak.js";
+
 Vue.use(http);
 Vue.use(Swal);
+Vue.use(keycloak);
+
 new Vue({
   router,
   store,
