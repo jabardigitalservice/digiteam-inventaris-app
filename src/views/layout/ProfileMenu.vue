@@ -1,5 +1,9 @@
 <script>
+import LoadSvg from "../../components/layouts/LoadSvg.vue";
 export default {
+  components: {
+    LoadSvg,
+  },
   data() {
     return {
       show: false,
@@ -11,7 +15,7 @@ export default {
   <div class="relative">
     <button
       class="bg-white focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
-      :class="show ? 'text-blue-900' : 'text-[#788896]'"
+      :class="show ? 'text-blue-700' : 'text-[#788896]'"
       @click="show = !show"
     >
       <img
@@ -21,19 +25,13 @@ export default {
       />
 
       <span class="mr-4 font-bold">User name</span>
-      <svg
-        class="w-5 h-5 text-[#788896]"
-        :class="show ? 'text-blue-900 -rotate-90' : 'text-[#788896]'"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        />
-      </svg>
+
+      <LoadSvg
+        name="arrow-right"
+        folder="icons"
+        class="w-5 h-5 fill-[#788896]"
+        :class="show ? 'fill-[#1976D2] rotate-90' : 'text-[#788896]'"
+      />
     </button>
 
     <div
