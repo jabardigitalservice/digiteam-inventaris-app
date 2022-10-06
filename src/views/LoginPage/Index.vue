@@ -4,48 +4,11 @@ export default {
   components: {
     LoadSvg,
   },
-  mounted() {
-    this.$keycloak
-      .init({ checkLoginIframe: true })
-      .then((auth) => {
-        console.log(auth);
-        if (!auth) {
-          // window.location.reload();
-        } else {
-          console.log("Authenticated");
-          console.log(this.$keycloak.authenticated);
-          localStorage.setItem("vue-token", this.$keycloak.token);
-          localStorage.setItem(
-            "vue-refresh-token",
-            this.$keycloak.refreshToken
-          );
-        }
-
-        //Token Refresh
-        setInterval(() => {
-          this.$keycloak
-            .updateToken(5)
-            .then((refreshed) => {
-              if (refreshed) {
-                console.log("Token refreshed" + refreshed);
-              } else {
-                // token selalu terdeteksi tidak terrefresh
-                console.log("Token not refreshed");
-              }
-            })
-            .catch(() => {
-              console.log("Failed to refresh token");
-            });
-        }, 60000);
-      })
-      .catch(() => {
-        console.log("Authenticated Failed");
-      });
-  },
+  mounted() {},
   methods: {
     login() {
       this.$keycloak.login({
-        redirectUri: import.meta.env.VITE_KEYCLOCK_REDIRECT_URI,
+        redirectUri: import.meta.env.VITE_STAGING_KEYCLOCK_REDIRECT_URI,
       });
     },
   },
