@@ -75,8 +75,6 @@ router.beforeEach((to, from, next) => {
               store.dispatch("saveToken", {
                 token: Vue.$keycloak.token,
               });
-
-              //  set token and bearer axios
             } else {
               //token not refreshed
             }
