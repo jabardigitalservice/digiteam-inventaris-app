@@ -17,9 +17,10 @@ Vue.use(http);
 Vue.use(Swal);
 Vue.use(keycloak);
 
-new Vue({
-  router,
-  store,
-  // Swal,
-  render: (h) => h(App),
-}).$mount("#app");
+Vue.$keycloak.init({ checkLoginIframe: true }).then((auth) => {
+  new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount("#app");
+});
