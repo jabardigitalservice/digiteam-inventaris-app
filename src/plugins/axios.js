@@ -2,8 +2,7 @@ import axios from "axios";
 import Vue from "vue";
 import Cookies from "js-cookie";
 
-const devInstance = createInstance(import.meta.env.VITE_STAGING_API_URL);
-const productionInstance = createInstance(import.meta.env.VITE_STAGING_API_URL); // will change later
+const productionInstance = createInstance(import.meta.env.VITE_STAGING_API_URL);
 
 function createInstance(baseURL) {
   return axios.create({
