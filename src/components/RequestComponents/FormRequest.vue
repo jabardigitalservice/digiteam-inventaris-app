@@ -40,7 +40,6 @@ export default {
       this.formRequest = { ...this.formRequestCopy };
       this.messageError = { ...this.messageErrorCopy };
     },
-    handleNotification(title, text, icon) {},
     handleSubmit() {
       this.$Swal
         .fire({
