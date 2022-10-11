@@ -71,12 +71,9 @@ router.beforeEach((to, from, next) => {
           .updateToken(5)
           .then((refreshed) => {
             if (refreshed) {
-              console.log("Token refreshed " + refreshed);
               store.dispatch("saveToken", {
                 token: Vue.$keycloak.token,
               });
-            } else {
-              //token not refreshed
             }
           })
           .catch((err) => {
