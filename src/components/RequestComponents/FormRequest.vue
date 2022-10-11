@@ -68,6 +68,7 @@ export default {
                   .then(() => {
                     this.$store.dispatch("modals/close", this.name);
                     this.resetFormRequest();
+                    this.$emit("get-response-form");
                   });
               })
               .catch((err) => {

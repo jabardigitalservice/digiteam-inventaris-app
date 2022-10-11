@@ -4,6 +4,7 @@ import HeaderTable from "../../components/RequestComponents/HeaderTable.vue";
 import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
 import TitleCard from "../../components/layouts/TitleCard.vue";
+import FormRequest from "../../components/RequestComponents/FormRequest.vue";
 export default {
   components: {
     TableRequest,
@@ -11,6 +12,7 @@ export default {
     Pagination,
     DataError,
     TitleCard,
+    FormRequest,
   },
   data() {
     return {
@@ -19,23 +21,36 @@ export default {
         "Daftar permohonan inventaris yang ada di Jabar Digital Service.",
       dataRequest: [],
       pagination: [],
-      offset: 4,
       isSuccess: true,
+      selectPagination: {
+        limit: 10,
+        page: 1,
+      },
     };
   },
   mounted() {
-    this.getData();
+    this.getDataRequest();
   },
   methods: {
-    async getData() {
+    async getDataRequest() {
       try {
-        const response = await this.$axios.get("/requests");
+        const response = await this.$axios.get("/requests", {
+          params: {
+            page: this.selectPagination.page,
+            limit: this.selectPagination.limit,
+          },
+        });
         this.dataRequest = response.data.data;
         this.pagination = response.data.meta;
         this.isSuccess = true;
       } catch (error) {
         this.isSuccess = false;
       }
+    },
+    getSelectPagination(dataPagination) {
+      this.selectPagination.limit = dataPagination.limit;
+      this.selectPagination.page = dataPagination.page;
+      this.getDataRequest();
     },
   },
 };
@@ -49,6 +64,7 @@ export default {
       class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
     >
       <HeaderTable />
+      <FormRequest @get-response-form="getDataRequest" />
 
       <TableRequest
         v-if="isSuccess"
@@ -59,7 +75,11 @@ export default {
 
       <DataError v-if="!isSuccess" />
 
-      <Pagination v-if="isSuccess" :pagination="pagination" :offset="offset" />
+      <Pagination
+        v-if="isSuccess"
+        :pagination="pagination"
+        @get-select-pagination="getSelectPagination"
+      />
     </div>
   </div>
 </template>

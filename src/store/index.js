@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Cookies from "js-cookie";
 import modals from "./modals";
-
+import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,7 +10,9 @@ export default new Vuex.Store({
     token: null,
   },
   getters: {
-    token: (state) => state.token,
+    token(state) {
+      return state.token;
+    },
   },
   mutations: {
     SET_TOKEN(state, token) {
@@ -20,7 +22,6 @@ export default new Vuex.Store({
   actions: {
     saveToken({ commit, dispatch }, { token }) {
       commit("SET_TOKEN", token);
-
       Cookies.set("token", token);
     },
 
