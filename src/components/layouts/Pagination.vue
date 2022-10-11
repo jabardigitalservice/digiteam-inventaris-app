@@ -71,9 +71,9 @@ export default {
       <div class="inline-block float-right mr-2">
         <span class="mr-2">Halaman</span>
         <Select class="mr-2 w-14">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
+          <option v-for="(page, index) in pagination.last_page" :key="index">
+            {{ page }}
+          </option>
         </Select>
       </div>
     </div>
