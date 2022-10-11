@@ -17,7 +17,9 @@ export default {
         priority: "",
         phone_number: "",
       },
+      formRequestCopy: {},
       messageError: {},
+      messageErrorCopy: {},
     };
   },
   watch: {
@@ -29,7 +31,16 @@ export default {
       }
     },
   },
+  mounted() {
+    this.formRequestCopy = { ...this.formRequest };
+    this.messageErrorCopy = { ...this.messageError };
+  },
   methods: {
+    resetFormRequest() {
+      this.formRequest = { ...this.formRequestCopy };
+      this.messageError = { ...this.messageErrorCopy };
+    },
+    handleNotification(title, text, icon) {},
     handleSubmit() {
       this.$Swal
         .fire({
@@ -47,7 +58,7 @@ export default {
             this.formRequest;
             this.$axios
               .post("/requests", this.formRequest)
-              .then((response) => {
+              .then(() => {
                 this.$Swal
                   .fire({
                     title: "Success!",
@@ -57,8 +68,7 @@ export default {
                   })
                   .then(() => {
                     this.$store.dispatch("modals/close", this.name);
-                    // todo : redirect to list request page
-                    // this.$router.push("/list-request");
+                    this.resetFormRequest();
                   });
               })
               .catch((err) => {
