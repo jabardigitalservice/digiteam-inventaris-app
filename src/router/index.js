@@ -6,6 +6,7 @@ import ListRequest from "../views/RequestPage/Index.vue";
 
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LoginLayout from "../views/layout/LoginLayout.vue";
+import store from "../store/index.js";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -23,6 +24,9 @@ const router = new VueRouter({
           components: {
             default: LoginPage,
           },
+          meta: {
+            isAuthenticated: false,
+          },
         },
       ],
     },
@@ -38,6 +42,9 @@ const router = new VueRouter({
           components: {
             default: ListRequest,
           },
+          meta: {
+            isAuthenticated: true,
+          },
         },
       ],
     },
@@ -47,6 +54,44 @@ const router = new VueRouter({
       component: NotFound,
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.isAuthenticated) {
+    if (!Vue.$keycloak.authenticated) {
+      // Halaman dilindungi dan pengguna tidak diautentikasi. Paksa login
+      Vue.$keycloak.login({
+        redirectUri: import.meta.env.VITE_STAGING_KEYCLOCK_REDIRECT_URI,
+      });
+    } else {
+      // Pengguna diautentikasi
+
+      setInterval(() => {
+        Vue.$keycloak
+          .updateToken(5)
+          .then((refreshed) => {
+            if (refreshed) {
+              store.dispatch("saveToken", {
+                token: Vue.$keycloak.token,
+              });
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }, 6000);
+
+      next();
+      console.log("Authenticated");
+
+      store.dispatch("saveToken", {
+        token: Vue.$keycloak.token,
+      });
+    }
+  } else {
+    // Halaman ini tidak memerlukan otentikasi
+    next();
+  }
 });
 
 export default router;

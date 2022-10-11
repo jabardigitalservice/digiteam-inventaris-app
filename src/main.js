@@ -11,11 +11,16 @@ import http from "./plugins/axios.js";
 
 import Swal from "./plugins/swal.js";
 
+import keycloak from "./plugins/keycloak.js";
+
 Vue.use(http);
 Vue.use(Swal);
-new Vue({
-  router,
-  store,
-  // Swal,
-  render: (h) => h(App),
-}).$mount("#app");
+Vue.use(keycloak);
+
+Vue.$keycloak.init({ checkLoginIframe: true }).then((auth) => {
+  new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount("#app");
+});
