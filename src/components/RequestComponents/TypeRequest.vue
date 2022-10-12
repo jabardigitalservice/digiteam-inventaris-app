@@ -1,12 +1,12 @@
 <script>
 export default {
-  props: { requestType: String },
+  props: { requestType: Number },
   methods: {
     getTypeLabel(requestType) {
-      return requestType === "1" ? "Baru" : "Tukar";
+      return requestType === 1 ? "Baru" : "Tukar";
     },
     getColorLabel(requestType) {
-      return requestType === "1"
+      return requestType === 1
         ? "bg-green-100 text-green-800 border border-green-700"
         : "bg-yellow-100 text-yellow-800 border-yellow-700";
     },

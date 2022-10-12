@@ -82,7 +82,6 @@ router.beforeEach((to, from, next) => {
       }, 6000);
 
       next();
-      console.log("Authenticated");
 
       store.dispatch("saveToken", {
         token: Vue.$keycloak.token,
