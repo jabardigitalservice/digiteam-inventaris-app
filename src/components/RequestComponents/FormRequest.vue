@@ -177,7 +177,7 @@ export default {
           <input
             v-model="formRequest.item_name"
             type="text"
-            placeholder="Masukan barang yang diajukan"
+            placeholder="Masukkan barang yang diajukan"
             class="input-form"
           />
         </label>
@@ -192,7 +192,7 @@ export default {
           </span>
           <textarea
             v-model="formRequest.purpose"
-            placeholder="Masukan alasan pengajuan"
+            placeholder="Masukkan alasan pengajuan"
             class="input-form"
           ></textarea>
         </label>
