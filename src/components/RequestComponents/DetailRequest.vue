@@ -21,7 +21,7 @@ export default {
       <div>
         <label
           for="request_type"
-          class="block mt-5 text-sm font-bold text-slate-700"
+          class="block text-sm font-bold text-slate-700"
         >
           Jenis Permohonan
         </label>
