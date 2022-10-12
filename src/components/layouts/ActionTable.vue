@@ -8,6 +8,7 @@ export default {
   methods: {
     open(name) {
       this.$store.dispatch("modals/open", name);
+      this.show = !this.show;
     },
   },
 };
