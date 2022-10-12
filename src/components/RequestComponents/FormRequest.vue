@@ -159,7 +159,7 @@ export default {
           Unit / Divisi
         </label>
         <select id="divisi" v-model="formRequest.division" class="select-form">
-          <option selected="" value="" disabled>
+          <option selected="" value="" disabled hidden>
             Pilih Team Unit / Divisi
           </option>
           <option value="ITDEV">IT Development</option>
@@ -177,7 +177,7 @@ export default {
           <input
             v-model="formRequest.item_name"
             type="text"
-            placeholder="Masukan barang yang diajukan"
+            placeholder="Masukkan barang yang diajukan"
             class="input-form"
           />
         </label>
@@ -192,7 +192,7 @@ export default {
           </span>
           <textarea
             v-model="formRequest.purpose"
-            placeholder="Masukan alasan pengajuan"
+            placeholder="Masukkan alasan pengajuan"
             class="input-form"
           ></textarea>
         </label>
@@ -212,7 +212,9 @@ export default {
           v-model.number="formRequest.priority"
           class="select-form"
         >
-          <option value="" selected="" disabled>Tingkat Kebutuhan</option>
+          <option value="" selected="" disabled hidden>
+            Tingkat Kebutuhan
+          </option>
           <option value="1">Biasa</option>
           <option value="2">Urgent</option>
         </select>

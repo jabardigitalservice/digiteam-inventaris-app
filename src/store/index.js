@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Cookies from "js-cookie";
 import modals from "./modals";
-import axios from "axios";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
