@@ -1,6 +1,5 @@
 <script>
 export default {
-  components: {},
   props: {
     pagination: [Object, Array],
   },
@@ -13,7 +12,6 @@ export default {
       limit: [10, 15, 20, 25, 50, 100, "All"],
     };
   },
-  computed: {},
   methods: {
     getPagination(typeChange) {
       if (typeChange === "change-limit") {
