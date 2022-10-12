@@ -159,7 +159,7 @@ export default {
           Unit / Divisi
         </label>
         <select id="divisi" v-model="formRequest.division" class="select-form">
-          <option selected="" value="" disabled>
+          <option selected="" value="" disabled hidden>
             Pilih Team Unit / Divisi
           </option>
           <option value="ITDEV">IT Development</option>
@@ -212,7 +212,9 @@ export default {
           v-model.number="formRequest.priority"
           class="select-form"
         >
-          <option value="" selected="" disabled>Tingkat Kebutuhan</option>
+          <option value="" selected="" disabled hidden>
+            Tingkat Kebutuhan
+          </option>
           <option value="1">Biasa</option>
           <option value="2">Urgent</option>
         </select>
