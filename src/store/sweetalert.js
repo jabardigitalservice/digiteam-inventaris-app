@@ -17,6 +17,9 @@ const store = {
     ERROR_ALERT(state, message) {
       state.message = message;
     },
+    CONFIRM_ALERT(state, message) {
+      state.message = message;
+    },
   },
   actions: {
     successAlert({ commit }, message) {
@@ -36,6 +39,19 @@ const store = {
         confirmButtonText: "OK",
       });
       commit("ERROR_ALERT", message);
+    },
+    confirmAlert({ commit }, message) {
+      Swal.fire({
+        title: message.title,
+        text: message.text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Kirim!",
+        cancelButtonText: "Batalkan",
+      });
+      commit("CONFIRM_ALERT", message);
     },
   },
 };
