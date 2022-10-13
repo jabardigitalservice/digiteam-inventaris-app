@@ -1,10 +1,8 @@
 <script>
 import LoadSvg from "../../components/layouts/LoadSvg.vue";
-import FormRequest from "./FormRequest.vue";
 export default {
   components: {
     LoadSvg,
-    FormRequest,
   },
   methods: {
     open(name) {
@@ -24,6 +22,5 @@ export default {
       <LoadSvg name="plus" folder="icons" class="w-4 h-4 mr-2" />
       <span>Tambah Permohonan</span>
     </button>
-    <FormRequest />
   </div>
 </template>

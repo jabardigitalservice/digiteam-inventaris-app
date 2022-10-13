@@ -1,34 +1,34 @@
 <script>
 export default {
-  components: {},
   props: {
     pagination: [Object, Array],
-    offset: Number,
   },
   data() {
     return {
-      itemsPerPage: [5, 15, 25, 50, 100, "All"],
+      selectPagination: {
+        limit: 10,
+        page: 1,
+      },
+      limit: [10, 15, 20, 25, 50, 100, "All"],
     };
   },
-  computed: {
-    pagesNumber() {
-      // todo : i will fix it this code if API is done from backend
-      if (!this.pagination.to) {
-        return [];
+  methods: {
+    getPagination(typeChange) {
+      if (typeChange === "change-limit") {
+        this.selectPagination.limit = this.selectPagination.limit;
+        this.selectPagination.page = 1;
+      } else if (typeChange === "change-page") {
+        this.selectPagination.page = this.selectPagination.page;
       }
-      let from = this.pagination.current_page - this.offset;
-      if (from < 1) {
-        from = 1;
+      this.$emit("get-select-pagination", this.selectPagination);
+    },
+    changePage(type) {
+      if (type === "increment") {
+        this.selectPagination.page = this.selectPagination.page + 1;
+      } else if (type === "decrement") {
+        this.selectPagination.page = this.selectPagination.page - 1;
       }
-      let to = from + this.offset * 2;
-      if (to >= this.pagination.last_page) {
-        to = this.pagination.last_page;
-      }
-      let pagesArray = [];
-      for (let page = from; page <= to; page++) {
-        pagesArray.push(page);
-      }
-      return pagesArray;
+      this.$emit("get-select-pagination", this.selectPagination);
     },
   },
 };
@@ -38,12 +38,16 @@ export default {
   <div class="grid grid-cols-1 tablet:grid-cols-2">
     <div class="">
       <span class="mr-2">Tampilkan </span>
-      <select class="mr-2 w-14">
-        <option v-for="page in itemsPerPage" :key="page" :value="page">
-          {{ page }}
+      <select
+        v-model="selectPagination.limit"
+        class="mr-2 w-14"
+        @change="getPagination('change-limit')"
+      >
+        <option v-for="limits in limit" :key="limits" :value="limits">
+          {{ limits }}
         </option>
       </select>
-      <span> Item dari total 50</span>
+      <span> Item dari total {{ pagination.total }}</span>
     </div>
 
     <div>
@@ -51,30 +55,42 @@ export default {
         <nav>
           <ul class="inline-flex -space-x-px">
             <li>
-              <a
-                href="#"
-                class="py-2 px-3 ml-0 leading-tight rounded-l-lg border border-gray-300 hover:bg-white hover:text-gray-700"
-                >&lt;</a
+              <button
+                class="py-2 px-3 ml-0 leading-tight rounded-l-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
+                :disabled="pagination.page === 1"
+                @click="changePage('decrement')"
               >
+                &lt;
+              </button>
             </li>
 
             <li>
-              <a
-                href="#"
-                class="py-2 px-3 leading-tight rounded-r-lg border border-gray-300 hover:bg-white hover:text-gray-700"
-                >&gt;</a
+              <button
+                class="py-2 px-3 leading-tight rounded-r-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
+                :disabled="pagination.page === pagination.last_page"
+                @click="changePage('increment')"
               >
+                &gt;
+              </button>
             </li>
           </ul>
         </nav>
       </div>
       <div class="inline-block float-right mr-2">
         <span class="mr-2">Halaman</span>
-        <Select class="mr-2 w-14">
-          <option v-for="(page, index) in pagination.last_page" :key="index">
+        <select
+          v-model="selectPagination.page"
+          class="mr-2 w-14"
+          @change="getPagination('change-page')"
+        >
+          <option
+            v-for="(page, index) in pagination.last_page"
+            :key="index"
+            :value="page"
+          >
             {{ page }}
           </option>
-        </Select>
+        </select>
       </div>
     </div>
   </div>
