@@ -35,7 +35,7 @@ export default {
             class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t"
           >
             <h3 class="text-2xl font-semibold text-blue-800">
-              <slot name="header"> Default Header </slot>
+              <slot name="header"> </slot>
             </h3>
             <button
               class="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -63,7 +63,7 @@ export default {
             >
               Batal
             </button>
-            <slot name="footer"> Default Footer! </slot>
+            <slot name="footer"></slot>
           </div>
         </div>
       </div>

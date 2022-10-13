@@ -5,6 +5,12 @@ export default {
       show: false,
     };
   },
+  methods: {
+    open(name) {
+      this.$store.dispatch("modals/open", name);
+      this.show = !this.show;
+    },
+  },
 };
 </script>
 
@@ -43,25 +49,26 @@ export default {
           aria-labelledby="action Button"
         >
           <li>
-            <a
+            <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              href="#"
-              >Detail</a
+              @click="open('detail-request')"
             >
+              Detail
+            </button>
           </li>
           <li>
-            <a
+            <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              href="#"
-              >Verifikasi</a
             >
+              Verifikasi
+            </button>
           </li>
           <li>
-            <a
+            <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              href="#"
-              >Hapus</a
             >
+              Hapus
+            </button>
           </li>
         </ul>
       </div>

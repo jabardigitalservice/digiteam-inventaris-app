@@ -5,6 +5,7 @@ import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
 import TitleCard from "../../components/layouts/TitleCard.vue";
 import FormRequest from "../../components/RequestComponents/FormRequest.vue";
+import DetailRequest from "../../components/RequestComponents/DetailRequest.vue";
 export default {
   components: {
     TableRequest,
@@ -13,6 +14,7 @@ export default {
     DataError,
     TitleCard,
     FormRequest,
+    DetailRequest,
   },
   data() {
     return {
@@ -65,6 +67,7 @@ export default {
     >
       <HeaderTable />
       <FormRequest @get-response-form="getDataRequest" />
+      <DetailRequest />
 
       <TableRequest
         v-if="isSuccess"
