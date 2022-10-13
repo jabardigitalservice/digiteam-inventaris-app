@@ -41,19 +41,34 @@ service.interceptors.response.use(
     const status = await error.response.status;
     switch (status) {
       case ResponseRequest.NOTFOUND:
-        alert(error.response.data.message);
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Errors!",
+          text: error.response.data.errors,
+        });
         break;
       case ResponseRequest.SERVERERROR:
-        alert(error.response.data.message);
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Errors!",
+          text: error.response.data.errors,
+        });
         break;
       case ResponseRequest.UNAUTHORIZED:
-        alert(error.response.data.message);
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Errors!",
+          text: error.response.data.errors,
+        });
         break;
       case ResponseRequest.UNPROCESSABLE:
-        alert(error.response.data.message);
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Errors!",
+          text: error.response.data.errors,
+        });
         break;
       default:
-        alert(error.message);
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Errors!",
+          text: error.message,
+        });
         break;
     }
     return Promise.reject(error);
