@@ -24,6 +24,7 @@ export default new Vuex.Store({
     saveToken({ commit, dispatch }, { token }) {
       commit("SET_TOKEN", token);
       Cookies.set("token", token);
+      dispatch("user/getProfile", { root: true });
     },
     clearToken({ commit }) {
       Cookies.remove("token");
