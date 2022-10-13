@@ -6,6 +6,7 @@ import DataError from "../../components/layouts/DataError.vue";
 import TitleCard from "../../components/layouts/TitleCard.vue";
 import FormRequest from "../../components/RequestComponents/FormRequest.vue";
 import DetailRequest from "../../components/RequestComponents/DetailRequest.vue";
+import { fetchList } from "@/api";
 export default {
   components: {
     TableRequest,
@@ -36,14 +37,13 @@ export default {
   methods: {
     async getDataRequest() {
       try {
-        const response = await this.$axios.get("/requests", {
-          params: {
-            page: this.selectPagination.page,
-            limit: this.selectPagination.limit,
-          },
-        });
-        this.dataRequest = response.data.data;
-        this.pagination = response.data.meta;
+        const params = {
+          page: this.selectPagination.page,
+          limit: this.selectPagination.limit,
+        };
+        const response = await fetchList("/requests", "GET", params);
+        this.dataRequest = response.data;
+        this.pagination = response.meta;
         this.isSuccess = true;
       } catch (error) {
         this.isSuccess = false;

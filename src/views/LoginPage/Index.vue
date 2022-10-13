@@ -20,7 +20,7 @@ export default {
     <div class="grid grid-cols-1 desktop:grid-cols-2 m-auto">
       <div class="desktop:col-start-2">
         <div
-          class="w-[320px] h-[300px] p-8 desktop:w-[600px] desktop:h-[360px] tablet:w-[500px] tablet:h-[360px] bg-white rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700 shadow-lg shadow-gray-500/50"
+          class="w-[320px] h-[300px] p-8 desktop:w-[600px] desktop:h-[360px] tablet:w-[500px] tablet:h-[360px] bg-white rounded-2xl border border-gray-200 shadow-lg shadow-gray-500/50"
         >
           <h1
             class="text-2xl tablet:text-3xl desktop:invisible text-blue-gray-700 font-bold leading-[68px] text-center desktop:hidden"

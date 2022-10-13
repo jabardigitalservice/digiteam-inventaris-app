@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Cookies from "js-cookie";
 import modals from "./modals";
+import sweetalert from "./sweetalert";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -28,5 +29,5 @@ export default new Vuex.Store({
       Cookies.remove("token");
     },
   },
-  modules: { modals },
+  modules: { modals, sweetalert },
 });

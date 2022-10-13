@@ -1,6 +1,7 @@
 <script>
 import TextError from "../layouts/TextError.vue";
 import Modal from "../layouts/Modal.vue";
+import { doPostUpdate } from "@/api";
 export default {
   name: "FormRequest",
   components: { TextError, Modal },
@@ -55,15 +56,17 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             this.formRequest;
-            this.$axios
-              .post("/requests", this.formRequest)
+            const response = doPostUpdate(
+              "/requests",
+              "POST",
+              this.formRequest
+            );
+            response
               .then(() => {
-                this.$Swal
-                  .fire({
-                    title: "Success!",
+                this.$store
+                  .dispatch("sweetalert/successAlert", {
+                    title: "Success",
                     text: "Berhasil mengirim permohonan",
-                    icon: "success",
-                    confirmButtonText: "OK",
                   })
                   .then(() => {
                     this.$store.dispatch("modals/close", this.name);
@@ -74,18 +77,14 @@ export default {
               .catch((err) => {
                 this.messageError = err.response.data.errors;
                 if (err.response.data.errors) {
-                  this.$Swal.fire({
+                  this.$store.dispatch("sweetalert/errorAlert", {
                     title: "Data kurang lengkap!",
                     text: "Gagal mengirim permohonan",
-                    icon: "error",
-                    confirmButtonText: "OK",
                   });
                 } else {
-                  this.$Swal.fire({
+                  this.$store.dispatch("sweetalert/errorAlert", {
                     title: "Server Error!",
                     text: "Gagal mengirim permohonan",
-                    icon: "error",
-                    confirmButtonText: "OK",
                   });
                 }
               });
