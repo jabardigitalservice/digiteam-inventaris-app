@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import Cookies from "js-cookie";
 import modals from "./modals";
 import sweetalert from "./sweetalert";
+import user from "./user";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -24,10 +25,12 @@ export default new Vuex.Store({
       commit("SET_TOKEN", token);
       Cookies.set("token", token);
     },
-
     clearToken({ commit }) {
       Cookies.remove("token");
+      Vue.$keycloak.logout({
+        redirectUri: import.meta.env.VITE_STAGING_URI_BACK,
+      });
     },
   },
-  modules: { modals, sweetalert },
+  modules: { modals, sweetalert, user },
 });

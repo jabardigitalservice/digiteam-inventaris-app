@@ -33,6 +33,7 @@ export default {
   },
   mounted() {
     this.getDataRequest();
+    this.$store.dispatch("user/getProfile");
   },
   methods: {
     async getDataRequest() {
