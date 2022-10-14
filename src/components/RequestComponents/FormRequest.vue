@@ -11,7 +11,7 @@ export default {
       isEvidence: false,
       formRequest: {
         request_type: "",
-        name_employee: "",
+        name_employee: this.$store.state.user.profile.name,
         division: "",
         item_name: "",
         purpose: "",
