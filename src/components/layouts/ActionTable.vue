@@ -1,5 +1,6 @@
 <script>
 export default {
+  props: { id: String, type: String },
   data() {
     return {
       show: false,
@@ -9,6 +10,7 @@ export default {
     open(name) {
       this.$store.dispatch("modals/open", name);
       this.show = !this.show;
+      this.$emit("get-id-request", this.id, this.type);
     },
   },
 };

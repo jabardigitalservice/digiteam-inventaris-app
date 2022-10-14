@@ -4,6 +4,7 @@ import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
 export default {
   components: { Modal, TypeRequest, StatusRequest },
+  props: { detailRequest: Object },
   data() {
     return {
       titleModal: "Detail Data - Permohonan Inventaris",
@@ -25,40 +26,40 @@ export default {
         >
           Jenis Permohonan
         </label>
-        <TypeRequest :request-type="1" />
+        <TypeRequest :request-type="detailRequest.request_type" />
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >Nama Pegawai</span
           >
-          <span>Ray</span>
+          <span>{{ detailRequest.username }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700">No Telepon</span>
-          <span>08780000000</span>
+          <span>{{ detailRequest.phone_number }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >Unit / Divisi</span
           >
-          <span>IT Development</span>
+          <span>{{ detailRequest.division }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >Barang yang diajukan</span
           >
-          <span>Laptop</span>
+          <span>{{ detailRequest.item_name }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >Alasan Pengajuan</span
           >
-          <span>Laptop saya rusak</span>
+          <span>{{ detailRequest.purpose }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >Tingkat Kebutuhan</span
           >
-          <span>Urgent</span>
+          <span>{{ detailRequest.priority === 1 ? "Biasa" : "Urgent" }}</span>
         </label>
 
         <label
@@ -67,7 +68,7 @@ export default {
         >
           Status Request
         </label>
-        <StatusRequest :status="1" />
+        <StatusRequest :status="detailRequest.status" />
       </div>
     </template>
   </Modal>

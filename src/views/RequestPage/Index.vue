@@ -29,6 +29,7 @@ export default {
         limit: 10,
         page: 1,
       },
+      detailRequest: {},
     };
   },
   mounted() {
@@ -54,6 +55,9 @@ export default {
       this.selectPagination.page = dataPagination.page;
       this.getDataRequest();
     },
+    getDetailRequest(data) {
+      this.detailRequest = data;
+    },
   },
 };
 </script>
@@ -67,13 +71,14 @@ export default {
     >
       <HeaderTable />
       <FormRequest @get-response-form="getDataRequest" />
-      <DetailRequest />
+      <DetailRequest :detail-request="detailRequest" />
 
       <TableRequest
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
         class="mt-5 mb-5"
+        @get-detail-request="getDetailRequest"
       />
 
       <DataError v-if="!isSuccess" />

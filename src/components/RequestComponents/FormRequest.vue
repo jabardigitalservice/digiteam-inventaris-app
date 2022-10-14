@@ -132,7 +132,7 @@ export default {
             readonly
             type="text"
             placeholder="Nama pegawai"
-            class="input-form"
+            class="input-form bg-gray-300"
           />
         </label>
 
