@@ -9,6 +9,11 @@ export default {
       show: false,
     };
   },
+  methods: {
+    logout() {
+      this.$store.dispatch("clearToken");
+    },
+  },
 };
 </script>
 <template>
@@ -24,7 +29,7 @@ export default {
         alt="user image"
       />
 
-      <span class="mr-4 font-bold">User name</span>
+      <span class="mr-4 font-bold"> {{ $store.state.user.profile.name }}</span>
 
       <LoadSvg
         name="arrow-right"
@@ -38,12 +43,12 @@ export default {
       v-show="show"
       class="absolute right-0 py-2 bg-white rounded-md shadow-xl w-40"
     >
-      <router-link
-        to="/"
-        class="block px-4 py-2 text-sm text-[#788896] hover:bg-blue-100"
+      <button
+        class="w-full px-4 py-2 text-sm text-[#788896] hover:bg-blue-100"
+        @click="logout"
       >
         Keluar
-      </router-link>
+      </button>
     </div>
   </div>
 </template>
