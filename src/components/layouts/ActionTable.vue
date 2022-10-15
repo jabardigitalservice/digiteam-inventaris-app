@@ -10,7 +10,7 @@ export default {
     open(name) {
       this.$store.dispatch("modals/open", name);
       this.show = !this.show;
-      this.$emit("get-id-request", this.id, this.type);
+      this.$emit("get-id-request", this.id, this.type, name);
     },
   },
 };
@@ -61,6 +61,7 @@ export default {
           <li>
             <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+              @click="open('verifikasi-request')"
             >
               Verifikasi
             </button>

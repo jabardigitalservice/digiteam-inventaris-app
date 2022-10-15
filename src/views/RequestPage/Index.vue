@@ -30,6 +30,7 @@ export default {
         page: 1,
       },
       detailRequest: {},
+      modalName: "",
     };
   },
   mounted() {
@@ -55,8 +56,9 @@ export default {
       this.selectPagination.page = dataPagination.page;
       this.getDataRequest();
     },
-    getDetailRequest(data) {
+    getDetailRequest(data, modal_name) {
       this.detailRequest = data;
+      this.modalName = modal_name;
     },
   },
 };
@@ -71,8 +73,11 @@ export default {
     >
       <HeaderTable />
       <FormRequest @get-response-form="getDataRequest" />
-      <DetailRequest :detail-request="detailRequest" />
-
+      <DetailRequest
+        :detail-request="detailRequest"
+        :modal-name="modalName"
+        @get-response-form="getDataRequest"
+      />
       <TableRequest
         v-if="isSuccess"
         :data-request="dataRequest"

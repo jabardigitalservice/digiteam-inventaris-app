@@ -13,11 +13,11 @@ export default {
     };
   },
   methods: {
-    async getDataRequest(id, type) {
+    async getDataRequest(id, type, modal_name) {
       try {
         const response = await getDetail(type, "GET", id);
         this.dataDetailRequest = response.data;
-        this.$emit("get-detail-request", this.dataDetailRequest);
+        this.$emit("get-detail-request", this.dataDetailRequest, modal_name);
       } catch (error) {
         this.$store.dispatch("sweetalert/errorAlert", {
           title: "Server Error!",

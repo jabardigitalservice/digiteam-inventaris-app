@@ -30,6 +30,14 @@ export function getDetail(url, method, id) {
   });
 }
 
+export function patchStatus(url, method, id, data) {
+  return https({
+    url: `${url}/${id}/status`,
+    method: method,
+    data,
+  });
+}
+
 export default {
   fetchList,
   doDetailDelete,
