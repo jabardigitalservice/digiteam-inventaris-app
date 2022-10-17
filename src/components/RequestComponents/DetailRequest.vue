@@ -8,29 +8,97 @@ export default {
   props: { detailRequest: Object, modalName: String },
   data() {
     return {
-      updateStatus: {
+      statusObject: {
         status: 1,
       },
     };
   },
+  computed: {
+    btnApprovalForAdmin() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status !=
+          this.$store.state.status.PENGAJUAN_DITERIMA.value &&
+        this.detailRequest.status !=
+          this.$store.state.status.PENGAJUAN_SELESAI.value
+      );
+    },
+    btnSubmitRequestItem() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.detailRequest.status ==
+          this.$store.state.status.PENGAJUAN_DITERIMA.value
+      );
+    },
+    waitingSendRequestItem() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.detailRequest.username === this.$store.state.user.profile.name &&
+        this.detailRequest.status ===
+          this.$store.state.status.PENGAJUAN_DITERIMA.value
+      );
+    },
+    afterSendRequestItem() {
+      return (
+        this.detailRequest.status >
+        this.$store.state.status.PENGAJUAN_DITERIMA.value
+      );
+    },
+    showButtonIfMyRequest() {
+      return (
+        this.detailRequest.username === this.$store.state.user.profile.name
+      );
+    },
+  },
   methods: {
-    btnUpdateStatus(id, type, status) {
-      if (type === "rejected" && status === 1) {
-        this.updateStatus.status = 2;
-      } else if (type === "approve" && status === 2) {
-        this.updateStatus.status = 1;
-      } else if (type === "approve" && status === 1) {
-        this.updateStatus.status = 3;
-      } else if (type === "approve" && status === 3) {
-        this.updateStatus.status = 4;
-      } else if (type === "approve" && status === 4) {
-        this.updateStatus.status = 5;
-      } else if (type === "approve" && status === 5) {
-        this.updateStatus.status = 6;
-      } else if (type === "approve" && status === 6) {
-        this.updateStatus.status = 7;
+    updateStatus(type, status) {
+      if (
+        type === "rejected" &&
+        status === this.$store.state.status.PENGAJUAN_MASUK.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PENGAJUAN_DITOLAK.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.PENGAJUAN_DITOLAK.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PENGAJUAN_MASUK.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.PENGAJUAN_MASUK.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PENGAJUAN_DITERIMA.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.PENGAJUAN_DITERIMA.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PERMINTAAN_BARANG_MASUK.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.PERMINTAAN_BARANG_MASUK.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PENGECEKAN_KELAYAKAN.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.PENGECEKAN_KELAYAKAN.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.BARANG_SIAP_DIAMBIL.value;
+      } else if (
+        type === "approve" &&
+        status === this.$store.state.status.BARANG_SIAP_DIAMBIL.value
+      ) {
+        this.statusObject.status =
+          this.$store.state.status.PENGAJUAN_SELESAI.value;
       }
-
+    },
+    submitUpdateStatus(id, type, status) {
+      this.updateStatus(type, status);
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -48,7 +116,7 @@ export default {
               "/requests",
               "PATCH",
               id,
-              this.updateStatus
+              this.statusObject
             );
             response
               .then(() => {
@@ -146,33 +214,21 @@ export default {
             >Barang yang diminta</span
           >
           <input
-            v-if="
-              modalName === 'verifikasi-request' &&
-              detailRequest.username === $store.state.user.profile.name &&
-              detailRequest.status === 3
-            "
+            v-if="waitingSendRequestItem"
             type="text"
             placeholder="Barang yang diminta"
             class="input-form"
           />
-          <span v-if="detailRequest.status > 3">Macbook M1 (Dummy Data)</span>
+          <span v-if="afterSendRequestItem">Macbook M1 (Dummy Data)</span>
         </label>
       </div>
     </template>
-    <template
-      v-if="
-        modalName === 'verifikasi-request' &&
-        $store.state.user.profile.isAdmin === true &&
-        detailRequest.status != 3 &&
-        detailRequest.status != 7
-      "
-      #footer
-    >
+    <template v-if="btnApprovalForAdmin" #footer>
       <button
         v-if="detailRequest.status === 1"
         class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
-          btnUpdateStatus(detailRequest.id, 'rejected', detailRequest.status)
+          submitUpdateStatus(detailRequest.id, 'rejected', detailRequest.status)
         "
       >
         Rejected
@@ -180,23 +236,18 @@ export default {
       <button
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
-          btnUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
+          submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
         "
       >
         Approve
       </button>
     </template>
-    <template
-      v-else-if="
-        modalName === 'verifikasi-request' && detailRequest.status == 3
-      "
-      #footer
-    >
+    <template v-else-if="btnSubmitRequestItem" #footer>
       <button
-        v-if="detailRequest.username === $store.state.user.profile.name"
+        v-if="showButtonIfMyRequest"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
-          btnUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
+          submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
         "
       >
         Submit
