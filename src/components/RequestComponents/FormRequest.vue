@@ -11,7 +11,6 @@ export default {
       isEvidence: false,
       formRequest: {
         request_type: "",
-        name_employee: "",
         division: "",
         item_name: "",
         purpose: "",
@@ -129,11 +128,11 @@ export default {
             >Nama Pegawai</span
           >
           <input
-            v-model="formRequest.name_employee"
+            v-model="$store.state.user.profile.name"
             readonly
             type="text"
             placeholder="Nama pegawai"
-            class="input-form"
+            class="input-form bg-gray-300"
           />
         </label>
 

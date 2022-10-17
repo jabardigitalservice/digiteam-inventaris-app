@@ -2,13 +2,29 @@
 import StatusRequest from "./StatusRequest.vue";
 import TypeRequest from "./TypeRequest.vue";
 import ActionTable from "../layouts/ActionTable.vue";
+import { getDetail } from "@/api";
 export default {
   components: { StatusRequest, TypeRequest, ActionTable },
   props: { dataRequest: Array },
   data() {
     return {
       show: false,
+      dataDetailRequest: {},
     };
+  },
+  methods: {
+    async getDataRequest(id, type, modal_name) {
+      try {
+        const response = await getDetail(type, "GET", id);
+        this.dataDetailRequest = response.data;
+        this.$emit("get-detail-request", this.dataDetailRequest, modal_name);
+      } catch (error) {
+        this.$store.dispatch("sweetalert/errorAlert", {
+          title: "Server Error!",
+          text: "-",
+        });
+      }
+    },
   },
 };
 </script>
@@ -56,7 +72,11 @@ export default {
               <StatusRequest :status="request.status" />
             </td>
             <td class="td-table">
-              <ActionTable />
+              <ActionTable
+                :id="request.id"
+                :type="'requests'"
+                @get-id-request="getDataRequest"
+              />
             </td>
           </tr>
         </tbody>

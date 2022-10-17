@@ -4,36 +4,36 @@ export default {
   methods: {
     getStatusLabel(status) {
       switch (status) {
-        case 1:
-          return "Pengajuan Masuk";
-        case 2:
-          return "Pengajuan Ditolak";
-        case 3:
-          return "Pengajuan Diterima";
-        case 4:
-          return "Permintaan Barang Masuk";
-        case 5:
-          return "Pengecekan Kelayakan";
-        case 6:
-          return "Barang Siap Diambil";
-        case 7:
-          return "Pengajuan Selesai";
+        case this.$store.state.status.PENGAJUAN_MASUK.value:
+          return this.$store.state.status.PENGAJUAN_MASUK.text;
+        case this.$store.state.status.PENGAJUAN_DITOLAK.value:
+          return this.$store.state.status.PENGAJUAN_DITOLAK.text;
+        case this.$store.state.status.PENGAJUAN_DITERIMA.value:
+          return this.$store.state.status.PENGAJUAN_DITERIMA.text;
+        case this.$store.state.status.PERMINTAAN_BARANG_MASUK.value:
+          return this.$store.state.status.PERMINTAAN_BARANG_MASUK.text;
+        case this.$store.state.status.PENGECEKAN_KELAYAKAN.value:
+          return this.$store.state.status.PENGECEKAN_KELAYAKAN.text;
+        case this.$store.state.status.BARANG_SIAP_DIAMBIL.value:
+          return this.$store.state.status.BARANG_SIAP_DIAMBIL.text;
+        case this.$store.state.status.PENGAJUAN_SELESAI.value:
+          return this.$store.state.status.PENGAJUAN_SELESAI.text;
         default:
           return "";
       }
     },
     getColorLabel(status) {
       switch (status) {
-        case 1:
+        case this.$store.state.status.PENGAJUAN_MASUK.value:
           return "bg-blue-100 border-blue-700";
-        case 2:
+        case this.$store.state.status.PENGAJUAN_DITOLAK.value:
           return "bg-red-100 border-red-700";
-        case 3:
-        case 4:
-        case 5:
-        case 6:
+        case this.$store.state.status.PENGAJUAN_DITERIMA.value:
+        case this.$store.state.status.PERMINTAAN_BARANG_MASUK.value:
+        case this.$store.state.status.PENGECEKAN_KELAYAKAN.value:
+        case this.$store.state.status.BARANG_SIAP_DIAMBIL.value:
           return "bg-yellow-100 border-yellow-700";
-        case 7:
+        case this.$store.state.status.PENGAJUAN_SELESAI.value:
           return "bg-green-100 border-green-700";
         default:
           return "";

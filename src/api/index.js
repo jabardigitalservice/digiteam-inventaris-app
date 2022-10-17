@@ -23,6 +23,21 @@ export function doPostUpdate(url, method, data) {
   });
 }
 
+export function getDetail(url, method, id) {
+  return https({
+    url: `${url}/${id}`,
+    method: method,
+  });
+}
+
+export function patchStatus(url, method, id, data) {
+  return https({
+    url: `${url}/${id}/status`,
+    method: method,
+    data,
+  });
+}
+
 export default {
   fetchList,
   doDetailDelete,

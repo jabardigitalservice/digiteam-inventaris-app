@@ -3,7 +3,7 @@ import store from "@/store";
 import { getToken } from "@/utils/cookies";
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_STAGING_API_URL,
+  baseURL: import.meta.env.VITE_API_JABARCLOUD,
 });
 
 const ResponseRequest = {
