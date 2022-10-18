@@ -1,40 +1,45 @@
 <script>
+import { statusObject } from "@/constants";
 export default {
   props: { status: Number },
   methods: {
     getStatusLabel(status) {
       switch (status) {
-        case this.$store.state.status.PENGAJUAN_MASUK.value:
-          return this.$store.state.status.PENGAJUAN_MASUK.text;
-        case this.$store.state.status.PENGAJUAN_DITOLAK.value:
-          return this.$store.state.status.PENGAJUAN_DITOLAK.text;
-        case this.$store.state.status.PENGAJUAN_DITERIMA.value:
-          return this.$store.state.status.PENGAJUAN_DITERIMA.text;
-        case this.$store.state.status.PERMINTAAN_BARANG_MASUK.value:
-          return this.$store.state.status.PERMINTAAN_BARANG_MASUK.text;
-        case this.$store.state.status.PENGECEKAN_KELAYAKAN.value:
-          return this.$store.state.status.PENGECEKAN_KELAYAKAN.text;
-        case this.$store.state.status.BARANG_SIAP_DIAMBIL.value:
-          return this.$store.state.status.BARANG_SIAP_DIAMBIL.text;
-        case this.$store.state.status.PENGAJUAN_SELESAI.value:
-          return this.$store.state.status.PENGAJUAN_SELESAI.text;
+        case statusObject.PENGAJUAN_MASUK.value:
+          return statusObject.PENGAJUAN_MASUK.text;
+        case statusObject.PENGAJUAN_DITOLAK.value:
+          return statusObject.PENGAJUAN_DITOLAK.text;
+        case statusObject.PENGAJUAN_DITERIMA.value:
+          return statusObject.PENGAJUAN_DITERIMA.text;
+        case statusObject.PERMINTAAN_BARANG_MASUK.value:
+          return statusObject.PERMINTAAN_BARANG_MASUK.text;
+        case statusObject.PENGECEKAN_KELAYAKAN.value:
+          return statusObject.PENGECEKAN_KELAYAKAN.text;
+        case statusObject.BARANG_SIAP_DIAMBIL.value:
+          return statusObject.BARANG_SIAP_DIAMBIL.text;
+        case statusObject.PENGAJUAN_SELESAI.value:
+          return statusObject.PENGAJUAN_SELESAI.text;
+        case statusObject.PENGEMBALIAN_BARANG.value:
+          return statusObject.PENGEMBALIAN_BARANG.text;
         default:
           return "";
       }
     },
     getColorLabel(status) {
       switch (status) {
-        case this.$store.state.status.PENGAJUAN_MASUK.value:
+        case statusObject.PENGAJUAN_MASUK.value:
           return "bg-blue-100 border-blue-700";
-        case this.$store.state.status.PENGAJUAN_DITOLAK.value:
+        case statusObject.PENGAJUAN_DITOLAK.value:
           return "bg-red-100 border-red-700";
-        case this.$store.state.status.PENGAJUAN_DITERIMA.value:
-        case this.$store.state.status.PERMINTAAN_BARANG_MASUK.value:
-        case this.$store.state.status.PENGECEKAN_KELAYAKAN.value:
-        case this.$store.state.status.BARANG_SIAP_DIAMBIL.value:
+        case statusObject.PENGAJUAN_DITERIMA.value:
+        case statusObject.PERMINTAAN_BARANG_MASUK.value:
+        case statusObject.PENGECEKAN_KELAYAKAN.value:
+        case statusObject.BARANG_SIAP_DIAMBIL.value:
           return "bg-yellow-100 border-yellow-700";
-        case this.$store.state.status.PENGAJUAN_SELESAI.value:
+        case statusObject.PENGAJUAN_SELESAI.value:
           return "bg-green-100 border-green-700";
+        case statusObject.PENGEMBALIAN_BARANG.value:
+          return "bg-purple-100 border-purple-300";
         default:
           return "";
       }

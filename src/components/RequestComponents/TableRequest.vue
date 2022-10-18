@@ -75,6 +75,7 @@ export default {
               <ActionTable
                 :id="request.id"
                 :type="'requests'"
+                :status="request.status"
                 @get-id-request="getDataRequest"
               />
             </td>
