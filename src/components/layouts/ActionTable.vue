@@ -1,10 +1,22 @@
 <script>
+import { statusObject } from "@/constants";
 export default {
-  props: { id: String, type: String },
+  props: { id: String, type: String, status: Number },
   data() {
     return {
       show: false,
     };
+  },
+  computed: {
+    btnPengembalian() {
+      return (
+        this.status === statusObject.PENGAJUAN_SELESAI.value &&
+        this.$store.state.user.profile.isAdmin
+      );
+    },
+    btnVerifikasi() {
+      return status < statusObject.PENGAJUAN_SELESAI.value;
+    },
   },
   methods: {
     open(name) {
@@ -58,12 +70,20 @@ export default {
               Detail
             </button>
           </li>
-          <li>
+          <li v-if="btnVerifikasi">
             <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
               @click="open('verifikasi-request')"
             >
               Verifikasi
+            </button>
+          </li>
+          <li v-if="btnPengembalian">
+            <button
+              class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+              @click="open('pengembalian-barang')"
+            >
+              Pengembalian
             </button>
           </li>
           <li>
