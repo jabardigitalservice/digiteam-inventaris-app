@@ -5,7 +5,7 @@ export default {
 </script>
 <template>
   <form>
-    <template v-if="conditionDetailVerifikasi.sendListItem">
+    <template v-if="conditionDetailVerifikasi.showFormListItem">
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -22,7 +22,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.sendRequestItem">
+    <template v-if="conditionDetailVerifikasi.showFormRequestItem">
       <label
         for="divisi"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -53,7 +53,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan barang yang diminta"
+          placeholder="Masukkan barang yang diminta"
           class="input-form"
         />
       </label>
@@ -64,13 +64,16 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan no barang inventaris"
+          placeholder="Masukkan no barang inventaris"
           class="input-form"
         />
       </label>
     </template>
 
-    <label v-if="conditionDetailVerifikasi.checkItem" class="block mt-5">
+    <label
+      v-if="conditionDetailVerifikasi.showFormCheckItem"
+      class="block mt-5"
+    >
       <span class="block text-sm font-bold text-slate-700">
         Notes Pengecekan Barang
       </span>
@@ -81,14 +84,14 @@ export default {
       ></textarea>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.readyToPickUp">
+    <template v-if="conditionDetailVerifikasi.showFormPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
         >
         <input
           type="date"
-          placeholder="Masukan Tanggal Pengambilan"
+          placeholder="Masukkan Tanggal Pengambilan"
           class="input-form"
         />
       </label>
@@ -99,7 +102,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan Penanda Tangan BAST Pengambilan"
+          placeholder="Masukkan Penanda Tangan BAST Pengambilan"
           class="input-form"
         />
       </label>
@@ -108,7 +111,7 @@ export default {
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
       >
-        Evidance Pengambilan
+        Evidence Pengambilan
       </label>
 
       <label class="block mt-5">
@@ -135,14 +138,14 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.sendPengembalianBarang">
+    <template v-if="conditionDetailVerifikasi.showFormReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span
         >
         <input
           type="date"
-          placeholder="Masukan Tanggal Pengembalian"
+          placeholder="Masukkan Tanggal Pengembalian"
           class="input-form"
         />
       </label>
@@ -153,7 +156,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan Penanda Tangan BAS PengembalianT"
+          placeholder="Masukkan Penanda Tangan BAS PengembalianT"
           class="input-form"
         />
       </label>
@@ -162,7 +165,7 @@ export default {
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
       >
-        Evidance Pengembalian
+        Evidence Pengembalian
       </label>
 
       <label class="block mt-5">
