@@ -113,7 +113,9 @@ export default {
           required
           class="select-form"
         >
-          <option selected="" value="" disabled>Pilih Jenis Permohonan</option>
+          <option selected="" value="" disabled hidden>
+            Pilih Jenis Permohonan
+          </option>
           <option value="1">Baru</option>
           <option value="2">Tukar</option>
         </select>
