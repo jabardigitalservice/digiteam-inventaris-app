@@ -8,7 +8,7 @@ export default {
 
 <template>
   <div>
-    <label v-if="conditionDetailVerifikasi.DetailListItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.detailListItem" class="block mt-5">
       <HRCenter>
         <template #title>List Request</template>
       </HRCenter>
@@ -16,7 +16,7 @@ export default {
       <a href="" class="text-blue-500">Download List Request</a>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.DetailRequestItem">
+    <template v-if="conditionDetailVerifikasi.detailRequestItem">
       <HRCenter>
         <template #title>Detail Barang yang diminta</template>
       </HRCenter>
@@ -49,7 +49,7 @@ export default {
       </label>
     </template>
 
-    <label v-if="conditionDetailVerifikasi.DetailCheckItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.detailCheckItem" class="block mt-5">
       <HRCenter>
         <template #title>Notes Barang</template>
       </HRCenter>
@@ -93,7 +93,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.DetailReturnItem">
+    <template v-if="conditionDetailVerifikasi.detailReturnItem">
       <HRCenter>
         <template #title>Detail Pengembalian Barang</template>
       </HRCenter>

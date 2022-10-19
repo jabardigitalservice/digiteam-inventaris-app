@@ -13,7 +13,7 @@ export default {
 </script>
 <template>
   <form>
-    <template v-if="conditionDetailVerifikasi.FormListItem">
+    <template v-if="conditionDetailVerifikasi.formListItem">
       <HRCenter>
         <template #title>List Request</template>
       </HRCenter>
@@ -33,7 +33,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.FormRequestItem">
+    <template v-if="conditionDetailVerifikasi.formRequestItem">
       <HRCenter>
         <template #title>Detail Barang yang diminta</template>
       </HRCenter>
@@ -88,7 +88,7 @@ export default {
       </label>
     </template>
 
-    <label v-if="conditionDetailVerifikasi.FormCheckItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
       <HRCenter>
         <template #title>Notes Barang</template>
       </HRCenter>
@@ -102,7 +102,7 @@ export default {
       ></textarea>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.FormPickUpItem">
+    <template v-if="conditionDetailVerifikasi.formPickUpItem">
       <HRCenter>
         <template #title>Detail Pengambilan Barang</template>
       </HRCenter>
@@ -159,7 +159,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.FormReturnItem">
+    <template v-if="conditionDetailVerifikasi.formReturnItem">
       <HRCenter>
         <template #title>Detail Pengembalian Barang</template>
       </HRCenter>
