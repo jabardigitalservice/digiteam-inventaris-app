@@ -6,12 +6,12 @@ export default {
 
 <template>
   <div>
-    <label v-if="conditionDetailVerifikasi.DetailListItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.detailListItem" class="block mt-5">
       <span class="block text-sm font-bold text-slate-700">List Request</span>
       <a href="" class="text-blue-500">Download List Request</a>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.DetailRequestItem">
+    <template v-if="conditionDetailVerifikasi.detailRequestItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Jenis Item yang diminta</span
@@ -40,14 +40,14 @@ export default {
       </label>
     </template>
 
-    <label v-if="conditionDetailVerifikasi.DetailCheckItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.detailCheckItem" class="block mt-5">
       <span class="block text-sm font-bold text-slate-700"
         >Notes Pengecekan Barang</span
       >
       <span>Barang ada dent di layar dan death pixel</span>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.ListPickUpItem">
+    <template v-if="conditionDetailVerifikasi.listPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
@@ -77,7 +77,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.DetailReturnItem">
+    <template v-if="conditionDetailVerifikasi.detailReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span
@@ -91,6 +91,11 @@ export default {
         >
         <span>Ray F S HRD</span>
       </label>
+
+      <span class="block text-sm font-bold text-slate-700 mt-5"
+        >Notes Pengembalian Barang</span
+      >
+      <span>barang saat dikembalikan dalam kondisi baik dan lecet fisik</span>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"

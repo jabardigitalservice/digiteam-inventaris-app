@@ -5,7 +5,7 @@ export default {
 </script>
 <template>
   <form>
-    <template v-if="conditionDetailVerifikasi.FormListItem">
+    <template v-if="conditionDetailVerifikasi.formListItem">
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -22,7 +22,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.FormRequestItem">
+    <template v-if="conditionDetailVerifikasi.formRequestItem">
       <label
         for="divisi"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -70,7 +70,7 @@ export default {
       </label>
     </template>
 
-    <label v-if="conditionDetailVerifikasi.FormCheckItem" class="block mt-5">
+    <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
       <span class="block text-sm font-bold text-slate-700">
         Notes Pengecekan Barang
       </span>
@@ -81,7 +81,7 @@ export default {
       ></textarea>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.FormPickUpItem">
+    <template v-if="conditionDetailVerifikasi.formPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
@@ -135,7 +135,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.FormReturnItem">
+    <template v-if="conditionDetailVerifikasi.formReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span
@@ -157,6 +157,15 @@ export default {
           class="input-form"
         />
       </label>
+
+      <span class="block text-sm font-bold text-slate-700 mt-5">
+        Notes Pengembalian Barang
+      </span>
+      <textarea
+        placeholder="Masukkan Notes Pengembalian Barang"
+        rows="6"
+        class="input-form"
+      ></textarea>
 
       <label
         for="evidence"

@@ -37,68 +37,68 @@ export default {
         this.detailRequest.status == statusObject.PENGAJUAN_DITERIMA.value
       );
     },
-    FormListItem() {
+    formListItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGAJUAN_MASUK.value
       );
     },
-    DetailListItem() {
+    detailListItem() {
       return this.detailRequest.status >= statusObject.PENGAJUAN_DITERIMA.value;
     },
-    FormRequestItem() {
+    formRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.detailRequest.username === this.$store.state.user.profile.name &&
         this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value
       );
     },
-    DetailRequestItem() {
+    detailRequestItem() {
       return this.detailRequest.status > statusObject.PENGAJUAN_DITERIMA.value;
     },
-    FormCheckItem() {
+    formCheckItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
-    DetailCheckItem() {
+    detailCheckItem() {
       return (
         this.detailRequest.status > statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
-    FormPickUpItem() {
+    formPickUpItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.BARANG_SIAP_DIAMBIL.value
       );
     },
-    ListPickUpItem() {
+    listPickUpItem() {
       return this.detailRequest.status > statusObject.BARANG_SIAP_DIAMBIL.value;
     },
-    BtnRequestItem() {
+    btnSubmitRequestItem() {
       return (
         this.detailRequest.username === this.$store.state.user.profile.name
       );
     },
-    BtnReturnItem() {
+    btnReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status == statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    FormReturnItem() {
+    formReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    DetailReturnItem() {
+    detailReturnItem() {
       return (
         this.detailRequest.status == statusObject.PENGEMBALIAN_BARANG.value
       );
@@ -262,21 +262,21 @@ export default {
 
         <DetailVerifikasiRequest
           :condition-detail-verifikasi="{
-            DetailListItem: DetailListItem,
-            DetailRequestItem: DetailRequestItem,
-            DetailCheckItem: DetailCheckItem,
-            ListPickUpItem: ListPickUpItem,
-            DetailReturnItem: DetailReturnItem,
+            detailListItem: detailListItem,
+            detailRequestItem: detailRequestItem,
+            detailCheckItem: detailCheckItem,
+            listPickUpItem: listPickUpItem,
+            detailReturnItem: detailReturnItem,
           }"
         />
 
         <FormVerifikasiRequest
           :condition-detail-verifikasi="{
-            FormListItem: FormListItem,
-            FormRequestItem: FormRequestItem,
-            FormCheckItem: FormCheckItem,
-            FormPickUpItem: FormPickUpItem,
-            FormReturnItem: FormReturnItem,
+            formListItem: formListItem,
+            formRequestItem: formRequestItem,
+            formCheckItem: formCheckItem,
+            formPickUpItem: formPickUpItem,
+            formReturnItem: formReturnItem,
           }"
         />
       </div>
@@ -302,7 +302,7 @@ export default {
     </template>
     <template v-else-if="btnRequestItem" #footer>
       <button
-        v-if="BtnRequestItem"
+        v-if="btnSubmitRequestItem"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
           submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
@@ -311,7 +311,7 @@ export default {
         Submit
       </button>
     </template>
-    <template v-else-if="BtnReturnItem" #footer>
+    <template v-else-if="btnReturnItem" #footer>
       <button
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
