@@ -67,9 +67,9 @@ export default {
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
-          >Evidance Pengambilan</span
+          >Evidence Pengambilan</span
         >
-        <a href="" class="text-blue-500">Download Evidance Pengambilan</a>
+        <a href="" class="text-blue-500">Download Evidence Pengambilan</a>
       </label>
 
       <label class="block mt-5">
@@ -97,9 +97,9 @@ export default {
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
-          >Evidance Pengembalian</span
+          >Evidence Pengembalian</span
         >
-        <a href="" class="text-blue-500">Download Evidance Pengembalian</a>
+        <a href="" class="text-blue-500">Download Evidence Pengembalian</a>
       </label>
 
       <label class="block mt-5">

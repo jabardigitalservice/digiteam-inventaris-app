@@ -53,7 +53,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan barang yang diminta"
+          placeholder="Masukkan barang yang diminta"
           class="input-form"
         />
       </label>
@@ -64,7 +64,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan no barang inventaris"
+          placeholder="Masukkan no barang inventaris"
           class="input-form"
         />
       </label>
@@ -88,7 +88,7 @@ export default {
         >
         <input
           type="date"
-          placeholder="Masukan Tanggal Pengambilan"
+          placeholder="Masukkan Tanggal Pengambilan"
           class="input-form"
         />
       </label>
@@ -99,7 +99,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan Penanda Tangan BAST Pengambilan"
+          placeholder="Masukkan Penanda Tangan BAST Pengambilan"
           class="input-form"
         />
       </label>
@@ -108,7 +108,7 @@ export default {
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
       >
-        Evidance Pengambilan
+        Evidence Pengambilan
       </label>
 
       <label class="block mt-5">
@@ -142,7 +142,7 @@ export default {
         >
         <input
           type="date"
-          placeholder="Masukan Tanggal Pengembalian"
+          placeholder="Masukkan Tanggal Pengembalian"
           class="input-form"
         />
       </label>
@@ -153,7 +153,7 @@ export default {
         >
         <input
           type="text"
-          placeholder="Masukan Penanda Tangan BAS PengembalianT"
+          placeholder="Masukkan Penanda Tangan BAS PengembalianT"
           class="input-form"
         />
       </label>
@@ -162,7 +162,7 @@ export default {
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
       >
-        Evidance Pengembalian
+        Evidence Pengembalian
       </label>
 
       <label class="block mt-5">
