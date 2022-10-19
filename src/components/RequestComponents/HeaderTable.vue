@@ -1,8 +1,22 @@
 <script>
 import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import {
+  divisiArrayOption,
+  typeRequestObjectOption,
+  statusObject,
+  typeItemObjectOption,
+} from "@/constants";
 export default {
   components: {
     LoadSvg,
+  },
+  data() {
+    return {
+      divisiArrayOption: divisiArrayOption,
+      typeRequestObjectOption: typeRequestObjectOption,
+      statusObject: statusObject,
+      typeItemObjectOption: typeItemObjectOption,
+    };
   },
   methods: {
     open(name) {
@@ -26,51 +40,73 @@ export default {
     </div>
 
     <div>
-      <select
-        class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      >
+      <select class="select-filter-table">
         <option selected value="" hidden disabled>Jenis Permohonan</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option
+          v-for="(typeRequest, index) in typeRequestObjectOption"
+          :key="index"
+          :value="typeRequest.value"
+        >
+          {{ typeRequest.text }}
+        </option>
       </select>
     </div>
 
     <div>
-      <select
-        class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      >
+      <select class="select-filter-table">
         <option selected value="" hidden disabled>Unit / Divisi</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option
+          v-for="(divisi, index) in divisiArrayOption"
+          :key="index"
+          :value="divisi.text"
+        >
+          {{ divisi.text }}
+        </option>
       </select>
     </div>
 
     <div>
-      <select
-        class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      >
+      <select class="select-filter-table">
         <option selected value="" hidden disabled>Jenis Inventaris</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option
+          v-for="(typeItem, index) in typeItemObjectOption"
+          :key="index"
+          :value="typeItem.text"
+        >
+          {{ typeItem.text }}
+        </option>
       </select>
     </div>
 
     <div>
-      <select
-        class="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      >
+      <select class="select-filter-table">
         <option selected value="" hidden disabled>Status</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
+        <option
+          v-for="(status, index) in statusObject"
+          :key="index"
+          :value="status.text"
+        >
+          {{ status.text }}
+        </option>
       </select>
     </div>
+
+    <form class="flex items-center">
+      <label for="simple-search" class="sr-only">Cari Data</label>
+      <div class="relative w-full">
+        <div
+          class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+        >
+          <!-- todo add icon search -->
+        </div>
+        <input
+          id="simple-search"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Cari Data"
+          required
+        />
+      </div>
+    </form>
   </div>
 </template>

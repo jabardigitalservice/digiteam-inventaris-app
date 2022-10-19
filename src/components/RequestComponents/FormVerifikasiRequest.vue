@@ -1,6 +1,12 @@
 <script>
+import { typeItemObjectOption } from "@/constants";
 export default {
   props: { conditionDetailVerifikasi: Object },
+  data() {
+    return {
+      typeItemObjectOption: typeItemObjectOption,
+    };
+  },
 };
 </script>
 <template>
@@ -33,9 +39,13 @@ export default {
         <option selected="" value="" disabled hidden>
           Pilih Jenis Item yang diajukan
         </option>
-        <option value="Laptop">Laptop</option>
-        <option value="Handphone">Handphone</option>
-        <option value="ATK">ATK</option>
+        <option
+          v-for="(typeItem, index) in typeItemObjectOption"
+          :key="index"
+          :value="typeItem.text"
+        >
+          {{ typeItem.text }}
+        </option>
       </select>
 
       <label class="block mt-5">
