@@ -80,7 +80,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.successPengambalianItem">
+    <template v-if="conditionDetailVerifikasi.successReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span

@@ -135,7 +135,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.sendPengembalianBarang">
+    <template v-if="conditionDetailVerifikasi.sendReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span

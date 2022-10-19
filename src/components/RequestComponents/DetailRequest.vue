@@ -84,21 +84,21 @@ export default {
         this.detailRequest.username === this.$store.state.user.profile.name
       );
     },
-    btnPengembalianItem() {
+    btnReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status == statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    sendPengembalianBarang() {
+    sendReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    successPengambalianItem() {
+    successReturnItem() {
       return (
         this.detailRequest.status == statusObject.PENGEMBALIAN_BARANG.value
       );
@@ -266,7 +266,7 @@ export default {
             successSendRequestItem: successSendRequestItem,
             successCheckItem: successCheckItem,
             successPickUp: successPickUp,
-            successPengambalianItem: successPengambalianItem,
+            successReturnItem: successReturnItem,
           }"
         />
 
@@ -276,7 +276,7 @@ export default {
             sendRequestItem: sendRequestItem,
             checkItem: checkItem,
             readyToPickUp: readyToPickUp,
-            sendPengembalianBarang: sendPengembalianBarang,
+            sendReturnItem: sendReturnItem,
           }"
         />
       </div>
@@ -311,7 +311,7 @@ export default {
         Submit
       </button>
     </template>
-    <template v-else-if="btnPengembalianItem" #footer>
+    <template v-else-if="btnReturnItem" #footer>
       <button
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
