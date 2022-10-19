@@ -1,6 +1,8 @@
 <script>
+import HRCenter from "../layouts/HRCenter.vue";
 import { typeItemObjectOption } from "@/constants";
 export default {
+  components: { HRCenter },
   props: { conditionDetailVerifikasi: Object },
   data() {
     return {
@@ -12,6 +14,9 @@ export default {
 <template>
   <form>
     <template v-if="conditionDetailVerifikasi.FormListItem">
+      <HRCenter>
+        <template #title>List Request</template>
+      </HRCenter>
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -29,6 +34,9 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.FormRequestItem">
+      <HRCenter>
+        <template #title>Detail Barang yang diminta</template>
+      </HRCenter>
       <label
         for="divisi"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -81,6 +89,9 @@ export default {
     </template>
 
     <label v-if="conditionDetailVerifikasi.FormCheckItem" class="block mt-5">
+      <HRCenter>
+        <template #title>Notes Barang</template>
+      </HRCenter>
       <span class="block text-sm font-bold text-slate-700">
         Notes Pengecekan Barang
       </span>
@@ -92,6 +103,9 @@ export default {
     </label>
 
     <template v-if="conditionDetailVerifikasi.FormPickUpItem">
+      <HRCenter>
+        <template #title>Detail Pengambilan Barang</template>
+      </HRCenter>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
@@ -146,6 +160,9 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.FormReturnItem">
+      <HRCenter>
+        <template #title>Detail Pengembalian Barang</template>
+      </HRCenter>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span
