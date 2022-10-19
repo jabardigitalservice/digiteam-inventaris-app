@@ -5,7 +5,7 @@ export default {
 </script>
 <template>
   <form>
-    <template v-if="conditionDetailVerifikasi.showFormListItem">
+    <template v-if="conditionDetailVerifikasi.FormListItem">
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -22,7 +22,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.showFormRequestItem">
+    <template v-if="conditionDetailVerifikasi.FormRequestItem">
       <label
         for="divisi"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -70,10 +70,7 @@ export default {
       </label>
     </template>
 
-    <label
-      v-if="conditionDetailVerifikasi.showFormCheckItem"
-      class="block mt-5"
-    >
+    <label v-if="conditionDetailVerifikasi.FormCheckItem" class="block mt-5">
       <span class="block text-sm font-bold text-slate-700">
         Notes Pengecekan Barang
       </span>
@@ -84,7 +81,7 @@ export default {
       ></textarea>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.showFormPickUpItem">
+    <template v-if="conditionDetailVerifikasi.FormPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
@@ -138,7 +135,7 @@ export default {
       </label>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.showFormReturnItem">
+    <template v-if="conditionDetailVerifikasi.FormReturnItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span

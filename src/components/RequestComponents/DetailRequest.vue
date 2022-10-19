@@ -23,7 +23,7 @@ export default {
     };
   },
   computed: {
-    showBtnAdmin() {
+    btnApprovalAdmin() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
@@ -31,74 +31,74 @@ export default {
         this.detailRequest.status != statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    showBtnRequestItem() {
+    btnRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.detailRequest.status == statusObject.PENGAJUAN_DITERIMA.value
       );
     },
-    showFormListItem() {
+    FormListItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGAJUAN_MASUK.value
       );
     },
-    showDetailListItem() {
+    DetailListItem() {
       return this.detailRequest.status >= statusObject.PENGAJUAN_DITERIMA.value;
     },
-    showFormRequestItem() {
+    FormRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.detailRequest.username === this.$store.state.user.profile.name &&
         this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value
       );
     },
-    showDetailRequestItem() {
+    DetailRequestItem() {
       return this.detailRequest.status > statusObject.PENGAJUAN_DITERIMA.value;
     },
-    showFormCheckItem() {
+    FormCheckItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
-    showDetailCheckItem() {
+    DetailCheckItem() {
       return (
         this.detailRequest.status > statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
-    showFormPickUpItem() {
+    FormPickUpItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.BARANG_SIAP_DIAMBIL.value
       );
     },
-    showListPickUpItem() {
+    ListPickUpItem() {
       return this.detailRequest.status > statusObject.BARANG_SIAP_DIAMBIL.value;
     },
-    showButtonIfMyRequestItem() {
+    BtnRequestItem() {
       return (
         this.detailRequest.username === this.$store.state.user.profile.name
       );
     },
-    showBtnReturnItem() {
+    BtnReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status == statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    showFormReturnItem() {
+    FormReturnItem() {
       return (
         this.modalName === "pengembalian-barang" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status === statusObject.PENGAJUAN_SELESAI.value
       );
     },
-    showDetailReturnItem() {
+    DetailReturnItem() {
       return (
         this.detailRequest.status == statusObject.PENGEMBALIAN_BARANG.value
       );
@@ -262,26 +262,26 @@ export default {
 
         <DetailVerifikasiRequest
           :condition-detail-verifikasi="{
-            showDetailListItem: showDetailListItem,
-            showDetailRequestItem: showDetailRequestItem,
-            showDetailCheckItem: showDetailCheckItem,
-            showListPickUpItem: showListPickUpItem,
-            showDetailReturnItem: showDetailReturnItem,
+            DetailListItem: DetailListItem,
+            DetailRequestItem: DetailRequestItem,
+            DetailCheckItem: DetailCheckItem,
+            ListPickUpItem: ListPickUpItem,
+            DetailReturnItem: DetailReturnItem,
           }"
         />
 
         <FormVerifikasiRequest
           :condition-detail-verifikasi="{
-            showFormListItem: showFormListItem,
-            showFormRequestItem: showFormRequestItem,
-            showFormCheckItem: showFormCheckItem,
-            showFormPickUpItem: showFormPickUpItem,
-            showFormReturnItem: showFormReturnItem,
+            FormListItem: FormListItem,
+            FormRequestItem: FormRequestItem,
+            FormCheckItem: FormCheckItem,
+            FormPickUpItem: FormPickUpItem,
+            FormReturnItem: FormReturnItem,
           }"
         />
       </div>
     </template>
-    <template v-if="showBtnAdmin" #footer>
+    <template v-if="btnApprovalAdmin" #footer>
       <button
         v-if="detailRequest.status === 1"
         class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -300,9 +300,9 @@ export default {
         Approve
       </button>
     </template>
-    <template v-else-if="showBtnRequestItem" #footer>
+    <template v-else-if="btnRequestItem" #footer>
       <button
-        v-if="showButtonIfMyRequestItem"
+        v-if="BtnRequestItem"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
           submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
@@ -311,7 +311,7 @@ export default {
         Submit
       </button>
     </template>
-    <template v-else-if="showBtnReturnItem" #footer>
+    <template v-else-if="BtnReturnItem" #footer>
       <button
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
