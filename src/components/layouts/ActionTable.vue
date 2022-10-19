@@ -15,14 +15,28 @@ export default {
       );
     },
     btnVerifikasi() {
-      return status < statusObject.PENGAJUAN_SELESAI.value;
+      return this.status < statusObject.PENGAJUAN_SELESAI.value;
     },
+  },
+  created() {
+    document.addEventListener("click", this.close);
+  },
+  destroyed() {
+    document.removeEventListener("click", this.close);
   },
   methods: {
     open(name) {
       this.$store.dispatch("modals/open", name);
       this.show = !this.show;
       this.$emit("get-id-request", this.id, this.type, name);
+    },
+    toggleDropdown() {
+      this.show = !this.show;
+    },
+    close(e) {
+      if (!this.$el.contains(e.target)) {
+        this.show = false;
+      }
     },
   },
 };
@@ -38,7 +52,7 @@ export default {
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          @click="show = !show"
+          @click.prevent="toggleDropdown"
         >
           Aksi
           <svg

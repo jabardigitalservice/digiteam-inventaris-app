@@ -8,7 +8,6 @@ export default {
   props: { dataRequest: Array },
   data() {
     return {
-      show: false,
       dataDetailRequest: {},
     };
   },
