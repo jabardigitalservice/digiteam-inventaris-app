@@ -185,6 +185,15 @@ export default {
         />
       </label>
 
+      <span class="block text-sm font-bold text-slate-700 mt-5">
+        Notes Pengembalian Barang
+      </span>
+      <textarea
+        placeholder="Masukkan Notes Pengembalian Barang"
+        rows="6"
+        class="input-form"
+      ></textarea>
+
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"

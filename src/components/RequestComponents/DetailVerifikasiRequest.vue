@@ -111,6 +111,11 @@ export default {
         <span>Ray F S HRD</span>
       </label>
 
+      <span class="block text-sm font-bold text-slate-700 mt-5"
+        >Notes Pengembalian Barang</span
+      >
+      <span>barang saat dikembalikan dalam kondisi baik dan lecet fisik</span>
+
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Evidence Pengembalian</span
