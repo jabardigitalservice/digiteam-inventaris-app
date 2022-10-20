@@ -67,19 +67,6 @@ export default {
 
     <div>
       <select class="select-filter-table">
-        <option selected value="" hidden disabled>Jenis Inventaris</option>
-        <option
-          v-for="(typeItem, index) in typeItemObjectOption"
-          :key="index"
-          :value="typeItem"
-        >
-          {{ typeItem }}
-        </option>
-      </select>
-    </div>
-
-    <div>
-      <select class="select-filter-table">
         <option selected value="" hidden disabled>Status</option>
         <option
           v-for="(status, index) in statusObject"
