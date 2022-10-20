@@ -44,7 +44,7 @@ export default {
         Jenis Item
       </label>
       <select id="type_item" class="select-form">
-        <option selected="" value="" disabled hidden>
+        <option selected value="" disabled hidden>
           Pilih Jenis Item yang diajukan
         </option>
         <option

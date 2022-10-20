@@ -121,7 +121,7 @@ export default {
           required
           class="select-form"
         >
-          <option selected="" value="" disabled hidden>
+          <option selected value="" disabled hidden>
             Pilih Jenis Permohonan
           </option>
           <option
@@ -172,7 +172,7 @@ export default {
           Unit / Divisi
         </label>
         <select id="divisi" v-model="formRequest.division" class="select-form">
-          <option selected="" value="" disabled hidden>
+          <option selected value="" disabled hidden>
             Pilih Team Unit / Divisi
           </option>
 
@@ -231,9 +231,7 @@ export default {
           v-model.number="formRequest.priority"
           class="select-form"
         >
-          <option value="" selected="" disabled hidden>
-            Tingkat Kebutuhan
-          </option>
+          <option value="" selected disabled hidden>Tingkat Kebutuhan</option>
           <option
             v-for="(priorty, index) in priortyObjectOption"
             :key="index"
