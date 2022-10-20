@@ -58,9 +58,9 @@ export default {
         <option
           v-for="(divisi, index) in divisiArrayOption"
           :key="index"
-          :value="divisi.text"
+          :value="divisi"
         >
-          {{ divisi.text }}
+          {{ divisi }}
         </option>
       </select>
     </div>
@@ -71,9 +71,9 @@ export default {
         <option
           v-for="(typeItem, index) in typeItemObjectOption"
           :key="index"
-          :value="typeItem.text"
+          :value="typeItem"
         >
-          {{ typeItem.text }}
+          {{ typeItem }}
         </option>
       </select>
     </div>

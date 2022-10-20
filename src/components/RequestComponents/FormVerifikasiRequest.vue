@@ -50,9 +50,9 @@ export default {
         <option
           v-for="(typeItem, index) in typeItemObjectOption"
           :key="index"
-          :value="typeItem.text"
+          :value="typeItem"
         >
-          {{ typeItem.text }}
+          {{ typeItem }}
         </option>
       </select>
 

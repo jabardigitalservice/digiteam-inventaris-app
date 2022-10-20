@@ -179,9 +179,9 @@ export default {
           <option
             v-for="(divisi, index) in divisiArrayOption"
             :key="index"
-            :value="divisi.text"
+            :value="divisi"
           >
-            {{ divisi.text }}
+            {{ divisi }}
           </option>
         </select>
         <TextError

@@ -33,17 +33,7 @@ export const statusObject = Object.freeze({
   },
 });
 
-export const divisiArrayOption = [
-  {
-    text: "IT DEV",
-  },
-  {
-    text: "DATA",
-  },
-  {
-    text: "PROJECT MANAGER",
-  },
-];
+export const divisiArrayOption = ["IT DEV", "DATA", "PROJECT MANAGER"];
 
 export const priortyObjectOption = Object.freeze({
   BIASA: {
@@ -67,14 +57,4 @@ export const typeRequestObjectOption = Object.freeze({
   },
 });
 
-export const typeItemObjectOption = [
-  {
-    text: "LAPTOP",
-  },
-  {
-    text: "HANDPHONE",
-  },
-  {
-    text: "ATK",
-  },
-];
+export const typeItemObjectOption = ["LAPTOP", "HANDPHONE", "ATK"];
