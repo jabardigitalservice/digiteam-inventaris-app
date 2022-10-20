@@ -72,7 +72,7 @@ export default {
       );
     },
     rejectedRequest() {
-      return this.detailRequest.status > statusObject.PENGAJUAN_DITOLAK.value;
+      return this.detailRequest.status == statusObject.PENGAJUAN_DITOLAK.value;
     },
     formPickUpItem() {
       return (

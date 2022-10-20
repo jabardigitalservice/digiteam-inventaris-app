@@ -31,13 +31,6 @@ export default {
       </HRCenter>
 
       <label class="block mt-5">
-        <span class="block text-sm font-bold text-slate-700"
-          >Jenis Item yang diminta</span
-        >
-
-        <span>Laptop</span>
-      </label>
-      <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
 
         <span>Apple</span>
@@ -60,11 +53,11 @@ export default {
 
     <label v-if="conditionDetailVerifikasi.detailCheckItem" class="block mt-5">
       <HRCenter>
-        <template #title>Notes Barang</template>
+        <template #title>Catatan Kondisi Barang</template>
       </HRCenter>
 
       <span class="block text-sm font-bold text-slate-700"
-        >Notes Pengecekan Barang</span
+        >Catatan Kondisi Barang</span
       >
       <span>Barang ada dent di layar dan death pixel</span>
     </label>
@@ -121,7 +114,7 @@ export default {
       </label>
 
       <span class="block text-sm font-bold text-slate-700 mt-5"
-        >Notes Pengembalian Barang</span
+        >Catatan Kondisi Pengembalian Barang</span
       >
       <span>barang saat dikembalikan dalam kondisi baik dan lecet fisik</span>
 

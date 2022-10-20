@@ -37,24 +37,6 @@ export default {
       <HRCenter>
         <template #title>Detail Barang yang diminta</template>
       </HRCenter>
-      <label
-        for="divisi"
-        class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >
-        Jenis Item
-      </label>
-      <select id="type_item" class="select-form">
-        <option selected value="" disabled hidden>
-          Pilih Jenis Item yang diajukan
-        </option>
-        <option
-          v-for="(typeItem, index) in typeItemObjectOption"
-          :key="index"
-          :value="typeItem"
-        >
-          {{ typeItem }}
-        </option>
-      </select>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
@@ -90,13 +72,13 @@ export default {
 
     <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
       <HRCenter>
-        <template #title>Notes Barang</template>
+        <template #title>Catatan Kondisi Barang</template>
       </HRCenter>
       <span class="block text-sm font-bold text-slate-700">
-        Notes Pengecekan Barang
+        Catatan Kondisi Barang
       </span>
       <textarea
-        placeholder="Masukkan Notes Pengecekan Barang"
+        placeholder="Masukkan Catatan Kondisi Barang"
         rows="6"
         class="input-form"
       ></textarea>
@@ -186,10 +168,10 @@ export default {
       </label>
 
       <span class="block text-sm font-bold text-slate-700 mt-5">
-        Notes Pengembalian Barang
+        Catatan Kondisi Pengembalian Barang
       </span>
       <textarea
-        placeholder="Masukkan Notes Pengembalian Barang"
+        placeholder="Masukkan Catatan Kondisi Pengembalian Barang"
         rows="6"
         class="input-form"
       ></textarea>
