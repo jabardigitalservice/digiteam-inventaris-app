@@ -1,6 +1,10 @@
 <script>
 import { statusObject } from "@/constants";
+import ClickOutside from "vue-click-outside";
 export default {
+  directives: {
+    ClickOutside,
+  },
   props: { id: String, type: String, status: Number },
   data() {
     return {
@@ -15,14 +19,24 @@ export default {
       );
     },
     btnVerifikasi() {
-      return status < statusObject.PENGAJUAN_SELESAI.value;
+      return this.status < statusObject.PENGAJUAN_SELESAI.value;
     },
   },
+  mounted() {
+    this.popupItem = this.$el;
+  },
+
   methods: {
-    open(name) {
+    openModal(name) {
       this.$store.dispatch("modals/open", name);
-      this.show = !this.show;
       this.$emit("get-id-request", this.id, this.type, name);
+      this.hideDropdown();
+    },
+    toggleDropdown() {
+      this.show = true;
+    },
+    hideDropdown() {
+      this.show = false;
     },
   },
 };
@@ -34,11 +48,12 @@ export default {
       <div class="dropdown">
         <button
           id="action-button"
+          v-click-outside="hideDropdown"
           class="dropdown-toggle text-blue-700 font-bold hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 flex items-center whitespace-nowrap"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
-          @click="show = !show"
+          @click="toggleDropdown"
         >
           Aksi
           <svg
@@ -65,7 +80,7 @@ export default {
           <li>
             <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              @click="open('detail-request')"
+              @click="openModal('detail-request')"
             >
               Detail
             </button>
@@ -73,7 +88,7 @@ export default {
           <li v-if="btnVerifikasi">
             <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              @click="open('verifikasi-request')"
+              @click="openModal('verifikasi-request')"
             >
               Verifikasi
             </button>
@@ -81,7 +96,7 @@ export default {
           <li v-if="btnPengembalian">
             <button
               class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-              @click="open('pengembalian-barang')"
+              @click="openModal('pengembalian-barang')"
             >
               Pengembalian
             </button>

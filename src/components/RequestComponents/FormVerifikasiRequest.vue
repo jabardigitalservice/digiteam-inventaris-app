@@ -1,11 +1,22 @@
 <script>
+import HRCenter from "../layouts/HRCenter.vue";
+import { typeItemObjectOption } from "@/constants";
 export default {
+  components: { HRCenter },
   props: { conditionDetailVerifikasi: Object },
+  data() {
+    return {
+      typeItemObjectOption,
+    };
+  },
 };
 </script>
 <template>
   <form>
     <template v-if="conditionDetailVerifikasi.formListItem">
+      <HRCenter>
+        <template #title>List Request</template>
+      </HRCenter>
       <label
         for="evidence"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -23,6 +34,9 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.formRequestItem">
+      <HRCenter>
+        <template #title>Detail Barang yang diminta</template>
+      </HRCenter>
       <label
         for="divisi"
         class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -30,12 +44,16 @@ export default {
         Jenis Item
       </label>
       <select id="type_item" class="select-form">
-        <option selected="" value="" disabled hidden>
+        <option selected value="" disabled hidden>
           Pilih Jenis Item yang diajukan
         </option>
-        <option value="Laptop">Laptop</option>
-        <option value="Handphone">Handphone</option>
-        <option value="ATK">ATK</option>
+        <option
+          v-for="(typeItem, index) in typeItemObjectOption"
+          :key="index"
+          :value="typeItem"
+        >
+          {{ typeItem }}
+        </option>
       </select>
 
       <label class="block mt-5">
@@ -71,6 +89,9 @@ export default {
     </template>
 
     <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
+      <HRCenter>
+        <template #title>Notes Barang</template>
+      </HRCenter>
       <span class="block text-sm font-bold text-slate-700">
         Notes Pengecekan Barang
       </span>
@@ -82,6 +103,9 @@ export default {
     </label>
 
     <template v-if="conditionDetailVerifikasi.formPickUpItem">
+      <HRCenter>
+        <template #title>Detail Pengambilan Barang</template>
+      </HRCenter>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
@@ -136,6 +160,9 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.formReturnItem">
+      <HRCenter>
+        <template #title>Detail Pengembalian Barang</template>
+      </HRCenter>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span

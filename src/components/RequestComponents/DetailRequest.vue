@@ -5,7 +5,7 @@ import StatusRequest from "./StatusRequest.vue";
 import { patchStatus } from "@/api";
 import DetailVerifikasiRequest from "./DetailVerifikasiRequest.vue";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
-import { statusObject } from "@/constants";
+import { statusObject, priortyObjectOption } from "@/constants";
 export default {
   components: {
     Modal,
@@ -17,9 +17,11 @@ export default {
   props: { detailRequest: Object, modalName: String },
   data() {
     return {
-      statusObject: {
+      formUpdateStatus: {
         status: 1,
       },
+      statusObject,
+      priortyObjectOption,
     };
   },
   computed: {
@@ -110,42 +112,43 @@ export default {
         type === "rejected" &&
         status === statusObject.PENGAJUAN_MASUK.value
       ) {
-        this.statusObject.status = statusObject.PENGAJUAN_DITOLAK.value;
+        this.formUpdateStatus.status = statusObject.PENGAJUAN_DITOLAK.value;
       } else if (
         type === "approve" &&
         status === statusObject.PENGAJUAN_DITOLAK.value
       ) {
-        this.statusObject.status = statusObject.PENGAJUAN_MASUK.value;
+        this.formUpdateStatus.status = statusObject.PENGAJUAN_MASUK.value;
       } else if (
         type === "approve" &&
         status === statusObject.PENGAJUAN_MASUK.value
       ) {
-        this.statusObject.status = statusObject.PENGAJUAN_DITERIMA.value;
+        this.formUpdateStatus.status = statusObject.PENGAJUAN_DITERIMA.value;
       } else if (
         type === "approve" &&
         status === statusObject.PENGAJUAN_DITERIMA.value
       ) {
-        this.statusObject.status = statusObject.PERMINTAAN_BARANG_MASUK.value;
+        this.formUpdateStatus.status =
+          statusObject.PERMINTAAN_BARANG_MASUK.value;
       } else if (
         type === "approve" &&
         status === statusObject.PERMINTAAN_BARANG_MASUK.value
       ) {
-        this.statusObject.status = statusObject.PENGECEKAN_KELAYAKAN.value;
+        this.formUpdateStatus.status = statusObject.PENGECEKAN_KELAYAKAN.value;
       } else if (
         type === "approve" &&
         status === statusObject.PENGECEKAN_KELAYAKAN.value
       ) {
-        this.statusObject.status = statusObject.BARANG_SIAP_DIAMBIL.value;
+        this.formUpdateStatus.status = statusObject.BARANG_SIAP_DIAMBIL.value;
       } else if (
         type === "approve" &&
         status === statusObject.BARANG_SIAP_DIAMBIL.value
       ) {
-        this.statusObject.status = statusObject.PENGAJUAN_SELESAI.value;
+        this.formUpdateStatus.status = statusObject.PENGAJUAN_SELESAI.value;
       } else if (
         type === "approve" &&
         status === statusObject.PENGAJUAN_SELESAI.value
       ) {
-        this.statusObject.status = statusObject.PENGEMBALIAN_BARANG.value;
+        this.formUpdateStatus.status = statusObject.PENGEMBALIAN_BARANG.value;
       }
     },
     submitUpdateStatus(id, type, status) {
@@ -167,7 +170,7 @@ export default {
               "/requests",
               "PATCH",
               id,
-              this.statusObject
+              this.formUpdateStatus
             );
             response
               .then(() => {
@@ -249,7 +252,11 @@ export default {
           <span class="block text-sm font-bold text-slate-700"
             >Tingkat Kebutuhan</span
           >
-          <span>{{ detailRequest.priority === 1 ? "Biasa" : "Urgent" }}</span>
+          <span>{{
+            detailRequest.priority === priortyObjectOption.BIASA.value
+              ? priortyObjectOption.BIASA.text
+              : priortyObjectOption.URGENT.text
+          }}</span>
         </label>
 
         <label
@@ -283,7 +290,7 @@ export default {
     </template>
     <template v-if="btnApprovalAdmin" #footer>
       <button
-        v-if="detailRequest.status === 1"
+        v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
         class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
           submitUpdateStatus(detailRequest.id, 'rejected', detailRequest.status)

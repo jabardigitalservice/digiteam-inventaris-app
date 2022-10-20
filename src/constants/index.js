@@ -32,3 +32,29 @@ export const statusObject = Object.freeze({
     text: "Barang Sudah dikembalikan",
   },
 });
+
+export const divisiArrayOption = ["IT DEV", "DATA", "PROJECT MANAGER"];
+
+export const priortyObjectOption = Object.freeze({
+  BIASA: {
+    value: 1,
+    text: "Biasa",
+  },
+  URGENT: {
+    value: 2,
+    text: "Urgent",
+  },
+});
+
+export const typeRequestObjectOption = Object.freeze({
+  BARU: {
+    value: 1,
+    text: "Baru",
+  },
+  TUKAR: {
+    value: 2,
+    text: "Tukar",
+  },
+});
+
+export const typeItemObjectOption = ["LAPTOP", "HANDPHONE", "ATK"];

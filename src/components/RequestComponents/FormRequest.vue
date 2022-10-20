@@ -2,6 +2,11 @@
 import TextError from "../layouts/TextError.vue";
 import Modal from "../layouts/Modal.vue";
 import { doPostUpdate } from "@/api";
+import {
+  divisiArrayOption,
+  priortyObjectOption,
+  typeRequestObjectOption,
+} from "@/constants";
 export default {
   name: "FormRequest",
   components: { TextError, Modal },
@@ -20,6 +25,9 @@ export default {
       formRequestCopy: {},
       messageError: {},
       messageErrorCopy: {},
+      divisiArrayOption,
+      priortyObjectOption,
+      typeRequestObjectOption,
     };
   },
   watch: {
@@ -113,9 +121,16 @@ export default {
           required
           class="select-form"
         >
-          <option selected="" value="" disabled>Pilih Jenis Permohonan</option>
-          <option value="1">Baru</option>
-          <option value="2">Tukar</option>
+          <option selected value="" disabled hidden>
+            Pilih Jenis Permohonan
+          </option>
+          <option
+            v-for="(typeRequest, index) in typeRequestObjectOption"
+            :key="index"
+            :value="typeRequest.value"
+          >
+            {{ typeRequest.text }}
+          </option>
         </select>
 
         <TextError
@@ -157,11 +172,17 @@ export default {
           Unit / Divisi
         </label>
         <select id="divisi" v-model="formRequest.division" class="select-form">
-          <option selected="" value="" disabled hidden>
+          <option selected value="" disabled hidden>
             Pilih Team Unit / Divisi
           </option>
-          <option value="ITDEV">IT Development</option>
-          <option value="DATA">Data</option>
+
+          <option
+            v-for="(divisi, index) in divisiArrayOption"
+            :key="index"
+            :value="divisi"
+          >
+            {{ divisi }}
+          </option>
         </select>
         <TextError
           v-if="messageError.division"
@@ -200,21 +221,24 @@ export default {
         />
 
         <label
-          for="urgency"
+          for="priorty"
           class="block mb-2 text-sm font-bold text-slate-700 mt-5"
         >
           Tingkat Kebutuhan
         </label>
         <select
-          id="urgency"
+          id="priorty"
           v-model.number="formRequest.priority"
           class="select-form"
         >
-          <option value="" selected="" disabled hidden>
-            Tingkat Kebutuhan
+          <option value="" selected disabled hidden>Tingkat Kebutuhan</option>
+          <option
+            v-for="(priorty, index) in priortyObjectOption"
+            :key="index"
+            :value="priorty.value"
+          >
+            {{ priorty.text }}
           </option>
-          <option value="1">Biasa</option>
-          <option value="2">Urgent</option>
         </select>
         <TextError
           v-if="messageError.priority"
