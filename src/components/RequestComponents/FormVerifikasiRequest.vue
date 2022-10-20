@@ -6,7 +6,7 @@ export default {
   props: { conditionDetailVerifikasi: Object },
   data() {
     return {
-      typeItemObjectOption: typeItemObjectOption,
+      typeItemObjectOption,
     };
   },
 };

@@ -20,8 +20,8 @@ export default {
       formUpdateStatus: {
         status: 1,
       },
-      statusObject: statusObject,
-      priortyObjectOption: priortyObjectOption,
+      statusObject,
+      priortyObjectOption,
     };
   },
   computed: {

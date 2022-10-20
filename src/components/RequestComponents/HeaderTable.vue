@@ -12,10 +12,10 @@ export default {
   },
   data() {
     return {
-      divisiArrayOption: divisiArrayOption,
-      typeRequestObjectOption: typeRequestObjectOption,
-      statusObject: statusObject,
-      typeItemObjectOption: typeItemObjectOption,
+      divisiArrayOption,
+      typeRequestObjectOption,
+      statusObject,
+      typeItemObjectOption,
     };
   },
   methods: {

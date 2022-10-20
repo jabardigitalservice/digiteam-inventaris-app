@@ -25,9 +25,9 @@ export default {
       formRequestCopy: {},
       messageError: {},
       messageErrorCopy: {},
-      divisiArrayOption: divisiArrayOption,
-      priortyObjectOption: priortyObjectOption,
-      typeRequestObjectOption: typeRequestObjectOption,
+      divisiArrayOption,
+      priortyObjectOption,
+      typeRequestObjectOption,
     };
   },
   watch: {
