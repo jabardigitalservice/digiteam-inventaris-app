@@ -8,6 +8,15 @@ export default {
 
 <template>
   <div>
+    <label v-if="conditionDetailVerifikasi.rejectedRequest" class="block mt-5">
+      <HRCenter>
+        <template #title>Notes Rejected</template>
+      </HRCenter>
+
+      <span class="block text-sm font-bold text-slate-700">Notes Rejected</span>
+      <span>barang yang diterima tidak ada sedang dalam perbaikan</span>
+    </label>
+
     <label v-if="conditionDetailVerifikasi.detailListItem" class="block mt-5">
       <HRCenter>
         <template #title>List Request</template>
