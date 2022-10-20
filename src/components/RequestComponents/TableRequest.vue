@@ -8,7 +8,6 @@ export default {
   props: { dataRequest: Array },
   data() {
     return {
-      show: false,
       dataDetailRequest: {},
     };
   },
@@ -75,6 +74,7 @@ export default {
               <ActionTable
                 :id="request.id"
                 :type="'requests'"
+                :status="request.status"
                 @get-id-request="getDataRequest"
               />
             </td>
