@@ -184,7 +184,7 @@ export default {
           confirmButtonText: "Kirim!",
           cancelButtonText: "Batalkan",
           input: "textarea",
-          inputPlaceholder: "Masukan detail catatan...",
+          inputPlaceholder: "Masukkan detail catatan...",
           inputAttributes: {
             "aria-label": "Type your message here",
             autocapitalize: "off",
