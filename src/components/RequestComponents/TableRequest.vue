@@ -5,7 +5,12 @@ import ActionTable from "../layouts/ActionTable.vue";
 import { getDetail } from "@/api";
 export default {
   components: { StatusRequest, TypeRequest, ActionTable },
-  props: { dataRequest: Array },
+  props: {
+    dataRequest: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       dataDetailRequest: {},

@@ -2,7 +2,7 @@
 import HRCenter from "../layouts/HRCenter.vue";
 export default {
   components: { HRCenter },
-  props: { conditionDetailVerifikasi: Object },
+  props: { conditionDetailVerifikasi: { type: Object, default: () => ({}) } },
 };
 </script>
 

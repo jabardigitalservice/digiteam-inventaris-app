@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    pagination: [Object, Array],
+    pagination: { type: Object, default: () => ({}) },
   },
   data() {
     return {

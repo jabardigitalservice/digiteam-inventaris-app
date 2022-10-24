@@ -1,7 +1,7 @@
 <script>
 import { typeRequestObjectOption } from "@/constants";
 export default {
-  props: { requestType: Number },
+  props: { requestType: { type: Number, default: 0 } },
   methods: {
     getTypeLabel(requestType) {
       return requestType === typeRequestObjectOption.BARU.value

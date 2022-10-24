@@ -23,7 +23,7 @@ export default {
       textCard:
         "Daftar permohonan inventaris yang ada di Jabar Digital Service.",
       dataRequest: [],
-      pagination: [],
+      pagination: {},
       isSuccess: true,
       selectPagination: {
         limit: 10,

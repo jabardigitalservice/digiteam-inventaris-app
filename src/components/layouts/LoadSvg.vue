@@ -5,11 +5,11 @@ export default {
   props: {
     name: {
       type: String,
-      required: true,
+      default: "",
     },
     folder: {
       type: String,
-      required: true,
+      default: "",
     },
   },
 

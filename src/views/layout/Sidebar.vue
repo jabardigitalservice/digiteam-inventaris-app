@@ -2,7 +2,7 @@
 import LoadSvg from "../../components/layouts/LoadSvg.vue";
 export default {
   components: { LoadSvg },
-  props: { showSidebar: Boolean },
+  props: { showSidebar: { type: Boolean, default: false } },
   data() {
     return {
       menuSidebar: [

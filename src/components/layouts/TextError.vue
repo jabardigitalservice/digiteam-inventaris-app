@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: { textError: String },
+  props: { textError: { type: String, default: "" } },
 };
 </script>
 
