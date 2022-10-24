@@ -13,13 +13,6 @@ module.exports = {
         serif: ["Lora", "serif"],
         roboto: ["Roboto", "serif"],
       },
-      screens: {
-        phone: "640px",
-        tablet: "768px",
-        laptop: "1024px",
-        desktop: "1280px",
-        screen: "1536px",
-      },
       boxShadow: {
         DEFAULT: "0px 6px 22px rgba(2, 43, 85, 0.08)",
       },
