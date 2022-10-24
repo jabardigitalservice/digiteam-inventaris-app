@@ -1,8 +1,8 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import SvgIcon from "../../components/layouts/SvgIcon.vue";
 export default {
   components: {
-    LoadSvg,
+    SvgIcon,
   },
   mounted() {},
   methods: {
@@ -29,10 +29,10 @@ export default {
           </h1>
 
           <div class="m-10">
-            <LoadSvg
-              name="logo-inventaris"
-              folder="logo"
-              class="w-44 h-full m-auto tablet:w-96"
+            <SvgIcon
+              :name="'logo-inventaris.svg'"
+              :folder="'img'"
+              mode="image"
             />
           </div>
 
@@ -42,7 +42,12 @@ export default {
               type="button"
               @click="login"
             >
-              <LoadSvg name="key" folder="icons" class="mr-2 w-4 h-4 m-auto" />
+              <SvgIcon
+                :name="'key.svg'"
+                :folder="'icons'"
+                :fill-color="'#E8EBF0'"
+                class="mr-2 w-4 h-4 m-auto"
+              />
 
               Masuk dengan SSO
             </button>
@@ -64,7 +69,7 @@ export default {
           </h1>
         </div>
         <div class="mt-10">
-          <LoadSvg
+          <SvgIcon
             name="logo-jds"
             folder="logo"
             class="w-24 h-full m-auto tablet:w-36 tablet:m-0"
