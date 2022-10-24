@@ -47,7 +47,15 @@ export default {
         class="w-full px-4 py-2 text-sm text-[#788896] hover:bg-blue-100"
         @click="logout"
       >
-        Keluar
+        <span>Keluar</span>
+
+        <SvgIcon
+          :name="'arrow-right.svg'"
+          :folder="'icons'"
+          :fill-color="show ? '#1976D2' : ' #788896'"
+          class="w-5 h-5"
+          :class="show ? ' rotate-90' : 'text-[#788896]'"
+        />
       </button>
     </div>
   </div>
