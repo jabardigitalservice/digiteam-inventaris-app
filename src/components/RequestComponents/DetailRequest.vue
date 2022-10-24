@@ -29,14 +29,14 @@ export default {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
-        this.detailRequest.status != statusObject.PENGAJUAN_DITERIMA.value &&
-        this.detailRequest.status != statusObject.PENGAJUAN_SELESAI.value
+        this.detailRequest.status !== statusObject.PENGAJUAN_DITERIMA.value &&
+        this.detailRequest.status !== statusObject.PENGAJUAN_SELESAI.value
       );
     },
     btnRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
-        this.detailRequest.status == statusObject.PENGAJUAN_DITERIMA.value
+        this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value
       );
     },
     formListItem() {
@@ -72,7 +72,7 @@ export default {
       );
     },
     rejectedRequest() {
-      return this.detailRequest.status == statusObject.PENGAJUAN_DITOLAK.value;
+      return this.detailRequest.status === statusObject.PENGAJUAN_DITOLAK.value;
     },
     formPickUpItem() {
       return (
@@ -105,7 +105,7 @@ export default {
     },
     detailReturnItem() {
       return (
-        this.detailRequest.status == statusObject.PENGEMBALIAN_BARANG.value
+        this.detailRequest.status === statusObject.PENGEMBALIAN_BARANG.value
       );
     },
   },

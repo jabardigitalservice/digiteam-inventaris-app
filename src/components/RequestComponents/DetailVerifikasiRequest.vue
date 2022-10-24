@@ -62,7 +62,7 @@ export default {
       <span>Barang ada dent di layar dan death pixel</span>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.ListPickUpItem">
+    <template v-if="conditionDetailVerifikasi.listPickUpItem">
       <HRCenter>
         <template #title>Detail Pengambilan Barang</template>
       </HRCenter>
