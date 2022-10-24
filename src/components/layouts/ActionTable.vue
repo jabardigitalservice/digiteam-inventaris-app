@@ -19,7 +19,10 @@ export default {
       );
     },
     btnVerifikasi() {
-      return this.status < statusObject.PENGAJUAN_SELESAI.value;
+      return (
+        this.status < statusObject.PENGAJUAN_SELESAI.value &&
+        this.status != statusObject.PENGAJUAN_DITOLAK.value
+      );
     },
   },
   mounted() {

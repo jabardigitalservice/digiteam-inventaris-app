@@ -29,14 +29,14 @@ export default {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
-        this.detailRequest.status != statusObject.PENGAJUAN_DITERIMA.value &&
-        this.detailRequest.status != statusObject.PENGAJUAN_SELESAI.value
+        this.detailRequest.status !== statusObject.PENGAJUAN_DITERIMA.value &&
+        this.detailRequest.status !== statusObject.PENGAJUAN_SELESAI.value
       );
     },
     btnRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
-        this.detailRequest.status == statusObject.PENGAJUAN_DITERIMA.value
+        this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value
       );
     },
     formListItem() {
@@ -71,6 +71,9 @@ export default {
         this.detailRequest.status > statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
+    rejectedRequest() {
+      return this.detailRequest.status === statusObject.PENGAJUAN_DITOLAK.value;
+    },
     formPickUpItem() {
       return (
         this.modalName === "verifikasi-request" &&
@@ -102,7 +105,7 @@ export default {
     },
     detailReturnItem() {
       return (
-        this.detailRequest.status == statusObject.PENGEMBALIAN_BARANG.value
+        this.detailRequest.status === statusObject.PENGEMBALIAN_BARANG.value
       );
     },
   },
@@ -152,7 +155,6 @@ export default {
       }
     },
     submitUpdateStatus(id, type, status) {
-      this.updateStatus(type, status);
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -166,38 +168,69 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const response = patchStatus(
-              "/requests",
-              "PATCH",
-              id,
-              this.formUpdateStatus
-            );
-            response
-              .then(() => {
-                this.$store
-                  .dispatch("sweetalert/successAlert", {
-                    title: "Success",
-                    text: "Berhasil update status permohonan",
-                  })
-                  .then(() => {
-                    this.$store.dispatch("modals/close", this.name);
-                    this.$emit("get-response-form");
-                  });
-              })
-              .catch((err) => {
-                this.messageError = err.response.data.errors;
-                if (err.response.data.errors) {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: `${err.response.data.errors.status}`,
-                    text: "Gagal update status permohonan",
-                  });
-                } else {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: "Server Error!",
-                    text: "Gagal update status permohonan",
-                  });
-                }
-              });
+            this.sendStatus(id, type, status);
+          }
+        });
+    },
+    submitRejectedStatus(id, type, status) {
+      this.$Swal
+        .fire({
+          title: "Ingin update status permohonan?",
+          text: "Permohonan akan diubah statusnya!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Kirim!",
+          cancelButtonText: "Batalkan",
+          input: "textarea",
+          inputPlaceholder: "Masukkan detail catatan...",
+          inputAttributes: {
+            "aria-label": "Type your message here",
+            autocapitalize: "off",
+            maxlength: 140,
+          },
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const notesRejected = result.value;
+            this.sendStatus(id, type, status);
+          }
+        });
+    },
+    sendStatus(id, type, status) {
+      this.updateStatus(type, status);
+
+      const response = patchStatus(
+        "/requests",
+        "PATCH",
+        id,
+        this.formUpdateStatus
+      );
+      response
+        .then(() => {
+          this.$store
+            .dispatch("sweetalert/successAlert", {
+              title: "Success",
+              text: "Berhasil update status permohonan",
+            })
+            .then(() => {
+              this.$store.dispatch("modals/close", this.name);
+              this.$emit("get-response-form");
+            });
+        })
+        .catch((err) => {
+          this.messageError = err.response.data.errors;
+          if (err.response.data.errors) {
+            this.$store.dispatch("sweetalert/errorAlert", {
+              title: `${err.response.data.errors.status}`,
+              text: "Gagal update status permohonan",
+            });
+          } else {
+            this.$store.dispatch("sweetalert/errorAlert", {
+              title: "Server Error!",
+              text: "Gagal update status permohonan",
+            });
           }
         });
     },
@@ -274,6 +307,7 @@ export default {
             detailCheckItem: detailCheckItem,
             listPickUpItem: listPickUpItem,
             detailReturnItem: detailReturnItem,
+            rejectedRequest: rejectedRequest,
           }"
         />
 
@@ -293,12 +327,17 @@ export default {
         v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
         class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
-          submitUpdateStatus(detailRequest.id, 'rejected', detailRequest.status)
+          submitRejectedStatus(
+            detailRequest.id,
+            'rejected',
+            detailRequest.status
+          )
         "
       >
         Rejected
       </button>
       <button
+        v-if="detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="
           submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
