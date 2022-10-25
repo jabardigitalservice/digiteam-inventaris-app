@@ -5,7 +5,11 @@ export default {
   directives: {
     ClickOutside,
   },
-  props: { id: String, type: String, status: Number },
+  props: {
+    id: { type: String, default: "" },
+    type: { type: String, default: "" },
+    status: { type: Number, default: 0 },
+  },
   data() {
     return {
       show: false,

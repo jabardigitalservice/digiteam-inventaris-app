@@ -3,7 +3,7 @@ import HRCenter from "../layouts/HRCenter.vue";
 import { typeItemObjectOption } from "@/constants";
 export default {
   components: { HRCenter },
-  props: { conditionDetailVerifikasi: Object },
+  props: { conditionDetailVerifikasi: { type: Object, default: () => ({}) } },
   data() {
     return {
       typeItemObjectOption,

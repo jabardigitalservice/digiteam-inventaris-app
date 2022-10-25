@@ -1,7 +1,7 @@
 <script>
 import { statusObject } from "@/constants";
 export default {
-  props: { status: Number },
+  props: { status: { type: Number, default: 0 } },
   methods: {
     getStatusLabel(status) {
       switch (status) {

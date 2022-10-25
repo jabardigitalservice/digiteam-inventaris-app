@@ -1,6 +1,9 @@
 <script>
 export default {
-  props: { titleCard: String, textCard: String },
+  props: {
+    titleCard: { type: String, default: "" },
+    textCard: { type: String, default: "" },
+  },
 };
 </script>
 

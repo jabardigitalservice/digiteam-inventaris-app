@@ -23,12 +23,6 @@ export default {
       :class="show ? 'text-blue-700' : 'text-[#788896]'"
       @click="show = !show"
     >
-      <img
-        class="rounded-full border border-gray-100 shadow-sm w-8 h-8 mr-2"
-        src="https://randomuser.me/api/portraits/women/81.jpg"
-        alt="user image"
-      />
-
       <span class="mr-4 font-bold"> {{ $store.state.user.profile.name }}</span>
 
       <LoadSvg

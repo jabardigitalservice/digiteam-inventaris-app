@@ -14,7 +14,10 @@ export default {
     DetailVerifikasiRequest,
     FormVerifikasiRequest,
   },
-  props: { detailRequest: Object, modalName: String },
+  props: {
+    detailRequest: { type: Object, default: () => ({}) },
+    modalName: { type: String, default: "" },
+  },
   data() {
     return {
       formUpdateStatus: {

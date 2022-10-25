@@ -16,12 +16,10 @@ export default {
 
 <template>
   <div id="app">
-    <div class="relative flex min-h-screen">
+    <div class="flex">
       <Sidebar :show-sidebar="showSidebar"></Sidebar>
-      <div class="flex-1">
-        <div
-          class="flex flex-wrap justify-between items-center px-2 py-4 bg-white"
-        >
+      <div class="h-full w-full">
+        <div class="justify-between items-center px-2 py-5 bg-white">
           <button
             class="text-blue-900 font-extrabold"
             @click="showSidebar = !showSidebar"
@@ -34,7 +32,7 @@ export default {
           </div>
         </div>
 
-        <div class="p-8">
+        <div class="p-4">
           <router-view />
         </div>
       </div>

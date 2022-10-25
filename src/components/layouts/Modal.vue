@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    name: { type: String },
+    name: { type: String, default: "" },
   },
   computed: {
     isOpen() {

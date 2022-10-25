@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    pagination: [Object, Array],
+    pagination: { type: Object, default: () => ({}) },
   },
   data() {
     return {
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 tablet:grid-cols-2">
+  <div class="grid grid-cols-1 md:grid-cols-2">
     <div class="">
       <span class="mr-2">Tampilkan </span>
       <select

@@ -23,7 +23,7 @@ export default {
       textCard:
         "Daftar permohonan inventaris yang ada di Jabar Digital Service.",
       dataRequest: [],
-      pagination: [],
+      pagination: {},
       isSuccess: true,
       selectPagination: {
         limit: 10,
@@ -68,9 +68,7 @@ export default {
   <div>
     <TitleCard :title-card="titleCard" :text-card="textCard" />
 
-    <div
-      class="w-full p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md"
-    >
+    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
       <HeaderTable />
       <FormRequest @get-response-form="getDataRequest" />
       <DetailRequest
