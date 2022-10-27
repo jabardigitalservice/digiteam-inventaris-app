@@ -333,14 +333,14 @@ export default {
     <template v-if="btnApprovalAdmin" #footer>
       <button
         v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
-        class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitRejectedStatus('rejected', detailRequest.status)"
       >
         Rejected
       </button>
       <button
         v-if="detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value"
-        class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Approve
@@ -349,7 +349,7 @@ export default {
     <template v-else-if="btnRequestItem" #footer>
       <button
         v-if="btnSubmitRequestItem"
-        class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi()"
       >
         Submit
@@ -357,7 +357,7 @@ export default {
     </template>
     <template v-else-if="btnReturnItem" #footer>
       <button
-        class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Submit
