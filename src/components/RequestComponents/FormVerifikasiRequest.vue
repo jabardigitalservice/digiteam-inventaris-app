@@ -17,16 +17,10 @@ export default {
         item_brand: "",
         item_number: "",
       },
-      formRequestDetailCopy: {},
       messageError: {},
-      messageErrorCopy: {},
     };
   },
   methods: {
-    resetFormRequest() {
-      this.formRequestDetail = { ...this.formRequestDetailCopy };
-      this.messageError = { ...this.messageErrorCopy };
-    },
     submitFormVerifikasi() {
       this.$Swal
         .fire({
@@ -56,7 +50,6 @@ export default {
                   })
                   .then(() => {
                     this.$store.dispatch("modals/close", this.name);
-                    this.resetFormRequest();
                     this.$emit("get-response-form-verifikasi");
                   });
               })
