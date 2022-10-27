@@ -25,6 +25,7 @@ export default {
       },
       statusObject,
       priortyObjectOption,
+      formRequestDetail: false,
     };
   },
   computed: {
@@ -131,12 +132,6 @@ export default {
         this.formUpdateStatus.status = statusObject.PENGAJUAN_DITERIMA.value;
       } else if (
         type === "approve" &&
-        status === statusObject.PENGAJUAN_DITERIMA.value
-      ) {
-        this.formUpdateStatus.status =
-          statusObject.PERMINTAAN_BARANG_MASUK.value;
-      } else if (
-        type === "approve" &&
         status === statusObject.PERMINTAAN_BARANG_MASUK.value
       ) {
         this.formUpdateStatus.status = statusObject.PENGECEKAN_KELAYAKAN.value;
@@ -157,7 +152,7 @@ export default {
         this.formUpdateStatus.status = statusObject.PENGEMBALIAN_BARANG.value;
       }
     },
-    submitUpdateStatus(id, type, status) {
+    submitUpdateStatus(type, status) {
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -171,11 +166,11 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.sendStatus(id, type, status);
+            this.sendStatus(type, status);
           }
         });
     },
-    submitRejectedStatus(id, type, status) {
+    submitRejectedStatus(type, status) {
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -197,17 +192,17 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             const notesRejected = result.value;
-            this.sendStatus(id, type, status);
+            this.sendStatus(type, status);
           }
         });
     },
-    sendStatus(id, type, status) {
+    sendStatus(type, status) {
       this.updateStatus(type, status);
 
       const response = patchStatus(
         "/requests",
         "PATCH",
-        id,
+        this.detailRequest.id,
         this.formUpdateStatus
       );
       response
@@ -219,7 +214,7 @@ export default {
             })
             .then(() => {
               this.$store.dispatch("modals/close", this.name);
-              this.$emit("get-response-form");
+              this.getResponseForm();
             });
         })
         .catch((err) => {
@@ -236,6 +231,12 @@ export default {
             });
           }
         });
+    },
+    submitFormVerifikasi() {
+      this.$refs.formVerifikasi.submitFormVerifikasi();
+    },
+    getResponseForm() {
+      this.$emit("get-response-form");
     },
   },
 };
@@ -312,9 +313,12 @@ export default {
             detailReturnItem: detailReturnItem,
             rejectedRequest: rejectedRequest,
           }"
+          :detail-request="detailRequest"
         />
 
         <FormVerifikasiRequest
+          :id="detailRequest.id"
+          ref="formVerifikasi"
           :condition-detail-verifikasi="{
             formListItem: formListItem,
             formRequestItem: formRequestItem,
@@ -322,6 +326,7 @@ export default {
             formPickUpItem: formPickUpItem,
             formReturnItem: formReturnItem,
           }"
+          @get-response-form-verifikasi="getResponseForm"
         />
       </div>
     </template>
@@ -329,22 +334,14 @@ export default {
       <button
         v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
         class="text-white bg-red-800 bg-transparent border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="
-          submitRejectedStatus(
-            detailRequest.id,
-            'rejected',
-            detailRequest.status
-          )
-        "
+        @click="submitRejectedStatus('rejected', detailRequest.status)"
       >
         Rejected
       </button>
       <button
         v-if="detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="
-          submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
-        "
+        @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Approve
       </button>
@@ -353,9 +350,7 @@ export default {
       <button
         v-if="btnSubmitRequestItem"
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="
-          submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
-        "
+        @click="submitFormVerifikasi()"
       >
         Submit
       </button>
@@ -363,9 +358,7 @@ export default {
     <template v-else-if="btnReturnItem" #footer>
       <button
         class="text-white bg-blue-800 bg-transparent border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="
-          submitUpdateStatus(detailRequest.id, 'approve', detailRequest.status)
-        "
+        @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Submit
       </button>

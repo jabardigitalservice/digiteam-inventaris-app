@@ -23,6 +23,14 @@ export function doPostUpdate(url, method, data) {
   });
 }
 
+export function doPostUpdateById(url, method, id, data) {
+  return https({
+    url: `${url}/${id}`,
+    method: method,
+    data,
+  });
+}
+
 export function getDetail(url, method, id) {
   return https({
     url: `${url}/${id}`,

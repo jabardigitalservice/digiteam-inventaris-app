@@ -2,7 +2,10 @@
 import HRCenter from "../layouts/HRCenter.vue";
 export default {
   components: { HRCenter },
-  props: { conditionDetailVerifikasi: { type: Object, default: () => ({}) } },
+  props: {
+    conditionDetailVerifikasi: { type: Object, default: () => ({}) },
+    detailRequest: { type: Object, default: () => ({}) },
+  },
 };
 </script>
 
@@ -33,21 +36,21 @@ export default {
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
 
-        <span>Apple</span>
+        <span>{{ detailRequest.item_brand }}</span>
       </label>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Barang yang diminta</span
         >
 
-        <span>Macbook M1 (Dummy Data)</span>
+        <span>{{ detailRequest.item_name }}</span>
       </label>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >No Barang Inventaris</span
         >
 
-        <span>13-0-011-023</span>
+        <span>{{ detailRequest.item_number }}</span>
       </label>
     </template>
 
