@@ -277,7 +277,7 @@ export default {
           <span class="block text-sm font-bold text-slate-700"
             >Barang yang diajukan</span
           >
-          <span>{{ detailRequest.item_name }}</span>
+          <span>{{ detailRequest.requested_item }}</span>
         </label>
         <label class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"

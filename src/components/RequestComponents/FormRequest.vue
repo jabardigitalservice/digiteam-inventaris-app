@@ -17,7 +17,7 @@ export default {
       formRequest: {
         request_type: "",
         division: "",
-        item_name: "",
+        requested_item: "",
         purpose: "",
         priority: "",
         phone_number: "",
@@ -194,15 +194,15 @@ export default {
             Barang yang diajukan
           </span>
           <input
-            v-model="formRequest.item_name"
+            v-model="formRequest.requested_item"
             type="text"
             placeholder="Masukkan barang yang diajukan"
             class="input-form"
           />
         </label>
         <TextError
-          v-if="messageError.item_name"
-          :text-error="messageError.item_name"
+          v-if="messageError.requested_item"
+          :text-error="messageError.requested_item"
         />
 
         <label class="block mt-5">
