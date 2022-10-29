@@ -1,13 +1,75 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
 import { typeItemObjectOption } from "@/constants";
+import { doPostUpdateById } from "@/api";
+import TextError from "../layouts/TextError.vue";
 export default {
-  components: { HRCenter },
-  props: { conditionDetailVerifikasi: { type: Object, default: () => ({}) } },
+  components: { HRCenter, TextError },
+  props: {
+    conditionDetailVerifikasi: { type: Object, default: () => ({}) },
+    id: { type: String, default: "" },
+  },
   data() {
     return {
       typeItemObjectOption,
+      formRequestDetail: {
+        item_name: "",
+        item_brand: "",
+        item_number: "",
+      },
+      messageError: {},
     };
+  },
+  methods: {
+    submitFormVerifikasi() {
+      this.$Swal
+        .fire({
+          title: "Ingin mengirim permohonan barang?",
+          text: "Permohonan akan dikirim ke team HR/GA!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Kirim!",
+          cancelButtonText: "Batalkan",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const response = doPostUpdateById(
+              "/requests",
+              "PATCH",
+              this.id,
+              this.formRequestDetail
+            );
+            response
+              .then(() => {
+                this.$store
+                  .dispatch("sweetalert/successAlert", {
+                    title: "Success",
+                    text: "Berhasil mengirim permohonan barang",
+                  })
+                  .then(() => {
+                    this.$store.dispatch("modals/close", this.name);
+                    this.$emit("get-response-form-verifikasi");
+                  });
+              })
+              .catch((err) => {
+                this.messageError = err.response.data.errors;
+                if (err.response.data.errors) {
+                  this.$store.dispatch("sweetalert/errorAlert", {
+                    title: "Data kurang lengkap!",
+                    text: "Gagal mengirim permohonan barang",
+                  });
+                } else {
+                  this.$store.dispatch("sweetalert/errorAlert", {
+                    title: "Server Error!",
+                    text: "Gagal mengirim permohonan barang",
+                  });
+                }
+              });
+          }
+        });
+    },
   },
 };
 </script>
@@ -15,7 +77,7 @@ export default {
   <form>
     <template v-if="conditionDetailVerifikasi.formListItem">
       <HRCenter>
-        <template #title>List Request</template>
+        <template #title>List Request </template>
       </HRCenter>
       <label
         for="evidence"
@@ -35,39 +97,54 @@ export default {
 
     <template v-if="conditionDetailVerifikasi.formRequestItem">
       <HRCenter>
-        <template #title>Detail Barang yang diminta</template>
+        <template #title>Detail Barang yang diminta </template>
       </HRCenter>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
         <input
+          v-model="formRequestDetail.item_brand"
           type="text"
           placeholder="Merk item yang diminta"
           class="input-form"
         />
       </label>
+      <TextError
+        v-if="messageError.item_brand"
+        :text-error="messageError.item_brand"
+      />
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Barang yang diminta</span
         >
         <input
+          v-model="formRequestDetail.item_name"
           type="text"
           placeholder="Masukkan barang yang diminta"
           class="input-form"
         />
       </label>
+      <TextError
+        v-if="messageError.item_name"
+        :text-error="messageError.item_name"
+      />
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >No Barang Inventaris</span
         >
         <input
+          v-model="formRequestDetail.item_number"
           type="text"
           placeholder="Masukkan no barang inventaris"
           class="input-form"
         />
       </label>
+      <TextError
+        v-if="messageError.item_number"
+        :text-error="messageError.item_number"
+      />
     </template>
 
     <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">

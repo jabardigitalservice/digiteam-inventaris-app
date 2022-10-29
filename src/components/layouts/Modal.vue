@@ -38,7 +38,7 @@ export default {
               <slot name="header"> </slot>
             </h3>
             <button
-              class="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+              class="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
               @click="close"
             >
               <span
@@ -57,7 +57,7 @@ export default {
             class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
           >
             <button
-              class="text-red-800 bg-transparent border border-solid border-red-800 hover:bg-red-800 hover:text-white active:bg-red-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              class="text-red-800 border border-solid border-red-800 hover:bg-red-800 hover:text-white active:bg-red-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               @click="close"
             >
