@@ -2,7 +2,7 @@
 import Modal from "../layouts/Modal.vue";
 import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
-import { patchStatus } from "@/api";
+import { patchRequest } from "@/api";
 import DetailVerifikasiRequest from "./DetailVerifikasiRequest.vue";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
 import { statusObject, priortyObjectOption } from "@/constants";
@@ -22,6 +22,7 @@ export default {
     return {
       formUpdateStatus: {
         status: 1,
+        notes: "",
       },
       statusObject,
       priortyObjectOption,
@@ -91,6 +92,13 @@ export default {
     btnSubmitRequestItem() {
       return (
         this.detailRequest.username === this.$store.state.user.profile.name
+      );
+    },
+    btnPengecekanKelayakan() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status == statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
     btnReturnItem() {
@@ -166,7 +174,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.sendStatus(type, status);
+            this.sendStatus(type, status, "/status");
           }
         });
     },
@@ -190,18 +198,24 @@ export default {
           },
         })
         .then((result) => {
-          if (result.isConfirmed) {
-            const notesRejected = result.value;
-            this.sendStatus(type, status);
+          if (result.isConfirmed && result.value) {
+            this.formUpdateStatus.notes = result.value;
+            this.sendStatus(type, status, "/notes");
+          } else {
+            this.$store.dispatch("sweetalert/errorAlert", {
+              title: "Catatan tidak boleh kosong!",
+              text: "Gagal update status permohonan",
+            });
           }
         });
     },
-    sendStatus(type, status) {
+    sendStatus(type, status, params_url) {
       this.updateStatus(type, status);
 
-      const response = patchStatus(
+      const response = patchRequest(
         "/requests",
         "PATCH",
+        params_url,
         this.detailRequest.id,
         this.formUpdateStatus
       );
@@ -232,8 +246,8 @@ export default {
           }
         });
     },
-    submitFormVerifikasi() {
-      this.$refs.formVerifikasi.submitFormVerifikasi();
+    submitFormVerifikasi(type) {
+      this.$refs.formVerifikasi.submitFormVerifikasi(type);
     },
     getResponseForm() {
       this.$emit("get-response-form");
@@ -339,18 +353,28 @@ export default {
         Rejected
       </button>
       <button
-        v-if="detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value"
+        v-if="
+          detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
+          detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value
+        "
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Approve
+      </button>
+      <button
+        v-if="btnPengecekanKelayakan"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        @click="submitFormVerifikasi('notes')"
+      >
+        Submit
       </button>
     </template>
     <template v-else-if="btnRequestItem" #footer>
       <button
         v-if="btnSubmitRequestItem"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="submitFormVerifikasi()"
+        @click="submitFormVerifikasi('item')"
       >
         Submit
       </button>

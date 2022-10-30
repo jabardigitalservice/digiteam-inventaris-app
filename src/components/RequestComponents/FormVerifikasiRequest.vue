@@ -1,7 +1,7 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
 import { typeItemObjectOption } from "@/constants";
-import { doPostUpdateById } from "@/api";
+import { patchRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
 export default {
   components: { HRCenter, TextError },
@@ -17,11 +17,16 @@ export default {
         item_brand: "",
         item_number: "",
       },
+      formUpdateStatus: {
+        status: 6,
+        notes: "",
+      },
       messageError: {},
+      response: "",
     };
   },
   methods: {
-    submitFormVerifikasi() {
+    submitFormVerifikasi(type) {
       this.$Swal
         .fire({
           title: "Ingin mengirim permohonan barang?",
@@ -35,13 +40,25 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const response = doPostUpdateById(
-              "/requests",
-              "PATCH",
-              this.id,
-              this.formRequestDetail
-            );
-            response
+            if (type == "item") {
+              this.response = patchRequest(
+                "/requests",
+                "PATCH",
+                "",
+                this.id,
+                this.formRequestDetail
+              );
+            } else {
+              this.response = patchRequest(
+                "/requests",
+                "PATCH",
+                "/notes",
+                this.id,
+                this.formUpdateStatus
+              );
+            }
+
+            this.response
               .then(() => {
                 this.$store
                   .dispatch("sweetalert/successAlert", {
@@ -155,6 +172,7 @@ export default {
         Catatan Kondisi Barang
       </span>
       <textarea
+        v-model="formUpdateStatus.notes"
         placeholder="Masukkan Catatan Kondisi Barang"
         rows="6"
         class="input-form"

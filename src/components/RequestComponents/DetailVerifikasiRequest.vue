@@ -17,7 +17,7 @@ export default {
       </HRCenter>
 
       <span class="block text-sm font-bold text-slate-700">Notes Rejected</span>
-      <span>barang yang diterima tidak ada sedang dalam perbaikan</span>
+      <span>{{ detailRequest.notes }}</span>
     </label>
 
     <label v-if="conditionDetailVerifikasi.detailListItem" class="block mt-5">
@@ -62,7 +62,7 @@ export default {
       <span class="block text-sm font-bold text-slate-700"
         >Catatan Kondisi Barang</span
       >
-      <span>Barang ada dent di layar dan death pixel</span>
+      <span>{{ detailRequest.notes }}</span>
     </label>
 
     <template v-if="conditionDetailVerifikasi.listPickUpItem">

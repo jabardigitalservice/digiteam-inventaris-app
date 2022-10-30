@@ -23,14 +23,6 @@ export function doPostUpdate(url, method, data) {
   });
 }
 
-export function doPostUpdateById(url, method, id, data) {
-  return https({
-    url: `${url}/${id}`,
-    method: method,
-    data,
-  });
-}
-
 export function getDetail(url, method, id) {
   return https({
     url: `${url}/${id}`,
@@ -38,9 +30,9 @@ export function getDetail(url, method, id) {
   });
 }
 
-export function patchStatus(url, method, id, data) {
+export function patchRequest(url, method, params_url, id, data) {
   return https({
-    url: `${url}/${id}/status`,
+    url: `${url}/${id}${params_url}`,
     method: method,
     data,
   });
