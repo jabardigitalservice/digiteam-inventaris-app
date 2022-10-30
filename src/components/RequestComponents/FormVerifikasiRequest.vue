@@ -177,6 +177,7 @@ export default {
         rows="6"
         class="input-form"
       ></textarea>
+      <TextError v-if="messageError.notes" :text-error="messageError.notes" />
     </label>
 
     <template v-if="conditionDetailVerifikasi.formPickUpItem">
