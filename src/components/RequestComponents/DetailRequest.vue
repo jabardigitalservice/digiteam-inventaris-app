@@ -38,6 +38,20 @@ export default {
         this.detailRequest.status !== statusObject.PENGAJUAN_SELESAI.value
       );
     },
+    btnApproveStatus() {
+      return (
+        this.detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
+        this.detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value &&
+        this.detailRequest.status !== statusObject.PENGAJUAN_MASUK.value
+      );
+    },
+    btnUploadList() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status == statusObject.PENGAJUAN_MASUK.value
+      );
+    },
     btnRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
@@ -128,16 +142,6 @@ export default {
         status === statusObject.PENGAJUAN_MASUK.value
       ) {
         this.formUpdateStatus.status = statusObject.PENGAJUAN_DITOLAK.value;
-      } else if (
-        type === "approve" &&
-        status === statusObject.PENGAJUAN_DITOLAK.value
-      ) {
-        this.formUpdateStatus.status = statusObject.PENGAJUAN_MASUK.value;
-      } else if (
-        type === "approve" &&
-        status === statusObject.PENGAJUAN_MASUK.value
-      ) {
-        this.formUpdateStatus.status = statusObject.PENGAJUAN_DITERIMA.value;
       } else if (
         type === "approve" &&
         status === statusObject.PERMINTAAN_BARANG_MASUK.value
@@ -350,13 +354,10 @@ export default {
         class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitRejectedStatus('rejected', detailRequest.status)"
       >
-        Rejected
+        Reject
       </button>
       <button
-        v-if="
-          detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
-          detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value
-        "
+        v-if="btnApproveStatus"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
@@ -366,6 +367,13 @@ export default {
         v-if="btnPengecekanKelayakan"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi('notes')"
+      >
+        Submit
+      </button>
+      <button
+        v-if="btnUploadList"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        @click="submitFormVerifikasi('file')"
       >
         Submit
       </button>

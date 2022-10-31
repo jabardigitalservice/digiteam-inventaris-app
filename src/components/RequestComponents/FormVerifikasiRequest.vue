@@ -23,6 +23,7 @@ export default {
       },
       messageError: {},
       response: "",
+      fileImage: null,
     };
   },
   methods: {
@@ -40,7 +41,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            if (type == "item") {
+            if (type === "item") {
               this.response = patchRequest(
                 "/requests",
                 "PATCH",
@@ -48,13 +49,21 @@ export default {
                 this.id,
                 this.formRequestDetail
               );
-            } else {
+            } else if (type === "notes") {
               this.response = patchRequest(
                 "/requests",
                 "PATCH",
                 "/notes",
                 this.id,
                 this.formUpdateStatus
+              );
+            } else if (type === "file") {
+              this.response = patchRequest(
+                "/requests",
+                "POST",
+                "/upload",
+                this.id,
+                this.fileImage
               );
             }
 
@@ -66,8 +75,7 @@ export default {
                     text: "Berhasil mengirim permohonan barang",
                   })
                   .then(() => {
-                    this.$store.dispatch("modals/close", this.name);
-                    this.$emit("get-response-form-verifikasi");
+                    this.resetForm();
                   });
               })
               .catch((err) => {
@@ -87,29 +95,62 @@ export default {
           }
         });
     },
+    resetForm() {
+      this.$store.dispatch("modals/close", this.name);
+      this.$emit("get-response-form-verifikasi");
+    },
+    onFileChange() {
+      this.setFile(this.$refs.file.files[0]);
+    },
+    setFile(value) {
+      const formData = new FormData();
+      formData.append("file", value);
+      this.fileImage = formData;
+    },
+    submitFile() {
+      return new Promise((resolve, reject) => {
+        this.$axios
+          .post("/files/upload", this.fileImage, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            const { data } = response.data;
+            resolve(data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
   },
 };
 </script>
 <template>
-  <form>
+  <div>
     <template v-if="conditionDetailVerifikasi.formListItem">
       <HRCenter>
         <template #title>List Request </template>
       </HRCenter>
-      <label
-        for="evidence"
-        class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >
-        List Item
-      </label>
+      <form>
+        <label
+          for="evidence"
+          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+        >
+          List Item
+        </label>
 
-      <label class="block mt-5">
-        <span class="sr-only">Tambah File +</span>
-        <input
-          type="file"
-          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-        />
-      </label>
+        <label class="block mt-5">
+          <span class="sr-only">Tambah File +</span>
+          <input
+            ref="file"
+            type="file"
+            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+            @change="onFileChange"
+          />
+        </label>
+      </form>
     </template>
 
     <template v-if="conditionDetailVerifikasi.formRequestItem">
@@ -302,5 +343,5 @@ export default {
         />
       </label>
     </template>
-  </form>
+  </div>
 </template>

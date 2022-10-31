@@ -25,7 +25,9 @@ export default {
         <template #title>List Request</template>
       </HRCenter>
       <span class="block text-sm font-bold text-slate-700">List Request</span>
-      <a href="" class="text-blue-500">Download List Request</a>
+      <a :href="detailRequest.file_url" target="_blank" class="text-blue-500"
+        >Download List Request</a
+      >
     </label>
 
     <template v-if="conditionDetailVerifikasi.detailRequestItem">
