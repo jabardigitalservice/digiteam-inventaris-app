@@ -24,6 +24,7 @@ export default {
       messageError: {},
       response: "",
       fileImage: null,
+      attachment: "",
     };
   },
   methods: {
@@ -100,7 +101,22 @@ export default {
       this.$emit("get-response-form-verifikasi");
     },
     onFileChange() {
-      this.setFile(this.$refs.file.files[0]);
+      if (this.$refs.file.files[0]) {
+        const isValidFormat = [
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "application/vnd.ms-excel",
+        ].includes(this.$refs.file.files[0].type);
+        if (isValidFormat) {
+          this.setFile(this.$refs.file.files[0]);
+        } else {
+          this.$store.dispatch("sweetalert/errorAlert", {
+            title: "File ini tidak didukung!",
+            text: "Silahkan ganti file dengan format yg sesuai!",
+          });
+          this.$refs.file.value = null;
+          this.fileImage = null;
+        }
+      }
     },
     setFile(value) {
       const formData = new FormData();
@@ -146,6 +162,7 @@ export default {
           <input
             ref="file"
             type="file"
+            accept=".xlsx, .xls"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
             @change="onFileChange"
           />
