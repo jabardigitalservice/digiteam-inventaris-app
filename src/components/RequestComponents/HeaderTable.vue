@@ -1,5 +1,5 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import SvgIcon from "../../components/layouts/SvgIcon.vue";
 import {
   divisiArrayOption,
   typeRequestObjectOption,
@@ -8,7 +8,7 @@ import {
 } from "@/constants";
 export default {
   components: {
-    LoadSvg,
+    SvgIcon,
   },
   data() {
     return {
@@ -34,7 +34,13 @@ export default {
         type="button"
         @click="open('add-request')"
       >
-        <LoadSvg name="plus" folder="icons" class="w-4 h-4 mr-2" />
+        <SvgIcon
+          :icon="'plus.svg'"
+          :folder="'svg-icons'"
+          :fill-color="'#0D47A1'"
+          class="mr-2"
+          :size="16"
+        />
         <span>Tambah Permohonan</span>
       </button>
     </div>

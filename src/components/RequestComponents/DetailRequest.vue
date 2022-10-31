@@ -347,7 +347,7 @@ export default {
     <template v-if="btnApprovalAdmin" #footer>
       <button
         v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
-        class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="btn-rejected"
         @click="submitRejectedStatus('rejected', detailRequest.status)"
       >
         Rejected
@@ -357,14 +357,14 @@ export default {
           detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
           detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value
         "
-        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="btn-submit"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Approve
       </button>
       <button
         v-if="btnPengecekanKelayakan"
-        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="btn-submit"
         @click="submitFormVerifikasi('notes')"
       >
         Submit
@@ -373,7 +373,7 @@ export default {
     <template v-else-if="btnRequestItem" #footer>
       <button
         v-if="btnSubmitRequestItem"
-        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="btn-submit"
         @click="submitFormVerifikasi('item')"
       >
         Submit
@@ -381,7 +381,7 @@ export default {
     </template>
     <template v-else-if="btnReturnItem" #footer>
       <button
-        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        class="btn-submit"
         @click="submitUpdateStatus('approve', detailRequest.status)"
       >
         Submit
