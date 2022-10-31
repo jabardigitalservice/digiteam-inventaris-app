@@ -1,7 +1,7 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import SvgIcon from "../../components/layouts/SvgIcon.vue";
 export default {
-  components: { LoadSvg },
+  components: { SvgIcon },
   props: { showSidebar: { type: Boolean, default: false } },
   data() {
     return {
@@ -9,8 +9,8 @@ export default {
         {
           routerLinkName: "list-request",
           icon: {
-            folder: "icons",
-            name: "book",
+            folder: "svg-icons",
+            name: "book.svg",
           },
           nameRouter: "Permohonan",
         },
@@ -46,11 +46,14 @@ export default {
           :to="{ name: menu.routerLinkName }"
           class="group flex items-center py-3 px-4 space-x-2 mt-2 hover:bg-blue-100 rounded-xl transition duration-500 ease-in-out"
         >
-          <LoadSvg
-            :name="menu.icon.name"
+          <SvgIcon
+            :icon="menu.icon.name"
             :folder="menu.icon.folder"
-            class="w-6 h-6 ml-2.5"
+            :fill-color="'#0D47A1'"
+            class="ml-2.5"
+            :size="24"
           />
+
           <span
             class="text-[#788896] duration-500 ease-in-out"
             :class="{ hidden: !showSidebar }"

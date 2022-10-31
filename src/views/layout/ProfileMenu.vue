@@ -1,9 +1,7 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import SvgIcon from "../../components/layouts/SvgIcon.vue";
 export default {
-  components: {
-    LoadSvg,
-  },
+  components: { SvgIcon },
   data() {
     return {
       show: false,
@@ -25,11 +23,12 @@ export default {
     >
       <span class="mr-4 font-bold"> {{ $store.state.user.profile.name }}</span>
 
-      <LoadSvg
-        name="arrow-right"
-        folder="icons"
-        class="w-5 h-5 fill-[#788896]"
-        :class="show ? 'fill-[#1976D2] rotate-90' : 'text-[#788896]'"
+      <SvgIcon
+        :icon="'arrow-right.svg'"
+        :folder="'svg-icons'"
+        :fill-color="show ? '#1976D2' : ' #788896'"
+        :class="show ? ' rotate-90' : 'text-[#788896]'"
+        :size="16"
       />
     </button>
 

@@ -1,11 +1,11 @@
 <script>
 import Sidebar from "./Sidebar.vue";
 import ProfileMenu from "./ProfileMenu.vue";
-
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import SvgIcon from "../../components/layouts/SvgIcon.vue";
+import IconSvg from "../../components/layouts/IconSvg.js";
 
 export default {
-  components: { Sidebar, ProfileMenu, LoadSvg },
+  components: { Sidebar, ProfileMenu, SvgIcon, IconSvg },
   data() {
     return {
       showSidebar: false,
@@ -24,7 +24,14 @@ export default {
             class="text-blue-900 font-extrabold"
             @click="showSidebar = !showSidebar"
           >
-            <LoadSvg name="burger-button" folder="icons" class="w-7 h-7" />
+            <!-- <LoadSvg name="burger-button" folder="icons" class="w-7 h-7" /> -->
+            <IconSvg :name="'arrow-right.svg'" :folder="'svg-icons'" />
+
+            <SvgIcon
+              :icon="'arrow-right.svg'"
+              :folder="'svg-icons'"
+              :size="16"
+            />
           </button>
 
           <div class="float-right">
