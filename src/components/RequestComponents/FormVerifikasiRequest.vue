@@ -123,23 +123,6 @@ export default {
       formData.append("file", value);
       this.fileImage = formData;
     },
-    submitFile() {
-      return new Promise((resolve, reject) => {
-        this.$axios
-          .post("/files/upload", this.fileImage, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            const { data } = response.data;
-            resolve(data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
-    },
   },
 };
 </script>
