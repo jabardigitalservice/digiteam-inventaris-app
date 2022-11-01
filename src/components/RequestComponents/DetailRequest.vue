@@ -108,7 +108,7 @@ export default {
         this.detailRequest.username === this.$store.state.user.profile.name
       );
     },
-    btnPengecekanKelayakan() {
+    btnFeasibleCheck() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
@@ -364,7 +364,7 @@ export default {
         Approve
       </button>
       <button
-        v-if="btnPengecekanKelayakan"
+        v-if="btnFeasibleCheck"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi('notes')"
       >
