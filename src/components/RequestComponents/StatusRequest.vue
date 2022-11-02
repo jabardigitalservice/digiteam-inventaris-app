@@ -17,6 +17,8 @@ export default {
           return statusObject.PENGECEKAN_KELAYAKAN.text;
         case statusObject.BARANG_SIAP_DIAMBIL.value:
           return statusObject.BARANG_SIAP_DIAMBIL.text;
+        case statusObject.BARANG_SUDAH_DIAMBIL.value:
+          return statusObject.BARANG_SUDAH_DIAMBIL.text;
         case statusObject.PENGAJUAN_SELESAI.value:
           return statusObject.PENGAJUAN_SELESAI.text;
         case statusObject.PENGEMBALIAN_BARANG.value:
@@ -35,6 +37,7 @@ export default {
         case statusObject.PERMINTAAN_BARANG_MASUK.value:
         case statusObject.PENGECEKAN_KELAYAKAN.value:
         case statusObject.BARANG_SIAP_DIAMBIL.value:
+        case statusObject.BARANG_SUDAH_DIAMBIL.value:
           return "bg-yellow-100 border-yellow-700";
         case statusObject.PENGAJUAN_SELESAI.value:
           return "bg-green-100 border-green-700";
