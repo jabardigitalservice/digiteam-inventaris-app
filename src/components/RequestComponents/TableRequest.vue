@@ -69,7 +69,7 @@ export default {
               {{ request.division }}
             </td>
             <td class="td-table">
-              {{ request.item_name }}
+              {{ request.requested_item }}
             </td>
 
             <td class="td-table">

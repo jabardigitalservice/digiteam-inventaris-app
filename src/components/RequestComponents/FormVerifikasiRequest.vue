@@ -1,7 +1,7 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
 import { typeItemObjectOption } from "@/constants";
-import { doPostUpdateById } from "@/api";
+import { patchRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
 export default {
   components: { HRCenter, TextError },
@@ -17,11 +17,18 @@ export default {
         item_brand: "",
         item_number: "",
       },
+      formUpdateStatus: {
+        status: 6,
+        notes: "",
+      },
       messageError: {},
+      response: "",
+      fileImage: null,
+      attachment: "",
     };
   },
   methods: {
-    submitFormVerifikasi() {
+    submitFormVerifikasi(type) {
       this.$Swal
         .fire({
           title: "Ingin mengirim permohonan barang?",
@@ -35,13 +42,33 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const response = doPostUpdateById(
-              "/requests",
-              "PATCH",
-              this.id,
-              this.formRequestDetail
-            );
-            response
+            if (type === "item") {
+              this.response = patchRequest(
+                "/requests",
+                "PATCH",
+                "",
+                this.id,
+                this.formRequestDetail
+              );
+            } else if (type === "notes") {
+              this.response = patchRequest(
+                "/requests",
+                "PATCH",
+                "/notes",
+                this.id,
+                this.formUpdateStatus
+              );
+            } else if (type === "file") {
+              this.response = patchRequest(
+                "/requests",
+                "POST",
+                "/upload",
+                this.id,
+                this.fileImage
+              );
+            }
+
+            this.response
               .then(() => {
                 this.$store
                   .dispatch("sweetalert/successAlert", {
@@ -49,8 +76,7 @@ export default {
                     text: "Berhasil mengirim permohonan barang",
                   })
                   .then(() => {
-                    this.$store.dispatch("modals/close", this.name);
-                    this.$emit("get-response-form-verifikasi");
+                    this.resetForm();
                   });
               })
               .catch((err) => {
@@ -70,29 +96,61 @@ export default {
           }
         });
     },
+    resetForm() {
+      this.$store.dispatch("modals/close", this.name);
+      this.$emit("get-response-form-verifikasi");
+    },
+    onFileChange() {
+      if (this.$refs.file.files[0]) {
+        const isValidFormat = [
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "application/vnd.ms-excel",
+        ].includes(this.$refs.file.files[0].type);
+        if (isValidFormat) {
+          this.setFile(this.$refs.file.files[0]);
+        } else {
+          this.$store.dispatch("sweetalert/errorAlert", {
+            title: "File ini tidak didukung!",
+            text: "Silakan ganti file dengan format yg sesuai!",
+          });
+          this.$refs.file.value = null;
+          this.fileImage = null;
+        }
+      }
+    },
+    setFile(value) {
+      const formData = new FormData();
+      formData.append("file", value);
+      this.fileImage = formData;
+    },
   },
 };
 </script>
 <template>
-  <form>
+  <div>
     <template v-if="conditionDetailVerifikasi.formListItem">
       <HRCenter>
         <template #title>List Request </template>
       </HRCenter>
-      <label
-        for="evidence"
-        class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-      >
-        List Item
-      </label>
+      <form>
+        <label
+          for="evidence"
+          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+        >
+          List Item
+        </label>
 
-      <label class="block mt-5">
-        <span class="sr-only">Tambah File +</span>
-        <input
-          type="file"
-          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-        />
-      </label>
+        <label class="block mt-5">
+          <span class="sr-only">Tambah File +</span>
+          <input
+            ref="file"
+            type="file"
+            accept=".xlsx, .xls"
+            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+            @change="onFileChange"
+          />
+        </label>
+      </form>
     </template>
 
     <template v-if="conditionDetailVerifikasi.formRequestItem">
@@ -155,10 +213,12 @@ export default {
         Catatan Kondisi Barang
       </span>
       <textarea
+        v-model="formUpdateStatus.notes"
         placeholder="Masukkan Catatan Kondisi Barang"
         rows="6"
         class="input-form"
       ></textarea>
+      <TextError v-if="messageError.notes" :text-error="messageError.notes" />
     </label>
 
     <template v-if="conditionDetailVerifikasi.formPickUpItem">
@@ -283,5 +343,5 @@ export default {
         />
       </label>
     </template>
-  </form>
+  </div>
 </template>
