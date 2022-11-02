@@ -11,7 +11,10 @@ export default {
 
 <template>
   <div>
-    <label v-if="conditionDetailVerifikasi.rejectedRequest" class="block mt-5">
+    <label
+      v-if="conditionDetailVerifikasi.detailRejectedRequest"
+      class="block mt-5"
+    >
       <HRCenter>
         <template #title>Notes Rejected</template>
       </HRCenter>
@@ -67,7 +70,7 @@ export default {
       <span>{{ detailRequest.notes }}</span>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.listPickUpItem">
+    <template v-if="conditionDetailVerifikasi.detailReceivedItem">
       <HRCenter>
         <template #title>Detail Pengambilan Barang</template>
       </HRCenter>
@@ -75,9 +78,11 @@ export default {
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
         >
-        <span>17-10-2022</span>
+        <span>{{ detailRequest.pickup_date }}</span>
       </label>
+    </template>
 
+    <template v-if="conditionDetailVerifikasi.detailPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Penanda Tangan BAST Pengambilan</span

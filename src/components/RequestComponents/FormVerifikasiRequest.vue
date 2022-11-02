@@ -222,20 +222,6 @@ export default {
     </label>
 
     <template v-if="conditionDetailVerifikasi.formPickUpItem">
-      <HRCenter>
-        <template #title>Detail Pengambilan Barang</template>
-      </HRCenter>
-      <label class="block mt-5">
-        <span class="block text-sm font-bold text-slate-700"
-          >Tanggal Pengambilan</span
-        >
-        <input
-          type="date"
-          placeholder="Masukkan Tanggal Pengambilan"
-          class="input-form"
-        />
-      </label>
-
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Penanda Tangan BAST Pengambilan</span
