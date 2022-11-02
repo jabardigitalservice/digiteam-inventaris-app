@@ -38,6 +38,14 @@ export function patchRequest(url, method, params_url, id, data) {
   });
 }
 
+export function postFile(url, method, data) {
+  return https({
+    url: `${url}`,
+    method: method,
+    data,
+  });
+}
+
 export default {
   fetchList,
   doDetailDelete,

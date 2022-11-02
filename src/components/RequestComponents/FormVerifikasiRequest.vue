@@ -24,7 +24,6 @@ export default {
       messageError: {},
       response: "",
       fileImage: null,
-      attachment: "",
     };
   },
   methods: {

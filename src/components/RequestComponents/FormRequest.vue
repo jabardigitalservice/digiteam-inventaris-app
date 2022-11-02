@@ -2,6 +2,7 @@
 import TextError from "../layouts/TextError.vue";
 import Modal from "../layouts/Modal.vue";
 import { doPostUpdate } from "@/api";
+import { sendFile } from "@/utils/inputFile.js";
 import {
   divisiArrayOption,
   priortyObjectOption,
@@ -62,7 +63,8 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.formRequest;
+            this.formRequest.replacement_evidence = this.$store.state.fileName;
+
             const response = doPostUpdate(
               "/requests",
               "POST",
@@ -97,6 +99,11 @@ export default {
               });
           }
         });
+    },
+    onFileChange() {
+      if (this.$refs.file.files[0]) {
+        sendFile(this.$refs.file.files[0]);
+      }
     },
   },
 };
@@ -256,8 +263,11 @@ export default {
         <label v-if="isEvidence" class="block mt-5">
           <span class="sr-only">Tambah File +</span>
           <input
+            ref="file"
             type="file"
+            accept=".xlsx, .xls"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+            @change="onFileChange"
           />
         </label>
       </form>
