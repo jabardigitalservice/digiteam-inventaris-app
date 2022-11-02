@@ -51,7 +51,7 @@ export default {
 
 <template>
   <div class="flex justify-center">
-    <div>
+    <!-- <div>
       <div class="dropdown">
         <button
           id="action-button"
@@ -117,6 +117,6 @@ export default {
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
