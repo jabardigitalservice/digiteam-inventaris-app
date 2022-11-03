@@ -101,7 +101,7 @@ export default {
           >Evidence Pengambilan</span
         >
         <a
-          :href="detailRequest.pickup_evidence"
+          :href="detailRequest.pickup_evidence_url"
           target="_blank"
           class="text-blue-500"
           >{{ detailRequest.pickup_evidence }}</a
@@ -113,7 +113,7 @@ export default {
           >BAST Pengambilan</span
         >
         <a
-          :href="detailRequest.pickup_bast"
+          :href="detailRequest.pickup_bast_url"
           target="_blank"
           class="text-blue-500"
           >{{ detailRequest.pickup_bast }}</a
