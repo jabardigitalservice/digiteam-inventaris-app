@@ -1,6 +1,6 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
-import { formatDateTime } from "@/utils/formatDate.js";
+import { formatInTimeZone } from "date-fns-tz";
 export default {
   components: { HRCenter },
   props: {
@@ -9,7 +9,11 @@ export default {
   },
   computed: {
     pickUpTime() {
-      return formatDateTime(this.detailRequest.pickup_date);
+      return formatInTimeZone(
+        this.detailRequest.pickup_date,
+        "Asia/Bangkok",
+        "dd MMMM yyyy"
+      );
     },
   },
 };
