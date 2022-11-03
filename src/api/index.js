@@ -38,10 +38,10 @@ export function patchRequest(url, method, params_url, id, data) {
   });
 }
 
-export function postFile(url, method, data) {
+export function postFile(url, data) {
   return https({
     url: `${url}`,
-    method: method,
+    method: "POST",
     data,
   });
 }
