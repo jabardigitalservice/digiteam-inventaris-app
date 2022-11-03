@@ -33,6 +33,9 @@ export default {
     };
   },
   computed: {
+    fileRequestType() {
+      return this.detailRequest.request_type == 2;
+    },
     btnApprovalAdmin() {
       return (
         this.modalName === "verifikasi-request" &&
@@ -328,6 +331,18 @@ export default {
           Status Request
         </label>
         <StatusRequest :status="detailRequest.status" />
+
+        <label v-if="fileRequestType" class="block mt-5">
+          <span class="block text-sm font-bold text-slate-700"
+            >File Evidence</span
+          >
+          <a
+            :href="detailRequest.replacement_evidence_url"
+            target="_blank"
+            class="text-blue-500"
+            >{{ detailRequest.replacement_evidence }}</a
+          >
+        </label>
 
         <DetailVerifikasiRequest
           :condition-detail-verifikasi="{

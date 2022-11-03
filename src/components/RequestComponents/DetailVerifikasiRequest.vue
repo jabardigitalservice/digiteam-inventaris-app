@@ -1,10 +1,16 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
+import { formatDateTime } from "@/utils/formatDate.js";
 export default {
   components: { HRCenter },
   props: {
     conditionDetailVerifikasi: { type: Object, default: () => ({}) },
     detailRequest: { type: Object, default: () => ({}) },
+  },
+  computed: {
+    pickUpTime() {
+      return formatDateTime(this.detailRequest.pickup_date);
+    },
   },
 };
 </script>
@@ -28,9 +34,9 @@ export default {
         <template #title>List Request</template>
       </HRCenter>
       <span class="block text-sm font-bold text-slate-700">List Request</span>
-      <a :href="detailRequest.file_url" target="_blank" class="text-blue-500"
-        >Download List Request</a
-      >
+      <a :href="detailRequest.file_url" target="_blank" class="text-blue-500">{{
+        detailRequest.filename
+      }}</a>
     </label>
 
     <template v-if="conditionDetailVerifikasi.detailRequestItem">
@@ -78,7 +84,7 @@ export default {
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
         >
-        <span>{{ detailRequest.pickup_date }}</span>
+        <span>{{ pickUpTime }}</span>
       </label>
     </template>
 
