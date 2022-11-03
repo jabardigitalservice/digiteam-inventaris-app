@@ -1,6 +1,7 @@
 import store from "../store";
+import { postFile } from "@/api";
 
-function sendFile(value) {
+async function sendFile(value) {
   if (value) {
     const isValidFormat = [
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -9,18 +10,22 @@ function sendFile(value) {
     if (isValidFormat) {
       const formData = new FormData();
       formData.append("file", value);
-      store.dispatch("sendFile", formData);
-      return true;
+      try {
+        const response = await postFile("/files/upload", "POST", formData);
+        return response.data.filename;
+      } catch (error) {
+        store.dispatch("sweetalert/errorAlert", {
+          title: "Server Error!",
+          text: "Silahkan coba kembali!",
+        });
+      }
     } else {
       store.dispatch("sweetalert/errorAlert", {
         title: "File ini tidak didukung!",
         text: "Silakan ganti file dengan format yg sesuai!",
       });
-      return false;
     }
   }
 }
-
-function checkFile() {}
 
 export { sendFile };

@@ -22,6 +22,7 @@ export default {
         purpose: "",
         priority: "",
         phone_number: "",
+        replacement_evidence: "",
       },
       formRequestCopy: {},
       messageError: {},
@@ -63,8 +64,6 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.formRequest.replacement_evidence = this.$store.state.fileName;
-
             const response = doPostUpdate(
               "/requests",
               "POST",
@@ -102,7 +101,15 @@ export default {
     },
     onFileChange() {
       if (this.$refs.file.files[0]) {
-        sendFile(this.$refs.file.files[0]);
+        const response = sendFile(this.$refs.file.files[0]);
+        response
+          .then((result) => {
+            console.log(result, "view");
+            this.formRequest.replacement_evidence = result;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
   },
