@@ -111,7 +111,7 @@ export default {
         } else {
           this.$store.dispatch("sweetalert/errorAlert", {
             title: "File ini tidak didukung!",
-            text: "Silahkan ganti file dengan format yg sesuai!",
+            text: "Silakan ganti file dengan format yg sesuai!",
           });
           this.$refs.file.value = null;
           this.fileImage = null;
