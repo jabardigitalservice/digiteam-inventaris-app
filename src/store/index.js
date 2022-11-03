@@ -55,6 +55,9 @@ export default new Vuex.Store({
         );
       }
     },
+    clearFile({ commit }) {
+      commit("SET_FILENAME", "");
+    },
   },
   modules: { modals, sweetalert, user },
 });
