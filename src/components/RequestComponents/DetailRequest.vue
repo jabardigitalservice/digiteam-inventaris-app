@@ -423,7 +423,7 @@ export default {
         @click="submitFormVerifikasi('file')"
       >
         Submit
-        <!-- this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
+        <!-- TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
       </button>
       <button
         v-if="btnPickUpItem"

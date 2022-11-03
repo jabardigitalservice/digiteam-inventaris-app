@@ -109,7 +109,7 @@ export default {
       this.$emit("get-response-form-verifikasi");
     },
     onFileChange() {
-      // this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
+      // TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
       if (this.$refs.file.files[0]) {
         const isValidFormat = [
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -128,7 +128,7 @@ export default {
       }
     },
     setFile(value) {
-      // this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
+      // TODO:  this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
       const formData = new FormData();
       formData.append("file", value);
       this.fileImage = formData;
