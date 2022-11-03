@@ -24,6 +24,7 @@ async function sendFile(value) {
         title: "File ini tidak didukung!",
         text: "Silakan ganti file dengan format yg sesuai!",
       });
+      return false;
     }
   }
 }

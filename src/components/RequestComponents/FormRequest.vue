@@ -64,52 +64,70 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const response = doPostUpdate(
-              "/requests",
-              "POST",
-              this.formRequest
-            );
-            response
-              .then(() => {
-                this.$store
-                  .dispatch("sweetalert/successAlert", {
-                    title: "Success",
-                    text: "Berhasil mengirim permohonan",
-                  })
-                  .then(() => {
-                    this.$store.dispatch("modals/close", this.name);
-                    this.resetFormRequest();
-                    this.$emit("get-response-form");
-                  });
-              })
-              .catch((err) => {
-                this.messageError = err.response.data.errors;
-                if (err.response.data.errors) {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: "Data kurang lengkap!",
-                    text: "Gagal mengirim permohonan",
-                  });
-                } else {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: "Server Error!",
-                    text: "Gagal mengirim permohonan",
-                  });
-                }
+            const checkFile = this.checkFile();
+            if (checkFile) {
+              const response = doPostUpdate(
+                "/requests",
+                "POST",
+                this.formRequest
+              );
+              response
+                .then(() => {
+                  this.$store
+                    .dispatch("sweetalert/successAlert", {
+                      title: "Success",
+                      text: "Berhasil mengirim permohonan",
+                    })
+                    .then(() => {
+                      this.$store.dispatch("modals/close", this.name);
+                      this.resetFormRequest();
+                      this.$emit("get-response-form");
+                    });
+                })
+                .catch((err) => {
+                  this.messageError = err.response.data.errors;
+                  if (err.response.data.errors) {
+                    this.$store.dispatch("sweetalert/errorAlert", {
+                      title: "Data kurang lengkap!",
+                      text: "Gagal mengirim permohonan",
+                    });
+                  } else {
+                    this.$store.dispatch("sweetalert/errorAlert", {
+                      title: "Server Error!",
+                      text: "Gagal mengirim permohonan",
+                    });
+                  }
+                });
+            } else {
+              this.$store.dispatch("sweetalert/errorAlert", {
+                title: "Data kurang lengkap!",
+                text: "Untuk penukaran barang harus melampirkan file Evidence!",
               });
+            }
           }
         });
     },
     onFileChange() {
       if (this.$refs.file.files[0]) {
         const response = sendFile(this.$refs.file.files[0]);
-        response
-          .then((result) => {
-            console.log(result, "view");
+        response.then((result) => {
+          if (result) {
             this.formRequest.replacement_evidence = result;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+          } else {
+            this.$refs.file.value = null;
+          }
+        });
+      }
+    },
+    checkFile() {
+      if (this.formRequest.request_type == 2) {
+        if (this.formRequest.replacement_evidence) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
       }
     },
   },
