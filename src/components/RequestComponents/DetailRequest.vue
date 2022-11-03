@@ -27,9 +27,15 @@ export default {
       statusObject,
       priortyObjectOption,
       formRequestDetail: false,
+      params_url_status: "/status",
+      params_url_notes: "/notes",
+      params_url_received: "/received",
     };
   },
   computed: {
+    fileRequestType() {
+      return this.detailRequest.request_type == 2;
+    },
     btnApprovalAdmin() {
       return (
         this.modalName === "verifikasi-request" &&
@@ -42,20 +48,19 @@ export default {
       return (
         this.detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
         this.detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value &&
-        this.detailRequest.status !== statusObject.PENGAJUAN_MASUK.value
+        this.detailRequest.status !== statusObject.PENGAJUAN_MASUK.value &&
+        this.detailRequest.status !== statusObject.BARANG_SIAP_DIAMBIL.value &&
+        this.detailRequest.status !== statusObject.BARANG_SUDAH_DIAMBIL.value
       );
+    },
+    detailRejectedRequest() {
+      return this.detailRequest.status === statusObject.PENGAJUAN_DITOLAK.value;
     },
     btnUploadList() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
         this.detailRequest.status == statusObject.PENGAJUAN_MASUK.value
-      );
-    },
-    btnRequestItem() {
-      return (
-        this.modalName === "verifikasi-request" &&
-        this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value
       );
     },
     formListItem() {
@@ -68,6 +73,13 @@ export default {
     detailListItem() {
       return this.detailRequest.status >= statusObject.PENGAJUAN_DITERIMA.value;
     },
+    btnRequestItem() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.detailRequest.status === statusObject.PENGAJUAN_DITERIMA.value &&
+        this.detailRequest.username === this.$store.state.user.profile.name
+      );
+    },
     formRequestItem() {
       return (
         this.modalName === "verifikasi-request" &&
@@ -77,6 +89,13 @@ export default {
     },
     detailRequestItem() {
       return this.detailRequest.status > statusObject.PENGAJUAN_DITERIMA.value;
+    },
+    btnFeasibleCheck() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status == statusObject.PENGECEKAN_KELAYAKAN.value
+      );
     },
     formCheckItem() {
       return (
@@ -90,29 +109,33 @@ export default {
         this.detailRequest.status > statusObject.PENGECEKAN_KELAYAKAN.value
       );
     },
-    rejectedRequest() {
-      return this.detailRequest.status === statusObject.PENGAJUAN_DITOLAK.value;
+    btnReceived() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status == statusObject.BARANG_SIAP_DIAMBIL.value
+      );
+    },
+    detailReceivedItem() {
+      return this.detailRequest.status > statusObject.BARANG_SIAP_DIAMBIL.value;
+    },
+    btnPickUpItem() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status === statusObject.BARANG_SUDAH_DIAMBIL.value
+      );
     },
     formPickUpItem() {
       return (
         this.modalName === "verifikasi-request" &&
         this.$store.state.user.profile.isAdmin === true &&
-        this.detailRequest.status === statusObject.BARANG_SIAP_DIAMBIL.value
+        this.detailRequest.status === statusObject.BARANG_SUDAH_DIAMBIL.value
       );
     },
-    listPickUpItem() {
-      return this.detailRequest.status > statusObject.BARANG_SIAP_DIAMBIL.value;
-    },
-    btnSubmitRequestItem() {
+    detailPickUpItem() {
       return (
-        this.detailRequest.username === this.$store.state.user.profile.name
-      );
-    },
-    btnFeasibleCheck() {
-      return (
-        this.modalName === "verifikasi-request" &&
-        this.$store.state.user.profile.isAdmin === true &&
-        this.detailRequest.status == statusObject.PENGECEKAN_KELAYAKAN.value
+        this.detailRequest.status > statusObject.BARANG_SUDAH_DIAMBIL.value
       );
     },
     btnReturnItem() {
@@ -154,17 +177,12 @@ export default {
         this.formUpdateStatus.status = statusObject.BARANG_SIAP_DIAMBIL.value;
       } else if (
         type === "approve" &&
-        status === statusObject.BARANG_SIAP_DIAMBIL.value
-      ) {
-        this.formUpdateStatus.status = statusObject.PENGAJUAN_SELESAI.value;
-      } else if (
-        type === "approve" &&
         status === statusObject.PENGAJUAN_SELESAI.value
       ) {
         this.formUpdateStatus.status = statusObject.PENGEMBALIAN_BARANG.value;
       }
     },
-    submitUpdateStatus(type, status) {
+    submitUpdateStatus(type, status, params_url) {
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -178,7 +196,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.sendStatus(type, status, "/status");
+            this.sendStatus(type, status, params_url);
           }
         });
     },
@@ -204,7 +222,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed && result.value) {
             this.formUpdateStatus.notes = result.value;
-            this.sendStatus(type, status, "/notes");
+            this.sendStatus(type, status, this.params_url_notes);
           } else {
             this.$store.dispatch("sweetalert/errorAlert", {
               title: "Catatan tidak boleh kosong!",
@@ -322,14 +340,27 @@ export default {
         </label>
         <StatusRequest :status="detailRequest.status" />
 
+        <label v-if="fileRequestType" class="block mt-5">
+          <span class="block text-sm font-bold text-slate-700"
+            >File Evidence</span
+          >
+          <a
+            :href="detailRequest.replacement_evidence_url"
+            target="_blank"
+            class="text-blue-500"
+            >{{ detailRequest.replacement_evidence }}</a
+          >
+        </label>
+
         <DetailVerifikasiRequest
           :condition-detail-verifikasi="{
             detailListItem: detailListItem,
             detailRequestItem: detailRequestItem,
             detailCheckItem: detailCheckItem,
-            listPickUpItem: listPickUpItem,
+            detailPickUpItem: detailPickUpItem,
             detailReturnItem: detailReturnItem,
-            rejectedRequest: rejectedRequest,
+            detailRejectedRequest: detailRejectedRequest,
+            detailReceivedItem: detailReceivedItem,
           }"
           :detail-request="detailRequest"
         />
@@ -359,7 +390,22 @@ export default {
       <button
         v-if="btnApproveStatus"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="submitUpdateStatus('approve', detailRequest.status)"
+        @click="
+          submitUpdateStatus('approve', detailRequest.status, params_url_status)
+        "
+      >
+        Approve
+      </button>
+      <button
+        v-if="btnReceived"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        @click="
+          submitUpdateStatus(
+            'approve',
+            detailRequest.status,
+            params_url_received
+          )
+        "
       >
         Approve
       </button>
@@ -370,17 +416,25 @@ export default {
       >
         Submit
       </button>
+
       <button
         v-if="btnUploadList"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi('file')"
       >
         Submit
+        <!-- this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
+      </button>
+      <button
+        v-if="btnPickUpItem"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        @click="submitFormVerifikasi('pickup')"
+      >
+        Submit
       </button>
     </template>
     <template v-else-if="btnRequestItem" #footer>
       <button
-        v-if="btnSubmitRequestItem"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi('item')"
       >
@@ -390,7 +444,9 @@ export default {
     <template v-else-if="btnReturnItem" #footer>
       <button
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="submitUpdateStatus('approve', detailRequest.status)"
+        @click="
+          submitUpdateStatus('approve', detailRequest.status, params_url_status)
+        "
       >
         Submit
       </button>

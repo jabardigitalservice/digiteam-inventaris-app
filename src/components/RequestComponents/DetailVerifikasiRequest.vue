@@ -1,17 +1,26 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
+import { formatDateTime } from "@/utils/formatDate.js";
 export default {
   components: { HRCenter },
   props: {
     conditionDetailVerifikasi: { type: Object, default: () => ({}) },
     detailRequest: { type: Object, default: () => ({}) },
   },
+  computed: {
+    pickUpTime() {
+      return formatDateTime(this.detailRequest.pickup_date);
+    },
+  },
 };
 </script>
 
 <template>
   <div>
-    <label v-if="conditionDetailVerifikasi.rejectedRequest" class="block mt-5">
+    <label
+      v-if="conditionDetailVerifikasi.detailRejectedRequest"
+      class="block mt-5"
+    >
       <HRCenter>
         <template #title>Notes Rejected</template>
       </HRCenter>
@@ -25,9 +34,9 @@ export default {
         <template #title>List Request</template>
       </HRCenter>
       <span class="block text-sm font-bold text-slate-700">List Request</span>
-      <a :href="detailRequest.file_url" target="_blank" class="text-blue-500"
-        >Download List Request</a
-      >
+      <a :href="detailRequest.file_url" target="_blank" class="text-blue-500">{{
+        detailRequest.filename
+      }}</a>
     </label>
 
     <template v-if="conditionDetailVerifikasi.detailRequestItem">
@@ -67,7 +76,7 @@ export default {
       <span>{{ detailRequest.notes }}</span>
     </label>
 
-    <template v-if="conditionDetailVerifikasi.listPickUpItem">
+    <template v-if="conditionDetailVerifikasi.detailReceivedItem">
       <HRCenter>
         <template #title>Detail Pengambilan Barang</template>
       </HRCenter>
@@ -75,28 +84,40 @@ export default {
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengambilan</span
         >
-        <span>17-10-2022</span>
+        <span>{{ pickUpTime }}</span>
       </label>
+    </template>
 
+    <template v-if="conditionDetailVerifikasi.detailPickUpItem">
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Penanda Tangan BAST Pengambilan</span
         >
-        <span>Ray F S HRD</span>
+        <span>{{ detailRequest.pickup_signing }}</span>
       </label>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Evidence Pengambilan</span
         >
-        <a href="" class="text-blue-500">Download Evidence Pengambilan</a>
+        <a
+          :href="detailRequest.pickup_evidence_url"
+          target="_blank"
+          class="text-blue-500"
+          >{{ detailRequest.pickup_evidence }}</a
+        >
       </label>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >BAST Pengambilan</span
         >
-        <a href="" class="text-blue-500">Download BAST Pengambilan</a>
+        <a
+          :href="detailRequest.pickup_bast_url"
+          target="_blank"
+          class="text-blue-500"
+          >{{ detailRequest.pickup_bast }}</a
+        >
       </label>
     </template>
 
