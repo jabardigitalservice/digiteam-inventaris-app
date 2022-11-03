@@ -38,6 +38,7 @@ export default {
         this.isEvidence = true;
       } else {
         this.isEvidence = false;
+        this.formRequest.replacement_evidence = "";
       }
     },
   },
