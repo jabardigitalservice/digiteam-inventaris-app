@@ -93,21 +93,31 @@ export default {
         <span class="block text-sm font-bold text-slate-700"
           >Penanda Tangan BAST Pengambilan</span
         >
-        <span>Ray F S HRD</span>
+        <span>{{ detailRequest.pickup_signing }}</span>
       </label>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Evidence Pengambilan</span
         >
-        <a href="" class="text-blue-500">Download Evidence Pengambilan</a>
+        <a
+          :href="detailRequest.pickup_evidence"
+          target="_blank"
+          class="text-blue-500"
+          >{{ detailRequest.pickup_evidence }}</a
+        >
       </label>
 
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >BAST Pengambilan</span
         >
-        <a href="" class="text-blue-500">Download BAST Pengambilan</a>
+        <a
+          :href="detailRequest.pickup_bast"
+          target="_blank"
+          class="text-blue-500"
+          >{{ detailRequest.pickup_bast }}</a
+        >
       </label>
     </template>
 

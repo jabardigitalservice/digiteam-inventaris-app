@@ -1,8 +1,8 @@
 <script>
 import HRCenter from "../layouts/HRCenter.vue";
-import { typeItemObjectOption } from "@/constants";
 import { patchRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
+import { sendFile } from "@/utils/inputFile.js";
 export default {
   components: { HRCenter, TextError },
   props: {
@@ -11,19 +11,20 @@ export default {
   },
   data() {
     return {
-      typeItemObjectOption,
       formRequestDetail: {
         item_name: "",
         item_brand: "",
         item_number: "",
-      },
-      formUpdateStatus: {
         status: 6,
         notes: "",
+        pickup_signing: "",
+        pickup_evidence: "",
+        pickup_bast: "",
       },
       messageError: {},
       response: "",
       fileImage: null,
+      refsType: null,
     };
   },
   methods: {
@@ -55,7 +56,7 @@ export default {
                 "PATCH",
                 "/notes",
                 this.id,
-                this.formUpdateStatus
+                this.formRequestDetail
               );
             } else if (type === "file") {
               this.response = patchRequest(
@@ -64,6 +65,14 @@ export default {
                 "/upload",
                 this.id,
                 this.fileImage
+              );
+            } else if (type === "pickup") {
+              this.response = patchRequest(
+                "/requests",
+                "PATCH",
+                "/pickup",
+                this.id,
+                this.formRequestDetail
               );
             }
 
@@ -100,6 +109,7 @@ export default {
       this.$emit("get-response-form-verifikasi");
     },
     onFileChange() {
+      // this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
       if (this.$refs.file.files[0]) {
         const isValidFormat = [
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -118,9 +128,32 @@ export default {
       }
     },
     setFile(value) {
+      // this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
       const formData = new FormData();
       formData.append("file", value);
       this.fileImage = formData;
+    },
+    onFileChangePengembalian(type) {
+      if (type === "evidence") {
+        this.refsType = this.$refs.evidence;
+      } else {
+        this.refsType = this.$refs.bast;
+      }
+
+      if (this.refsType.files[0]) {
+        const response = sendFile(this.refsType.files[0]);
+        response.then((result) => {
+          if (result) {
+            if (type === "evidence") {
+              this.formRequestDetail.pickup_evidence = result;
+            } else {
+              this.formRequestDetail.pickup_bast = result;
+            }
+          } else {
+            this.refsType.value = null;
+          }
+        });
+      }
     },
   },
 };
@@ -212,7 +245,7 @@ export default {
         Catatan Kondisi Barang
       </span>
       <textarea
-        v-model="formUpdateStatus.notes"
+        v-model="formRequestDetail.notes"
         placeholder="Masukkan Catatan Kondisi Barang"
         rows="6"
         class="input-form"
@@ -226,11 +259,16 @@ export default {
           >Penanda Tangan BAST Pengambilan</span
         >
         <input
+          v-model="formRequestDetail.pickup_signing"
           type="text"
           placeholder="Masukkan Penanda Tangan BAST Pengambilan"
           class="input-form"
         />
       </label>
+      <TextError
+        v-if="messageError.pickup_signing"
+        :text-error="messageError.pickup_signing"
+      />
 
       <label
         for="evidence"
@@ -242,10 +280,17 @@ export default {
       <label class="block mt-5">
         <span class="sr-only">Tambah File +</span>
         <input
+          ref="evidence"
           type="file"
+          accept=".xlsx, .xls"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+          @change="onFileChangePengembalian('evidence')"
         />
       </label>
+      <TextError
+        v-if="messageError.pickup_evidence"
+        :text-error="messageError.pickup_evidence"
+      />
 
       <label
         for="evidence"
@@ -257,10 +302,17 @@ export default {
       <label class="block mt-5">
         <span class="sr-only">Tambah File +</span>
         <input
+          ref="bast"
           type="file"
+          accept=".xlsx, .xls"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+          @change="onFileChangePengembalian('bast')"
         />
       </label>
+      <TextError
+        v-if="messageError.pickup_bast"
+        :text-error="messageError.pickup_bast"
+      />
     </template>
 
     <template v-if="conditionDetailVerifikasi.formReturnItem">

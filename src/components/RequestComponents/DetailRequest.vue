@@ -49,7 +49,8 @@ export default {
         this.detailRequest.status !== statusObject.PENGAJUAN_DITOLAK.value &&
         this.detailRequest.status !== statusObject.PENGECEKAN_KELAYAKAN.value &&
         this.detailRequest.status !== statusObject.PENGAJUAN_MASUK.value &&
-        this.detailRequest.status !== statusObject.BARANG_SIAP_DIAMBIL.value
+        this.detailRequest.status !== statusObject.BARANG_SIAP_DIAMBIL.value &&
+        this.detailRequest.status !== statusObject.BARANG_SUDAH_DIAMBIL.value
       );
     },
     detailRejectedRequest() {
@@ -117,6 +118,13 @@ export default {
     },
     detailReceivedItem() {
       return this.detailRequest.status > statusObject.BARANG_SIAP_DIAMBIL.value;
+    },
+    btnPickUpItem() {
+      return (
+        this.modalName === "verifikasi-request" &&
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status === statusObject.BARANG_SUDAH_DIAMBIL.value
+      );
     },
     formPickUpItem() {
       return (
@@ -408,10 +416,19 @@ export default {
       >
         Submit
       </button>
+
       <button
         v-if="btnUploadList"
         class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="submitFormVerifikasi('file')"
+      >
+        Submit
+        <!-- this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
+      </button>
+      <button
+        v-if="btnPickUpItem"
+        class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        @click="submitFormVerifikasi('pickup')"
       >
         Submit
       </button>
