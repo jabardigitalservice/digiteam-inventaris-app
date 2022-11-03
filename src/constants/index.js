@@ -23,12 +23,16 @@ export const statusObject = Object.freeze({
     value: 6,
     text: "Barang Siap Diambil",
   },
-  PENGAJUAN_SELESAI: {
+  BARANG_SUDAH_DIAMBIL: {
     value: 7,
+    text: "Barang Sudah Diambil",
+  },
+  PENGAJUAN_SELESAI: {
+    value: 8,
     text: "Pengajuan Selesai",
   },
   PENGEMBALIAN_BARANG: {
-    value: 8,
+    value: 9,
     text: "Barang Sudah dikembalikan",
   },
 });

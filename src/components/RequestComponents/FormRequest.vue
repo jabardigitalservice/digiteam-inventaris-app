@@ -2,6 +2,7 @@
 import TextError from "../layouts/TextError.vue";
 import Modal from "../layouts/Modal.vue";
 import { doPostUpdate } from "@/api";
+import { sendFile } from "@/utils/inputFile.js";
 import {
   divisiArrayOption,
   priortyObjectOption,
@@ -21,6 +22,7 @@ export default {
         purpose: "",
         priority: "",
         phone_number: "",
+        replacement_evidence: "",
       },
       formRequestCopy: {},
       messageError: {},
@@ -36,6 +38,7 @@ export default {
         this.isEvidence = true;
       } else {
         this.isEvidence = false;
+        this.formRequest.replacement_evidence = "";
       }
     },
   },
@@ -62,41 +65,67 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.formRequest;
-            const response = doPostUpdate(
-              "/requests",
-              "POST",
-              this.formRequest
-            );
-            response
-              .then(() => {
-                this.$store
-                  .dispatch("sweetalert/successAlert", {
-                    title: "Success",
-                    text: "Berhasil mengirim permohonan",
-                  })
-                  .then(() => {
-                    this.$store.dispatch("modals/close", this.name);
-                    this.resetFormRequest();
-                    this.$emit("get-response-form");
-                  });
-              })
-              .catch((err) => {
-                this.messageError = err.response.data.errors;
-                if (err.response.data.errors) {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: "Data kurang lengkap!",
-                    text: "Gagal mengirim permohonan",
-                  });
-                } else {
-                  this.$store.dispatch("sweetalert/errorAlert", {
-                    title: "Server Error!",
-                    text: "Gagal mengirim permohonan",
-                  });
-                }
+            const checkFile = this.checkFile();
+            if (checkFile) {
+              const response = doPostUpdate(
+                "/requests",
+                "POST",
+                this.formRequest
+              );
+              response
+                .then(() => {
+                  this.$store
+                    .dispatch("sweetalert/successAlert", {
+                      title: "Success",
+                      text: "Berhasil mengirim permohonan",
+                    })
+                    .then(() => {
+                      this.$store.dispatch("modals/close", this.name);
+                      this.resetFormRequest();
+                      this.$emit("get-response-form");
+                    });
+                })
+                .catch((err) => {
+                  this.messageError = err.response.data.errors;
+                  if (err.response.data.errors) {
+                    this.$store.dispatch("sweetalert/errorAlert", {
+                      title: "Data kurang lengkap!",
+                      text: "Gagal mengirim permohonan",
+                    });
+                  } else {
+                    this.$store.dispatch("sweetalert/errorAlert", {
+                      title: "Server Error!",
+                      text: "Gagal mengirim permohonan",
+                    });
+                  }
+                });
+            } else {
+              this.$store.dispatch("sweetalert/errorAlert", {
+                title: "Data kurang lengkap!",
+                text: "Untuk penukaran barang harus melampirkan file Evidence!",
               });
+            }
           }
         });
+    },
+    onFileChange() {
+      if (this.$refs.file.files[0]) {
+        const response = sendFile(this.$refs.file.files[0]);
+        response.then((result) => {
+          if (result) {
+            this.formRequest.replacement_evidence = result;
+          } else {
+            this.$refs.file.value = null;
+          }
+        });
+      }
+    },
+    checkFile() {
+      if (this.formRequest.request_type === 2) {
+        return !!this.formRequest.replacement_evidence;
+      } else {
+        return true;
+      }
     },
   },
 };
@@ -256,8 +285,11 @@ export default {
         <label v-if="isEvidence" class="block mt-5">
           <span class="sr-only">Tambah File +</span>
           <input
+            ref="file"
             type="file"
+            accept=".xlsx, .xls"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+            @change="onFileChange"
           />
         </label>
       </form>
