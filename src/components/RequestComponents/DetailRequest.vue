@@ -33,8 +33,8 @@ export default {
     };
   },
   computed: {
-    fileRequestType() {
-      return this.detailRequest.request_type == 2;
+    isReplacementRequestType() {
+      return this.detailRequest.request_type === 2;
     },
     btnApprovalAdmin() {
       return (
@@ -340,7 +340,7 @@ export default {
         </label>
         <StatusRequest :status="detailRequest.status" />
 
-        <label v-if="fileRequestType" class="block mt-5">
+        <label v-if="isReplacementRequestType" class="block mt-5">
           <span class="block text-sm font-bold text-slate-700"
             >File Evidence</span
           >
