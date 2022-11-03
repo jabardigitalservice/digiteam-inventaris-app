@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import modals from "./modals";
 import sweetalert from "./sweetalert";
 import user from "./user";
-import { postFile } from "@/api";
 Vue.use(Vuex);
 
 export default new Vuex.Store({

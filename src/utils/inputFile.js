@@ -11,7 +11,7 @@ async function sendFile(value) {
       const formData = new FormData();
       formData.append("file", value);
       try {
-        const response = await postFile("/files/upload", "POST", formData);
+        const response = await postFile("/files/upload", formData);
         return response.data.filename;
       } catch (error) {
         store.dispatch("sweetalert/errorAlert", {

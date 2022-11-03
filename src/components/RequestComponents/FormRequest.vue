@@ -121,12 +121,8 @@ export default {
       }
     },
     checkFile() {
-      if (this.formRequest.request_type == 2) {
-        if (this.formRequest.replacement_evidence) {
-          return true;
-        } else {
-          return false;
-        }
+      if (this.formRequest.request_type === 2) {
+        return !!this.formRequest.replacement_evidence;
       } else {
         return true;
       }
