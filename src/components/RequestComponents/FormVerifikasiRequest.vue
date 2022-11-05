@@ -2,11 +2,13 @@
 import { patchRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
 import { sendFile } from "@/utils/inputFile.js";
+import StatusRequest from "./StatusRequest.vue";
 export default {
-  components: { TextError },
+  components: { TextError, StatusRequest },
   props: {
     conditionDetailVerifikasi: { type: Object, default: () => ({}) },
     id: { type: String, default: "" },
+    status: { type: Number, default: 0 },
   },
   data() {
     return {
@@ -163,7 +165,7 @@ export default {
       <form>
         <label
           for="evidence"
-          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+          class="block mb-2 text-sm font-bold text-slate-700"
         >
           List Item
         </label>
@@ -181,8 +183,8 @@ export default {
       </form>
     </template>
 
-    <template v-if="conditionDetailVerifikasi.formRequestItem">
-      <label class="block mt-5">
+    <template v-else-if="conditionDetailVerifikasi.formRequestItem">
+      <label class="block">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
         <input
           v-model="formRequestDetail.item_brand"
@@ -229,7 +231,7 @@ export default {
       />
     </template>
 
-    <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
+    <label v-else-if="conditionDetailVerifikasi.formCheckItem" class="block">
       <span class="block text-sm font-bold text-slate-700">
         Catatan Kondisi Barang
       </span>
@@ -242,8 +244,8 @@ export default {
       <TextError v-if="messageError.notes" :text-error="messageError.notes" />
     </label>
 
-    <template v-if="conditionDetailVerifikasi.formPickUpItem">
-      <label class="block mt-5">
+    <template v-else-if="conditionDetailVerifikasi.formPickUpItem">
+      <label class="block">
         <span class="block text-sm font-bold text-slate-700"
           >Penanda Tangan BAST Pengambilan</span
         >
@@ -304,8 +306,8 @@ export default {
       />
     </template>
 
-    <template v-if="conditionDetailVerifikasi.formReturnItem">
-      <label class="block mt-5">
+    <template v-else-if="conditionDetailVerifikasi.formReturnItem">
+      <label class="block">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span
         >
@@ -366,5 +368,11 @@ export default {
         />
       </label>
     </template>
+
+    <template v-else>
+      <span class="block text-sm font-bold text-slate-700 mt-5">
+        Ubah Status Permohonan menjadi
+        <StatusRequest :status="status + 1" /> </span
+    ></template>
   </div>
 </template>

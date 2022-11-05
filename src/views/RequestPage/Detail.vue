@@ -8,7 +8,6 @@ export default {
   data() {
     return {
       titleCard: "Detail Permohonan",
-      textCard: "Detail permohonan inventaris yang diminta.",
       detailRequest: {},
     };
   },
@@ -37,8 +36,7 @@ export default {
 
 <template>
   <div>
-    <TitleCard :title-card="titleCard" :text-card="textCard" />
-    <div class="p-1 bg-gray-50 rounded-lg border border-gray-200 h-full">
+    <div class="bg-gray-50 rounded-lg border h-full">
       <RequestDetail
         :detail-request="detailRequest"
         @get-response-form="getDetailData"

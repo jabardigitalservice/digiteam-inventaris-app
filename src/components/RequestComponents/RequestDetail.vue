@@ -148,6 +148,13 @@ export default {
         this.detailRequest.status === statusObject.PENGEMBALIAN_BARANG.value
       );
     },
+    btnVerifikasi() {
+      return (
+        this.detailRequest.status < statusObject.PENGAJUAN_SELESAI.value &&
+        this.detailRequest.status != statusObject.PENGAJUAN_DITOLAK.value &&
+        this.$store.state.user.profile.isAdmin === true
+      );
+    },
   },
   methods: {
     openModal(name) {
@@ -273,13 +280,22 @@ export default {
 </script>
 
 <template>
-  <div class="shadow-md">
-    <button
-      class="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
-      @click="openModal('verifikasi-request')"
-    >
-      Verifikasi
-    </button>
+  <div>
+    <div class="px-5 mb-5 mt-5">
+      <p class="text-base font-bold float-left mb-5">
+        Detail Permohonan Inventaris
+      </p>
+
+      <button
+        v-if="btnVerifikasi || btnRequestItem"
+        class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+        type="button"
+        @click="openModal('verifikasi-request')"
+      >
+        Verifikasi
+      </button>
+    </div>
+
     <div class="sm:rounded-lg shadow-md">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
@@ -352,7 +368,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailRejectedRequest" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailRejectedRequest" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-red-800">
@@ -368,7 +384,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-blue-800">
@@ -391,7 +407,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-blue-800">
@@ -417,7 +433,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-blue-800">
@@ -433,7 +449,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-blue-800">
@@ -478,7 +494,7 @@ export default {
       </table>
     </div>
 
-    <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5">
+    <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
           <tr class="text-xs text-white uppercase bg-blue-800">
@@ -523,12 +539,13 @@ export default {
     </div>
 
     <Modal name="verifikasi-request">
-      <template #header>Verifikasi Data</template>
+      <template #header>Verifikasi Data Permohonan</template>
 
       <template #body>
         <FormVerifikasiRequest
           :id="detailRequest.id"
           ref="formVerifikasi"
+          :status="detailRequest.status"
           :condition-detail-verifikasi="{
             formListItem: formListItem,
             formRequestItem: formRequestItem,
