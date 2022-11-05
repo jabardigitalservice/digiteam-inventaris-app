@@ -1,13 +1,36 @@
 <script>
 import TitleCard from "../../components/layouts/TitleCard.vue";
+import { getDetail } from "@/api";
+import RequestDetail from "../../components/RequestComponents/RequestDetail.vue";
 
 export default {
-  components: { TitleCard },
+  components: { TitleCard, RequestDetail },
   data() {
     return {
       titleCard: "Detail Permohonan",
-      textCard: "Detail permohonan.",
+      textCard: "Detail permohonan inventaris yang diminta.",
+      detailRequest: {},
     };
+  },
+  mounted() {
+    this.getDetailData();
+  },
+  methods: {
+    async getDetailData() {
+      try {
+        const response = await getDetail(
+          "requests",
+          "GET",
+          this.$route.params.id
+        );
+        this.detailRequest = response.data;
+      } catch (error) {
+        this.$store.dispatch("sweetalert/errorAlert", {
+          title: "Server Error!",
+          text: "-",
+        });
+      }
+    },
   },
 };
 </script>
@@ -15,10 +38,11 @@ export default {
 <template>
   <div>
     <TitleCard :title-card="titleCard" :text-card="textCard" />
-    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
-      <div class="grid grid-rows-1 md:grid-cols-5 gap-6 mb-5">
-        <h3>Detail</h3>
-      </div>
+    <div class="p-1 bg-gray-50 rounded-lg border border-gray-200 h-full">
+      <RequestDetail
+        :detail-request="detailRequest"
+        @get-response-form="getDetailData"
+      />
     </div>
   </div>
 </template>

@@ -1,10 +1,9 @@
 <script>
-import HRCenter from "../layouts/HRCenter.vue";
 import { patchRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
 import { sendFile } from "@/utils/inputFile.js";
 export default {
-  components: { HRCenter, TextError },
+  components: { TextError },
   props: {
     conditionDetailVerifikasi: { type: Object, default: () => ({}) },
     id: { type: String, default: "" },
@@ -161,9 +160,6 @@ export default {
 <template>
   <div>
     <template v-if="conditionDetailVerifikasi.formListItem">
-      <HRCenter>
-        <template #title>List Request </template>
-      </HRCenter>
       <form>
         <label
           for="evidence"
@@ -186,10 +182,6 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.formRequestItem">
-      <HRCenter>
-        <template #title>Detail Barang yang diminta </template>
-      </HRCenter>
-
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700">Merk Item</span>
         <input
@@ -238,9 +230,6 @@ export default {
     </template>
 
     <label v-if="conditionDetailVerifikasi.formCheckItem" class="block mt-5">
-      <HRCenter>
-        <template #title>Catatan Kondisi Barang</template>
-      </HRCenter>
       <span class="block text-sm font-bold text-slate-700">
         Catatan Kondisi Barang
       </span>
@@ -316,9 +305,6 @@ export default {
     </template>
 
     <template v-if="conditionDetailVerifikasi.formReturnItem">
-      <HRCenter>
-        <template #title>Detail Pengembalian Barang</template>
-      </HRCenter>
       <label class="block mt-5">
         <span class="block text-sm font-bold text-slate-700"
           >Tanggal Pengembalian</span

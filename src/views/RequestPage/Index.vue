@@ -81,7 +81,6 @@ export default {
         :data-request="dataRequest"
         :is-success="isSuccess"
         class="mt-5 mb-5"
-        @get-detail-request="getDetailRequest"
       />
 
       <DataError v-if="!isSuccess" />
