@@ -5,8 +5,8 @@ import Pagination from "../../components/layouts/Pagination.vue";
 import DataError from "../../components/layouts/DataError.vue";
 import TitleCard from "../../components/layouts/TitleCard.vue";
 import FormRequest from "../../components/RequestComponents/FormRequest.vue";
-import DetailRequest from "../../components/RequestComponents/DetailRequest.vue";
 import { fetchList } from "@/api";
+
 export default {
   components: {
     TableRequest,
@@ -15,7 +15,6 @@ export default {
     DataError,
     TitleCard,
     FormRequest,
-    DetailRequest,
   },
   data() {
     return {
@@ -71,17 +70,12 @@ export default {
     <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
       <HeaderTable />
       <FormRequest @get-response-form="getDataRequest" />
-      <DetailRequest
-        :detail-request="detailRequest"
-        :modal-name="modalName"
-        @get-response-form="getDataRequest"
-      />
+
       <TableRequest
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
         class="mt-5 mb-5"
-        @get-detail-request="getDetailRequest"
       />
 
       <DataError v-if="!isSuccess" />

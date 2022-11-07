@@ -84,7 +84,7 @@ export default {
         <div
           class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
         >
-          <!-- todo add icon search -->
+          <!-- TODO: add icon search -->
         </div>
         <input
           id="simple-search"

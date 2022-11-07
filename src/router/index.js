@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LoginPage from "../views/LoginPage/Index.vue";
 import NotFound from "../views/NotFound.vue";
 import ListRequest from "../views/RequestPage/Index.vue";
+import DetailRequest from "../views/RequestPage/Detail.vue";
 
 import DashboardLayout from "../views/layout/DashboardLayout.vue";
 import LoginLayout from "../views/layout/LoginLayout.vue";
@@ -41,6 +42,16 @@ const router = new VueRouter({
           name: "list-request",
           components: {
             default: ListRequest,
+          },
+          meta: {
+            isAuthenticated: true,
+          },
+        },
+        {
+          path: "detail/:id",
+          name: "detail-request",
+          components: {
+            default: DetailRequest,
           },
           meta: {
             isAuthenticated: true,
