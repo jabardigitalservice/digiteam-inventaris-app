@@ -28,6 +28,11 @@ export default {
         limit: 10,
         page: 1,
       },
+      selectFilter: {
+        request_type: "",
+        division: "",
+        status: "",
+      },
       detailRequest: {},
       modalName: "",
     };
@@ -41,6 +46,9 @@ export default {
         const params = {
           page: this.selectPagination.page,
           limit: this.selectPagination.limit,
+          request_type: this.selectFilter.request_type,
+          division: this.selectFilter.division,
+          status: this.selectFilter.status,
         };
         const response = await fetchList("/requests", "GET", params);
         this.dataRequest = response.data;
@@ -53,6 +61,13 @@ export default {
     getSelectPagination(dataPagination) {
       this.selectPagination.limit = dataPagination.limit;
       this.selectPagination.page = dataPagination.page;
+      this.getDataRequest();
+    },
+    getSelectFilter(valueFilter) {
+      this.selectFilter.request_type = valueFilter.request_type;
+      this.selectFilter.division = valueFilter.division;
+      this.selectFilter.status = valueFilter.status;
+      this.$refs.changePagination.resetPagination();
       this.getDataRequest();
     },
     getDetailRequest(data, modal_name) {
@@ -68,7 +83,7 @@ export default {
     <TitleCard :title-card="titleCard" :text-card="textCard" />
 
     <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
-      <HeaderTable />
+      <HeaderTable @get-select-filter="getSelectFilter" />
       <FormRequest @get-response-form="getDataRequest" />
 
       <TableRequest
@@ -82,6 +97,7 @@ export default {
 
       <Pagination
         v-if="isSuccess"
+        ref="changePagination"
         :pagination="pagination"
         @get-select-pagination="getSelectPagination"
       />
