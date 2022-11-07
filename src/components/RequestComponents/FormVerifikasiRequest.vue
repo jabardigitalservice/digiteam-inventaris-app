@@ -21,6 +21,7 @@ export default {
         pickup_signing: "",
         pickup_evidence: "",
         pickup_bast: "",
+        filename: "",
       },
       messageError: {},
       response: "",
@@ -55,27 +56,29 @@ export default {
               this.response = patchRequest(
                 "/requests",
                 "PATCH",
-                "/notes",
+                `/${type}`,
                 this.id,
                 this.formRequestDetail
               );
-            } else if (type === "file") {
+            } else if (type === "filename") {
               this.response = patchRequest(
                 "/requests",
-                "POST",
-                "/upload",
+                "PATCH",
+                `/${type}`,
                 this.id,
-                this.fileImage
+                this.formRequestDetail
               );
             } else if (type === "pickup") {
               this.response = patchRequest(
                 "/requests",
                 "PATCH",
-                "/pickup",
+                `/${type}`,
                 this.id,
                 this.formRequestDetail
               );
             }
+
+            console.log(this.formRequestDetail);
 
             this.response
               .then(() => {
@@ -109,34 +112,11 @@ export default {
       this.$store.dispatch("modals/close", this.name);
       this.$emit("get-response-form-verifikasi");
     },
-    onFileChange() {
-      // TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
-      if (this.$refs.file.files[0]) {
-        const isValidFormat = [
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          "application/vnd.ms-excel",
-        ].includes(this.$refs.file.files[0].type);
-        if (isValidFormat) {
-          this.setFile(this.$refs.file.files[0]);
-        } else {
-          this.$store.dispatch("sweetalert/errorAlert", {
-            title: "File ini tidak didukung!",
-            text: "Silakan ganti file dengan format yg sesuai!",
-          });
-          this.$refs.file.value = null;
-          this.fileImage = null;
-        }
-      }
-    },
-    setFile(value) {
-      // TODO:  this code i was remove next, if API from backend done, because i want to use code in file inputFile.js
-      const formData = new FormData();
-      formData.append("file", value);
-      this.fileImage = formData;
-    },
-    onFileChangePengembalian(type) {
+    onFileChange(type) {
       if (type === "evidence") {
         this.refsType = this.$refs.evidence;
+      } else if (type === "filename") {
+        this.refsType = this.$refs.filename;
       } else {
         this.refsType = this.$refs.bast;
       }
@@ -147,6 +127,8 @@ export default {
           if (result) {
             if (type === "evidence") {
               this.formRequestDetail.pickup_evidence = result;
+            } else if (type === "filename") {
+              this.formRequestDetail.filename = result;
             } else {
               this.formRequestDetail.pickup_bast = result;
             }
@@ -164,7 +146,7 @@ export default {
     <template v-if="conditionDetailVerifikasi.formListItem">
       <form>
         <label
-          for="evidence"
+          for="filename"
           class="block mb-2 text-sm font-bold text-slate-700"
         >
           List Item
@@ -173,11 +155,11 @@ export default {
         <label class="block mt-5">
           <span class="sr-only">Tambah File +</span>
           <input
-            ref="file"
+            ref="filename"
             type="file"
             accept=".xlsx, .xls"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-            @change="onFileChange"
+            @change="onFileChange('filename')"
           />
         </label>
       </form>
@@ -275,7 +257,7 @@ export default {
           type="file"
           accept=".xlsx, .xls"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-          @change="onFileChangePengembalian('evidence')"
+          @change="onFileChange('evidence')"
         />
       </label>
       <TextError
@@ -297,7 +279,7 @@ export default {
           type="file"
           accept=".xlsx, .xls"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-          @change="onFileChangePengembalian('bast')"
+          @change="onFileChange('bast')"
         />
       </label>
       <TextError

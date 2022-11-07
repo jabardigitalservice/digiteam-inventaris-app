@@ -600,7 +600,7 @@ export default {
         <button
           v-if="btnUploadList"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('file')"
+          @click="submitFormVerifikasi('filename')"
         >
           Submit
           <!-- TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
