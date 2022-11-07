@@ -29,14 +29,6 @@ export default {
         });
       }
     },
-    btnVerification(status, username_request) {
-      return (
-        (status === statusObject.PENGAJUAN_DITERIMA.value &&
-          username_request === this.$store.state.user.profile.name) ||
-        this.$store.state.user.profile.isAdmin === true ||
-        status === statusObject.PENGAJUAN_SELESAI.value
-      );
-    },
   },
 };
 </script>
@@ -84,14 +76,6 @@ export default {
               <StatusRequest :status="request.status" />
             </td>
             <td class="td-table">
-              <!-- <router-link
-                v-if="btnVerification(request.status, request.username)"
-                :to="{ name: 'detail-request', params: { id: request.id } }"
-                class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded-2xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              >
-                Verifikasi
-              </router-link> -->
-
               <router-link
                 :to="{ name: 'detail-request', params: { id: request.id } }"
                 class="text-blue-800 bg-white border border-blue-400 hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded-2xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
