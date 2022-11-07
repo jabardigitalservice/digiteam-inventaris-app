@@ -78,8 +78,6 @@ export default {
               );
             }
 
-            console.log(this.formRequestDetail);
-
             this.response
               .then(() => {
                 this.$store
