@@ -46,6 +46,13 @@ export function postFile(url, data) {
   });
 }
 
+export function downloadFile(url) {
+  return https({
+    url: `${url}`,
+    method: "GET",
+  });
+}
+
 export default {
   fetchList,
   doDetailDelete,

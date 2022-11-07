@@ -30,6 +30,11 @@ export default {
       }
       this.$emit("get-select-pagination", this.selectPagination);
     },
+    resetPagination() {
+      this.selectPagination.limit = 10;
+      this.selectPagination.page = 1;
+      this.$emit("get-select-pagination", this.selectPagination);
+    },
   },
 };
 </script>

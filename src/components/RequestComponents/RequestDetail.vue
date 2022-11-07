@@ -2,7 +2,7 @@
 import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
 import Modal from "../layouts/Modal.vue";
-import { patchRequest } from "@/api";
+import { patchRequest, downloadFile } from "@/api";
 import { formatInTimeZone } from "date-fns-tz";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
 import { statusObject, priortyObjectOption } from "@/constants";
@@ -275,6 +275,16 @@ export default {
     getResponseForm() {
       this.$emit("get-response-form");
     },
+    async getFile(filename) {
+      try {
+        const response = await downloadFile(`files/${filename}`);
+      } catch (error) {
+        this.$store.dispatch("sweetalert/errorAlert", {
+          title: "Server Error!",
+          text: "Download File Gagal",
+        });
+      }
+    },
   },
 };
 </script>
@@ -356,12 +366,12 @@ export default {
           >
             <th class="td-table">File Evidence</th>
             <td class="td-table">
-              <a
-                :href="detailRequest.replacement_evidence_url"
-                target="_blank"
+              <button
                 class="text-blue-500"
-                >{{ detailRequest.replacement_evidence }}</a
+                @click="getFile(detailRequest.replacement_evidence)"
               >
+                Download File
+              </button>
             </td>
           </tr>
         </tbody>
@@ -395,12 +405,12 @@ export default {
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Inventaris</th>
             <td class="td-table">
-              <a
-                :href="detailRequest.file_url"
-                target="_blank"
+              <button
                 class="text-blue-500"
-                >{{ detailRequest.filename }}</a
+                @click="getFile(detailRequest.file_url)"
               >
+                Download File
+              </button>
             </td>
           </tr>
         </tbody>
@@ -515,23 +525,23 @@ export default {
           <tr class="bg-gray-100 border-b border-gray-200">
             <th class="td-table w-1/6">File Evidence</th>
             <td class="td-table">
-              <a
-                :href="detailRequest.pickup_evidence_url"
-                target="_blank"
+              <button
                 class="text-blue-500"
-                >{{ detailRequest.pickup_evidence }}</a
+                @click="getFile(detailRequest.pickup_evidence)"
               >
+                Download File
+              </button>
             </td>
           </tr>
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Bast</th>
             <td class="td-table">
-              <a
-                :href="detailRequest.pickup_bast_url"
-                target="_blank"
+              <button
                 class="text-blue-500"
-                >{{ detailRequest.pickup_bast }}</a
+                @click="getFile(detailRequest.pickup_bast)"
               >
+                Download File
+              </button>
             </td>
           </tr>
         </tbody>
@@ -600,7 +610,7 @@ export default {
         <button
           v-if="btnUploadList"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('file')"
+          @click="submitFormVerifikasi('filename')"
         >
           Submit
           <!-- TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
