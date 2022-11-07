@@ -110,7 +110,7 @@ export default {
       this.$store.dispatch("modals/close", this.name);
       this.$emit("get-response-form-verifikasi");
     },
-    onFileChange(type) {
+    onFileChange(type, format_type_file) {
       if (type === "evidence") {
         this.refsType = this.$refs.evidence;
       } else if (type === "filename") {
@@ -120,7 +120,7 @@ export default {
       }
 
       if (this.refsType.files[0]) {
-        const response = sendFile(this.refsType.files[0]);
+        const response = sendFile(this.refsType.files[0], format_type_file);
         response.then((result) => {
           if (result) {
             if (type === "evidence") {
@@ -157,7 +157,7 @@ export default {
             type="file"
             accept=".xlsx, .xls"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-            @change="onFileChange('filename')"
+            @change="onFileChange('filename', 'xls')"
           />
         </label>
       </form>
@@ -253,9 +253,9 @@ export default {
         <input
           ref="evidence"
           type="file"
-          accept=".xlsx, .xls"
+          accept="image/png, image/jpeg"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-          @change="onFileChange('evidence')"
+          @change="onFileChange('evidence', 'image')"
         />
       </label>
       <TextError
@@ -275,9 +275,9 @@ export default {
         <input
           ref="bast"
           type="file"
-          accept=".xlsx, .xls"
+          accept="image/png, image/jpeg"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-          @change="onFileChange('bast')"
+          @change="onFileChange('bast', 'image')"
         />
       </label>
       <TextError

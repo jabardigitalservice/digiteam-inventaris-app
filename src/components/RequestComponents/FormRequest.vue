@@ -108,9 +108,9 @@ export default {
           }
         });
     },
-    onFileChange() {
+    onFileChange(type_file) {
       if (this.$refs.file.files[0]) {
-        const response = sendFile(this.$refs.file.files[0]);
+        const response = sendFile(this.$refs.file.files[0], type_file);
         response.then((result) => {
           if (result) {
             this.formRequest.replacement_evidence = result;
@@ -287,9 +287,9 @@ export default {
           <input
             ref="file"
             type="file"
-            accept=".xlsx, .xls"
+            accept="image/png, image/jpeg"
             class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-            @change="onFileChange"
+            @change="onFileChange('image')"
           />
         </label>
       </form>
