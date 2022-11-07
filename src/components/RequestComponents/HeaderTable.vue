@@ -41,7 +41,7 @@ export default {
         &nbsp;
       </label>
       <button
-        class="inline-flex text-blue-700 font-bold hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center w-full"
+        class="inline-flex text-green-700 font-bold hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 rounded-lg text-sm px-5 py-2.5 text-center w-full"
         type="button"
         @click="open('add-request')"
       >
