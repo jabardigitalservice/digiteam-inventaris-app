@@ -83,7 +83,7 @@ export default {
     <TitleCard :title-card="titleCard" :text-card="textCard" />
 
     <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
-      <HeaderTable @get-select-filter="getSelectFilter" />
+      <HeaderTable v-if="isSuccess" @get-select-filter="getSelectFilter" />
       <FormRequest @get-response-form="getDataRequest" />
 
       <TableRequest
