@@ -108,9 +108,9 @@ export default {
           }
         });
     },
-    onFileChange(type_file) {
+    onFileChange(typeFile) {
       if (this.$refs.file.files[0]) {
-        const response = sendFile(this.$refs.file.files[0], type_file);
+        const response = sendFile(this.$refs.file.files[0], typeFile);
         response.then((result) => {
           if (result) {
             this.formRequest.replacement_evidence = result;

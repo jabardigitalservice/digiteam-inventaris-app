@@ -1,9 +1,9 @@
 import store from "../store";
 import { postFile } from "@/api";
 
-async function sendFile(value, type_file) {
+async function sendFile(value, typeFile) {
   if (value) {
-    const isValidFormat = checkTypeFile(value.type, type_file);
+    const isValidFormat = checkTypeFile(value.type, typeFile);
 
     if (isValidFormat) {
       const formData = new FormData();
@@ -27,16 +27,16 @@ async function sendFile(value, type_file) {
   }
 }
 
-function checkTypeFile(value_type_file, type_file) {
+function checkTypeFile(valueTypeFile, typeFile) {
   let fileFormat = ["image/png", "image/jpeg"];
-  if (type_file === "xls") {
+  if (typeFile === "xls") {
     fileFormat = [
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "application/vnd.ms-excel",
     ];
   }
 
-  const isValidFormat = fileFormat.includes(value_type_file);
+  const isValidFormat = fileFormat.includes(valueTypeFile);
 
   return isValidFormat;
 }

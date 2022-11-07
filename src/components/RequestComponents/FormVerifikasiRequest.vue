@@ -110,7 +110,7 @@ export default {
       this.$store.dispatch("modals/close", this.name);
       this.$emit("get-response-form-verifikasi");
     },
-    onFileChange(type, format_type_file) {
+    onFileChange(type, formatTypeFile) {
       if (type === "evidence") {
         this.refsType = this.$refs.evidence;
       } else if (type === "filename") {
@@ -120,7 +120,7 @@ export default {
       }
 
       if (this.refsType.files[0]) {
-        const response = sendFile(this.refsType.files[0], format_type_file);
+        const response = sendFile(this.refsType.files[0], formatTypeFile);
         response.then((result) => {
           if (result) {
             if (type === "evidence") {
