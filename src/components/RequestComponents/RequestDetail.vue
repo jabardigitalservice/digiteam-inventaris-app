@@ -292,7 +292,7 @@ export default {
 <template>
   <div>
     <div class="px-5 mb-5 mt-5">
-      <p class="text-base font-bold float-left mb-5">
+      <p class="text-blue-gray-800 font-bold float-left mb-5">
         Detail Permohonan Inventaris
       </p>
 
@@ -309,7 +309,7 @@ export default {
     <div class="sm:rounded-lg shadow-md">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">Permohonan Barang</th>
           </tr>
         </thead>
@@ -397,7 +397,7 @@ export default {
     <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">File Inventaris</th>
           </tr>
         </thead>
@@ -420,7 +420,7 @@ export default {
     <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">
               Barang yang diminta
             </th>
@@ -446,7 +446,7 @@ export default {
     <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">Kondisi Barang</th>
           </tr>
         </thead>
@@ -462,7 +462,7 @@ export default {
     <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">Pengambilan Barang</th>
           </tr>
         </thead>
@@ -507,7 +507,7 @@ export default {
     <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
+          <tr class="text-xs text-white uppercase bg-blue-gray-800">
             <th scope="col" class="th-table" colspan="2">
               Pengembalian Barang
             </th>

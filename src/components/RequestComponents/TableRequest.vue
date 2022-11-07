@@ -37,7 +37,7 @@ export default {
   <div class="w-full">
     <div class="shadow overflow-x-auto rounded border-b border-blue-700">
       <table class="w-full bg-white table-auto">
-        <thead class="text-white bg-blue-700">
+        <thead class="text-white bg-blue-gray-700">
           <tr>
             <th class="th-table">No</th>
             <th class="th-table">Jenis Permohonan</th>
