@@ -2,7 +2,7 @@
 import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
 import Modal from "../layouts/Modal.vue";
-import { patchRequest, downloadFile } from "@/api";
+import { patchRequest } from "@/api";
 import { formatInTimeZone } from "date-fns-tz";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
 import { statusObject, priortyObjectOption } from "@/constants";
@@ -23,9 +23,10 @@ export default {
         status: 1,
         notes: "",
       },
-      params_url_status: "/status",
-      params_url_notes: "/notes",
-      params_url_received: "/received",
+      paramsUrlStatus: "/status",
+      paramsUrlNotes: "/notes",
+      paramsUrlReceived: "/received",
+      urlDownloadFile: import.meta.env.VITE_API_JABARCLOUD + "/files/",
     };
   },
   computed: {
@@ -223,7 +224,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed && result.value) {
             this.formUpdateStatus.notes = result.value;
-            this.sendStatus(type, status, this.params_url_notes);
+            this.sendStatus(type, status, this.paramsUrlNotes);
           } else {
             this.$store.dispatch("sweetalert/errorAlert", {
               title: "Catatan tidak boleh kosong!",
@@ -274,16 +275,6 @@ export default {
     },
     getResponseForm() {
       this.$emit("get-response-form");
-    },
-    async getFile(filename) {
-      try {
-        const response = await downloadFile(`files/${filename}`);
-      } catch (error) {
-        this.$store.dispatch("sweetalert/errorAlert", {
-          title: "Server Error!",
-          text: "Download File Gagal",
-        });
-      }
     },
   },
 };
@@ -366,12 +357,11 @@ export default {
           >
             <th class="td-table">File Evidence</th>
             <td class="td-table">
-              <button
+              <a
+                :href="urlDownloadFile + detailRequest.replacement_evidence"
                 class="text-blue-500"
-                @click="getFile(detailRequest.replacement_evidence)"
+                >Download File</a
               >
-                Download File
-              </button>
             </td>
           </tr>
         </tbody>
@@ -405,12 +395,11 @@ export default {
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Inventaris</th>
             <td class="td-table">
-              <button
+              <a
+                :href="urlDownloadFile + detailRequest.filename"
                 class="text-blue-500"
-                @click="getFile(detailRequest.file_url)"
+                >Download File</a
               >
-                Download File
-              </button>
             </td>
           </tr>
         </tbody>
@@ -481,10 +470,9 @@ export default {
               <th class="td-table w-1/6">File Evidence</th>
               <td class="td-table">
                 <a
-                  :href="detailRequest.pickup_evidence_url"
-                  target="_blank"
+                  :href="urlDownloadFile + detailRequest.pickup_evidence"
                   class="text-blue-500"
-                  >{{ detailRequest.pickup_evidence }}</a
+                  >Download File</a
                 >
               </td>
             </tr>
@@ -492,10 +480,9 @@ export default {
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
                 <a
-                  :href="detailRequest.pickup_bast_url"
-                  target="_blank"
+                  :href="urlDownloadFile + detailRequest.pickup_bast"
                   class="text-blue-500"
-                  >{{ detailRequest.pickup_bast }}</a
+                  >Download File</a
                 >
               </td>
             </tr></template
@@ -525,23 +512,19 @@ export default {
           <tr class="bg-gray-100 border-b border-gray-200">
             <th class="td-table w-1/6">File Evidence</th>
             <td class="td-table">
-              <button
+              <a
+                :href="detailRequest.pickup_evidence_url"
                 class="text-blue-500"
-                @click="getFile(detailRequest.pickup_evidence)"
+                >{{ detailRequest.pickup_evidence }}</a
               >
-                Download File
-              </button>
             </td>
           </tr>
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Bast</th>
             <td class="td-table">
-              <button
-                class="text-blue-500"
-                @click="getFile(detailRequest.pickup_bast)"
-              >
-                Download File
-              </button>
+              <a :href="detailRequest.pickup_evidence" class="text-blue-500">{{
+                detailRequest.pickup_evidence
+              }}</a>
             </td>
           </tr>
         </tbody>
@@ -577,11 +560,7 @@ export default {
           v-if="btnApproveStatus"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="
-            submitUpdateStatus(
-              'approve',
-              detailRequest.status,
-              params_url_status
-            )
+            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
           Approve
@@ -593,7 +572,7 @@ export default {
             submitUpdateStatus(
               'approve',
               detailRequest.status,
-              params_url_received
+              paramsUrlReceived
             )
           "
         >
@@ -635,11 +614,7 @@ export default {
         <button
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="
-            submitUpdateStatus(
-              'approve',
-              detailRequest.status,
-              params_url_status
-            )
+            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
           Submit
