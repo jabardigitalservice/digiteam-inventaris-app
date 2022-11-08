@@ -4,6 +4,7 @@ import { postFile } from "@/api";
 const fileSizeImage = 1000000;
 const fileSizeDocuments = 2000000;
 let typeFileText = "";
+let valueLimitFileSize = 0;
 async function sendFile(value, typeFile) {
   if (value) {
     const isValidFormat = checkTypeFile(value.type, typeFile);
@@ -28,11 +29,18 @@ async function sendFile(value, typeFile) {
 }
 
 function checkTypeFile(valueTypeFile, typeFile) {
+  console.log(valueTypeFile);
   let fileFormat = ["image/png", "image/jpeg"];
   if (typeFile === "xls") {
     fileFormat = [
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "application/vnd.ms-excel",
+    ];
+  } else if (typeFile === "doc") {
+    fileFormat = [
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+      "application/pdf",
     ];
   }
   const isValidFormat = fileFormat.includes(valueTypeFile);
@@ -49,18 +57,21 @@ function checkTypeFile(valueTypeFile, typeFile) {
 function checkSizeFile(fileSize, typeFile) {
   let limitFileSize =
     typeFile === "image"
-      ? (fileSizeImage, (typeFileText = "Gambar"))
-      : (fileSizeDocuments, (typeFileText = "Documentes"));
+      ? ((valueLimitFileSize = fileSizeImage), (typeFileText = "Gambar"))
+      : ((valueLimitFileSize = fileSizeDocuments),
+        (typeFileText = "Documents"));
   let textLimitFileSize = typeFile === "image" ? "1MB" : "2MB";
   let isValid = false;
-  if (fileSize <= limitFileSize) {
+
+  if (fileSize <= valueLimitFileSize) {
     isValid = true;
   } else {
     store.dispatch("sweetalert/errorAlert", {
       title: "File terlalu besar!",
-      text: `File ${typeFileText} diupload maximal adalah ${textLimitFileSize}!`,
+      text: `File ${typeFileText} yang diupload maximal adalah ${textLimitFileSize}!`,
     });
   }
+
   return isValid;
 }
 

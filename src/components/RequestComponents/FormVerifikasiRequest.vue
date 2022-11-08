@@ -160,6 +160,7 @@ export default {
             @change="onFileChange('filename', 'xls')"
           />
         </label>
+        <p class="mt-1 text-xs text-gray-500">.xlsx, .xls (MAX. 2MB)</p>
       </form>
     </template>
 
@@ -258,6 +259,7 @@ export default {
           @change="onFileChange('evidence', 'image')"
         />
       </label>
+      <p class="mt-1 text-xs text-gray-500">.png, .jpeg (MAX. 1MB)</p>
       <TextError
         v-if="messageError.pickup_evidence"
         :text-error="messageError.pickup_evidence"
@@ -275,11 +277,12 @@ export default {
         <input
           ref="bast"
           type="file"
-          accept="image/png, image/jpeg"
+          accept=".doc, .docx, application/pdf"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-          @change="onFileChange('bast', 'image')"
+          @change="onFileChange('bast', 'doc')"
         />
       </label>
+      <p class="mt-1 text-xs text-gray-500">.docx, .doc, .pdf (MAX. 2MB)</p>
       <TextError
         v-if="messageError.pickup_bast"
         :text-error="messageError.pickup_bast"
