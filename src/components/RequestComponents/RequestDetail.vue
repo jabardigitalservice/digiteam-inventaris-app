@@ -277,24 +277,17 @@ export default {
       this.$emit("get-response-form");
     },
     async getFile(filename) {
-      if (filename) {
-        try {
-          const response = await downloadFile(`files/${filename}`);
-          const link = document.createElement("a");
-          link.href = URL.createObjectURL(response);
-          link.download = filename;
-          link.click();
-          URL.revokeObjectURL(link.href);
-        } catch (error) {
-          this.$store.dispatch("sweetalert/errorAlert", {
-            title: "Server Error!",
-            text: "Download File Gagal",
-          });
-        }
-      } else {
+      try {
+        const response = await downloadFile(`files/${filename}`);
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(response);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      } catch (error) {
         this.$store.dispatch("sweetalert/errorAlert", {
-          title: "Download File Gagal!",
-          text: "File tidak terupload",
+          title: "Server Error!",
+          text: "Download File Gagal",
         });
       }
     },
@@ -380,7 +373,12 @@ export default {
             <th class="td-table">File Evidence</th>
             <td class="td-table">
               <button
-                class="text-blue-500"
+                :class="
+                  detailRequest.replacement_evidence
+                    ? 'text-blue-500'
+                    : 'text-dark'
+                "
+                :disabled="!detailRequest.replacement_evidence"
                 @click="getFile(detailRequest.replacement_evidence)"
               >
                 Download File
@@ -419,7 +417,8 @@ export default {
             <th class="td-table w-1/6">File Inventaris</th>
             <td class="td-table">
               <button
-                class="text-blue-500"
+                :class="detailRequest.filename ? 'text-blue-500' : 'text-dark'"
+                :disabled="!detailRequest.filename"
                 @click="getFile(detailRequest.filename)"
               >
                 Download File
@@ -494,7 +493,11 @@ export default {
               <th class="td-table w-1/6">File Evidence</th>
               <td class="td-table">
                 <button
-                  class="text-blue-500"
+                  :class="
+                    detailRequest.pickup_evidence
+                      ? 'text-blue-500'
+                      : 'text-dark'
+                  "
                   @click="getFile(detailRequest.pickup_evidence)"
                 >
                   Download File
@@ -505,7 +508,7 @@ export default {
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
                 <button
-                  class="text-blue-500"
+                  :disabled="!detailRequest.pickup_bast"
                   @click="getFile(detailRequest.pickup_bast)"
                 >
                   Download File
