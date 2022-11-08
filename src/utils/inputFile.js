@@ -3,6 +3,7 @@ import { postFile } from "@/api";
 
 const fileSizeImage = 1000000;
 const fileSizeDocuments = 2000000;
+let typeFileText = "";
 async function sendFile(value, typeFile) {
   if (value) {
     const isValidFormat = checkTypeFile(value.type, typeFile);
@@ -34,9 +35,7 @@ function checkTypeFile(valueTypeFile, typeFile) {
       "application/vnd.ms-excel",
     ];
   }
-
   const isValidFormat = fileFormat.includes(valueTypeFile);
-
   if (!isValidFormat) {
     store.dispatch("sweetalert/errorAlert", {
       title: "File ini tidak didukung!",
@@ -48,7 +47,10 @@ function checkTypeFile(valueTypeFile, typeFile) {
 }
 
 function checkSizeFile(fileSize, typeFile) {
-  let limitFileSize = typeFile === "image" ? fileSizeImage : fileSizeDocuments;
+  let limitFileSize =
+    typeFile === "image"
+      ? (fileSizeImage, (typeFileText = "Gambar"))
+      : (fileSizeDocuments, (typeFileText = "Documentes"));
   let textLimitFileSize = typeFile === "image" ? "1MB" : "2MB";
   let isValid = false;
   if (fileSize <= limitFileSize) {
@@ -56,7 +58,7 @@ function checkSizeFile(fileSize, typeFile) {
   } else {
     store.dispatch("sweetalert/errorAlert", {
       title: "File terlalu besar!",
-      text: `File yang diupload maximal adalah ${textLimitFileSize}!`,
+      text: `File ${typeFileText} diupload maximal adalah ${textLimitFileSize}!`,
     });
   }
   return isValid;
