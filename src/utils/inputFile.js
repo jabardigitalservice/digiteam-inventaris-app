@@ -4,8 +4,9 @@ import { postFile } from "@/api";
 async function sendFile(value, typeFile) {
   if (value) {
     const isValidFormat = checkTypeFile(value.type, typeFile);
+    const isValidSize = checkSizeFile(value.size);
 
-    if (isValidFormat) {
+    if (isValidFormat && isValidSize) {
       const formData = new FormData();
       formData.append("file", value);
       try {
@@ -18,10 +19,6 @@ async function sendFile(value, typeFile) {
         });
       }
     } else {
-      store.dispatch("sweetalert/errorAlert", {
-        title: "File ini tidak didukung!",
-        text: "Silakan ganti file dengan format yg sesuai!",
-      });
       return false;
     }
   }
@@ -38,7 +35,27 @@ function checkTypeFile(valueTypeFile, typeFile) {
 
   const isValidFormat = fileFormat.includes(valueTypeFile);
 
+  if (!isValidFormat) {
+    store.dispatch("sweetalert/errorAlert", {
+      title: "File ini tidak didukung!",
+      text: "Silakan ganti file dengan format yg sesuai!",
+    });
+  }
+
   return isValidFormat;
+}
+
+function checkSizeFile(fileSize) {
+  let isValid = false;
+  if (fileSize <= 2000000) {
+    isValid = true;
+  } else {
+    store.dispatch("sweetalert/errorAlert", {
+      title: "File terlalu besar!",
+      text: "File yang diupload maximal adalah 2MB!",
+    });
+  }
+  return isValid;
 }
 
 export { sendFile };
