@@ -130,6 +130,8 @@ export default {
             } else {
               this.formRequestDetail.pickup_bast = result;
             }
+
+            this.$store.dispatch("sweetalert/stopLoadingAlert");
           } else {
             this.refsType.value = null;
           }

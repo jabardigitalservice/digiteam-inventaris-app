@@ -153,7 +153,8 @@ export default {
       return (
         this.detailRequest.status < statusObject.PENGAJUAN_SELESAI.value &&
         this.detailRequest.status != statusObject.PENGAJUAN_DITOLAK.value &&
-        this.$store.state.user.profile.isAdmin === true
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status !== statusObject.PENGAJUAN_DITERIMA.value
       );
     },
   },
@@ -303,7 +304,16 @@ export default {
       </p>
 
       <button
-        v-if="btnVerifikasi || btnRequestItem"
+        v-if="btnRequestItem"
+        class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+        type="button"
+        @click="openModal('verifikasi-request')"
+      >
+        Verifikasi
+      </button>
+
+      <button
+        v-if="btnVerifikasi"
         class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
         type="button"
         @click="openModal('verifikasi-request')"
@@ -498,6 +508,7 @@ export default {
                       ? 'text-blue-500'
                       : 'text-dark'
                   "
+                  :disabled="!detailRequest.pickup_evidence"
                   @click="getFile(detailRequest.pickup_evidence)"
                 >
                   Download File
@@ -508,7 +519,12 @@ export default {
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
                 <button
-                  :disabled="!detailRequest.pickup_bast"
+                  :class="
+                    detailRequest.pickup_evidence
+                      ? 'text-blue-500'
+                      : 'text-dark'
+                  "
+                  :disabled="!detailRequest.pickup_evidence"
                   @click="getFile(detailRequest.pickup_bast)"
                 >
                   Download File

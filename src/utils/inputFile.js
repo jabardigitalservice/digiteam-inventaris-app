@@ -11,7 +11,9 @@ async function sendFile(value, typeFile) {
     const isValidSize = checkSizeFile(value.size, typeFile);
 
     if (isValidFormat && isValidSize) {
+      store.dispatch("sweetalert/loadingAlert");
       const formData = new FormData();
+
       formData.append("file", value);
       try {
         const response = await postFile("/files/upload", formData);
@@ -29,7 +31,6 @@ async function sendFile(value, typeFile) {
 }
 
 function checkTypeFile(valueTypeFile, typeFile) {
-  console.log(valueTypeFile);
   let fileFormat = ["image/png", "image/jpeg"];
   if (typeFile === "xls") {
     fileFormat = [

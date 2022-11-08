@@ -114,6 +114,7 @@ export default {
         response.then((result) => {
           if (result) {
             this.formRequest.replacement_evidence = result;
+            this.$store.dispatch("sweetalert/stopLoadingAlert");
           } else {
             this.$refs.file.value = null;
           }
