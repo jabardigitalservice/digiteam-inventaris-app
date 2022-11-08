@@ -1,10 +1,12 @@
 import store from "../store";
 import { postFile } from "@/api";
 
+const fileSizeImage = 1000000;
+const fileSizeDocuments = 2000000;
 async function sendFile(value, typeFile) {
   if (value) {
     const isValidFormat = checkTypeFile(value.type, typeFile);
-    const isValidSize = checkSizeFile(value.size);
+    const isValidSize = checkSizeFile(value.size, typeFile);
 
     if (isValidFormat && isValidSize) {
       const formData = new FormData();
@@ -45,14 +47,16 @@ function checkTypeFile(valueTypeFile, typeFile) {
   return isValidFormat;
 }
 
-function checkSizeFile(fileSize) {
+function checkSizeFile(fileSize, typeFile) {
+  let limitFileSize = typeFile === "image" ? fileSizeImage : fileSizeDocuments;
+  let textLimitFileSize = typeFile === "image" ? "1MB" : "2MB";
   let isValid = false;
-  if (fileSize <= 2000000) {
+  if (fileSize <= limitFileSize) {
     isValid = true;
   } else {
     store.dispatch("sweetalert/errorAlert", {
       title: "File terlalu besar!",
-      text: "File yang diupload maximal adalah 2MB!",
+      text: `File yang diupload maximal adalah ${textLimitFileSize}!`,
     });
   }
   return isValid;
