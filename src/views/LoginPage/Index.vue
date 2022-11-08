@@ -53,6 +53,12 @@ export default {
           folder="logo"
           class="w-24 h-full m-auto md:w-36 md:m-0"
         />
+
+        <img
+          src="@/assets/img/jabar-logo.png"
+          class="w-24 h-full m-auto md:w-36 md:m-0"
+          alt="Logo Pemprov Jabar"
+        />
       </div>
     </div>
   </div>
