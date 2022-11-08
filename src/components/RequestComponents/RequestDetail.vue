@@ -2,7 +2,7 @@
 import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
 import Modal from "../layouts/Modal.vue";
-import { patchRequest } from "@/api";
+import { patchRequest, downloadFile } from "@/api";
 import { formatInTimeZone } from "date-fns-tz";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
 import { statusObject, priortyObjectOption } from "@/constants";
@@ -276,6 +276,28 @@ export default {
     getResponseForm() {
       this.$emit("get-response-form");
     },
+    async getFile(filename) {
+      if (filename) {
+        try {
+          const response = await downloadFile(`files/${filename}`);
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(response);
+          link.download = filename;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        } catch (error) {
+          this.$store.dispatch("sweetalert/errorAlert", {
+            title: "Server Error!",
+            text: "Download File Gagal",
+          });
+        }
+      } else {
+        this.$store.dispatch("sweetalert/errorAlert", {
+          title: "Download File Gagal!",
+          text: "File tidak terupload",
+        });
+      }
+    },
   },
 };
 </script>
@@ -300,7 +322,7 @@ export default {
     <div class="sm:rounded-lg shadow-md">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">Permohonan Barang</th>
           </tr>
         </thead>
@@ -357,11 +379,12 @@ export default {
           >
             <th class="td-table">File Evidence</th>
             <td class="td-table">
-              <a
-                :href="urlDownloadFile + detailRequest.replacement_evidence"
+              <button
                 class="text-blue-500"
-                >Download File</a
+                @click="getFile(detailRequest.replacement_evidence)"
               >
+                Download File
+              </button>
             </td>
           </tr>
         </tbody>
@@ -387,7 +410,7 @@ export default {
     <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">File Inventaris</th>
           </tr>
         </thead>
@@ -395,11 +418,12 @@ export default {
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Inventaris</th>
             <td class="td-table">
-              <a
-                :href="urlDownloadFile + detailRequest.filename"
+              <button
                 class="text-blue-500"
-                >Download File</a
+                @click="getFile(detailRequest.filename)"
               >
+                Download File
+              </button>
             </td>
           </tr>
         </tbody>
@@ -409,7 +433,7 @@ export default {
     <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">
               Barang yang diminta
             </th>
@@ -435,7 +459,7 @@ export default {
     <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">Kondisi Barang</th>
           </tr>
         </thead>
@@ -451,7 +475,7 @@ export default {
     <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">Pengambilan Barang</th>
           </tr>
         </thead>
@@ -469,21 +493,23 @@ export default {
             <tr class="bg-gray-100 border-b border-gray-200">
               <th class="td-table w-1/6">File Evidence</th>
               <td class="td-table">
-                <a
-                  :href="urlDownloadFile + detailRequest.pickup_evidence"
+                <button
                   class="text-blue-500"
-                  >Download File</a
+                  @click="getFile(detailRequest.pickup_evidence)"
                 >
+                  Download File
+                </button>
               </td>
             </tr>
             <tr class="bg-white border-b border-gray-200">
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
-                <a
-                  :href="urlDownloadFile + detailRequest.pickup_bast"
+                <button
                   class="text-blue-500"
-                  >Download File</a
+                  @click="getFile(detailRequest.pickup_bast)"
                 >
+                  Download File
+                </button>
               </td>
             </tr></template
           >
@@ -494,7 +520,7 @@ export default {
     <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
       <table class="w-full text-sm text-left text-gray-800">
         <thead>
-          <tr class="text-xs text-white uppercase bg-blue-gray-800">
+          <tr class="text-xs text-white uppercase bg-blue-800">
             <th scope="col" class="th-table" colspan="2">
               Pengembalian Barang
             </th>
@@ -512,19 +538,13 @@ export default {
           <tr class="bg-gray-100 border-b border-gray-200">
             <th class="td-table w-1/6">File Evidence</th>
             <td class="td-table">
-              <a
-                :href="detailRequest.pickup_evidence_url"
-                class="text-blue-500"
-                >{{ detailRequest.pickup_evidence }}</a
-              >
+              <button class="text-blue-500">Download File</button>
             </td>
           </tr>
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Bast</th>
             <td class="td-table">
-              <a :href="detailRequest.pickup_evidence" class="text-blue-500">{{
-                detailRequest.pickup_evidence
-              }}</a>
+              <button class="text-blue-500">Download File</button>
             </td>
           </tr>
         </tbody>

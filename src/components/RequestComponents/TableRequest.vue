@@ -37,7 +37,7 @@ export default {
   <div class="w-full">
     <div class="shadow overflow-x-auto rounded border-b border-blue-700">
       <table class="w-full bg-white table-auto">
-        <thead class="text-white bg-blue-gray-700">
+        <thead class="text-white bg-blue-700">
           <tr>
             <th class="th-table">No</th>
             <th class="th-table">Jenis Permohonan</th>
@@ -78,7 +78,7 @@ export default {
             <td class="td-table">
               <router-link
                 :to="{ name: 'detail-request', params: { id: request.id } }"
-                class="text-blue-800 bg-white border border-blue-400 hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded-2xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                class="text-blue-800 bg-white border border-blue-800 hover:bg-blue-800 hover:text-white active:bg-blue-800 font-bold uppercase text-sm px-6 py-3 rounded-2xl outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               >
                 Detail
               </router-link>

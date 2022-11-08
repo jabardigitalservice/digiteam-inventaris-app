@@ -50,6 +50,7 @@ export function downloadFile(url) {
   return https({
     url: `${url}`,
     method: "GET",
+    responseType: "blob",
   });
 }
 
