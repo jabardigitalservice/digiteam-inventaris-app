@@ -40,6 +40,22 @@ const store = {
       });
       commit("ERROR_ALERT", message);
     },
+    loadingAlert({ commit }) {
+      Swal.fire({
+        title: "Mohon Tunggu !",
+        html: "proses upload file....",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+    },
+    stopLoadingAlert({ commit }) {
+      Swal.close();
+    },
     confirmAlert({ commit }, message) {
       Swal.fire({
         title: message.title,

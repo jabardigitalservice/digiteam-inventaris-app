@@ -23,9 +23,9 @@ export default {
         status: 1,
         notes: "",
       },
-      params_url_status: "/status",
-      params_url_notes: "/notes",
-      params_url_received: "/received",
+      paramsUrlStatus: "/status",
+      paramsUrlNotes: "/notes",
+      paramsUrlReceived: "/received",
     };
   },
   computed: {
@@ -152,7 +152,8 @@ export default {
       return (
         this.detailRequest.status < statusObject.PENGAJUAN_SELESAI.value &&
         this.detailRequest.status != statusObject.PENGAJUAN_DITOLAK.value &&
-        this.$store.state.user.profile.isAdmin === true
+        this.$store.state.user.profile.isAdmin === true &&
+        this.detailRequest.status !== statusObject.PENGAJUAN_DITERIMA.value
       );
     },
   },
@@ -223,7 +224,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed && result.value) {
             this.formUpdateStatus.notes = result.value;
-            this.sendStatus(type, status, this.params_url_notes);
+            this.sendStatus(type, status, this.paramsUrlNotes);
           } else {
             this.$store.dispatch("sweetalert/errorAlert", {
               title: "Catatan tidak boleh kosong!",
@@ -278,6 +279,11 @@ export default {
     async getFile(filename) {
       try {
         const response = await downloadFile(`files/${filename}`);
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(response);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
       } catch (error) {
         this.$store.dispatch("sweetalert/errorAlert", {
           title: "Server Error!",
@@ -292,12 +298,21 @@ export default {
 <template>
   <div>
     <div class="px-5 mb-5 mt-5">
-      <p class="text-base font-bold float-left mb-5">
+      <p class="text-blue-gray-800 font-bold float-left mb-5">
         Detail Permohonan Inventaris
       </p>
 
       <button
-        v-if="btnVerifikasi || btnRequestItem"
+        v-if="btnRequestItem"
+        class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+        type="button"
+        @click="openModal('verifikasi-request')"
+      >
+        Verifikasi
+      </button>
+
+      <button
+        v-if="btnVerifikasi"
         class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
         type="button"
         @click="openModal('verifikasi-request')"
@@ -367,7 +382,12 @@ export default {
             <th class="td-table">File Evidence</th>
             <td class="td-table">
               <button
-                class="text-blue-500"
+                :class="
+                  detailRequest.replacement_evidence
+                    ? 'text-blue-500'
+                    : 'text-dark'
+                "
+                :disabled="!detailRequest.replacement_evidence"
                 @click="getFile(detailRequest.replacement_evidence)"
               >
                 Download File
@@ -406,8 +426,9 @@ export default {
             <th class="td-table w-1/6">File Inventaris</th>
             <td class="td-table">
               <button
-                class="text-blue-500"
-                @click="getFile(detailRequest.file_url)"
+                :class="detailRequest.filename ? 'text-blue-500' : 'text-dark'"
+                :disabled="!detailRequest.filename"
+                @click="getFile(detailRequest.filename)"
               >
                 Download File
               </button>
@@ -480,23 +501,33 @@ export default {
             <tr class="bg-gray-100 border-b border-gray-200">
               <th class="td-table w-1/6">File Evidence</th>
               <td class="td-table">
-                <a
-                  :href="detailRequest.pickup_evidence_url"
-                  target="_blank"
-                  class="text-blue-500"
-                  >{{ detailRequest.pickup_evidence }}</a
+                <button
+                  :class="
+                    detailRequest.pickup_evidence
+                      ? 'text-blue-500'
+                      : 'text-dark'
+                  "
+                  :disabled="!detailRequest.pickup_evidence"
+                  @click="getFile(detailRequest.pickup_evidence)"
                 >
+                  Download File
+                </button>
               </td>
             </tr>
             <tr class="bg-white border-b border-gray-200">
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
-                <a
-                  :href="detailRequest.pickup_bast_url"
-                  target="_blank"
-                  class="text-blue-500"
-                  >{{ detailRequest.pickup_bast }}</a
+                <button
+                  :class="
+                    detailRequest.pickup_evidence
+                      ? 'text-blue-500'
+                      : 'text-dark'
+                  "
+                  :disabled="!detailRequest.pickup_evidence"
+                  @click="getFile(detailRequest.pickup_bast)"
                 >
+                  Download File
+                </button>
               </td>
             </tr></template
           >
@@ -525,23 +556,13 @@ export default {
           <tr class="bg-gray-100 border-b border-gray-200">
             <th class="td-table w-1/6">File Evidence</th>
             <td class="td-table">
-              <button
-                class="text-blue-500"
-                @click="getFile(detailRequest.pickup_evidence)"
-              >
-                Download File
-              </button>
+              <button class="text-blue-500">Download File</button>
             </td>
           </tr>
           <tr class="bg-white border-b border-gray-200">
             <th class="td-table w-1/6">File Bast</th>
             <td class="td-table">
-              <button
-                class="text-blue-500"
-                @click="getFile(detailRequest.pickup_bast)"
-              >
-                Download File
-              </button>
+              <button class="text-blue-500">Download File</button>
             </td>
           </tr>
         </tbody>
@@ -577,11 +598,7 @@ export default {
           v-if="btnApproveStatus"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="
-            submitUpdateStatus(
-              'approve',
-              detailRequest.status,
-              params_url_status
-            )
+            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
           Approve
@@ -593,7 +610,7 @@ export default {
             submitUpdateStatus(
               'approve',
               detailRequest.status,
-              params_url_received
+              paramsUrlReceived
             )
           "
         >
@@ -635,11 +652,7 @@ export default {
         <button
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="
-            submitUpdateStatus(
-              'approve',
-              detailRequest.status,
-              params_url_status
-            )
+            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
           Submit
