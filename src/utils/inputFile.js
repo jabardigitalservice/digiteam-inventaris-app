@@ -3,8 +3,7 @@ import { postFile } from "@/api";
 
 const fileSizeImage = 1000000;
 const fileSizeDocuments = 2000000;
-let typeFileText = "";
-let valueLimitFileSize = 0;
+
 async function sendFile(value, typeFile) {
   if (value) {
     const isValidFormat = checkTypeFile(value.type, typeFile);
@@ -56,13 +55,16 @@ function checkTypeFile(valueTypeFile, typeFile) {
 }
 
 function checkSizeFile(fileSize, typeFile) {
-  let limitFileSize =
-    typeFile === "image"
-      ? ((valueLimitFileSize = fileSizeImage), (typeFileText = "Gambar"))
-      : ((valueLimitFileSize = fileSizeDocuments),
-        (typeFileText = "Documents"));
-  let textLimitFileSize = typeFile === "image" ? "1MB" : "2MB";
+  let typeFileText = "Gambar";
+  let valueLimitFileSize = fileSizeImage;
+  let textLimitFileSize = "1MB";
   let isValid = false;
+
+  if (typeFile !== "image") {
+    typeFileText = "Documents";
+    valueLimitFileSize = fileSizeDocuments;
+    textLimitFileSize = "2MB";
+  }
 
   if (fileSize <= valueLimitFileSize) {
     isValid = true;
