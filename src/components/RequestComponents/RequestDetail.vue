@@ -26,7 +26,6 @@ export default {
       paramsUrlStatus: "/status",
       paramsUrlNotes: "/notes",
       paramsUrlReceived: "/received",
-      urlDownloadFile: import.meta.env.VITE_API_JABARCLOUD + "/files/",
     };
   },
   computed: {
