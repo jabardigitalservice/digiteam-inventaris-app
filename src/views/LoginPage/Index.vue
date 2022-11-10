@@ -51,12 +51,12 @@ export default {
         <LoadSvg
           name="logo-jds"
           folder="logo"
-          class="w-auto h-28 m-auto md:w-36 md:m-0"
+          class="w-auto h-24 m-auto md:w-36 md:m-0"
         />
 
         <img
           src="@/assets/img/jabar-logo.png"
-          class="w-auto h-28 m-auto md:w-36 md:m-0"
+          class="w-auto h-24 m-auto md:w-36 md:m-0"
           alt="Logo Pemprov Jabar"
         />
       </div>

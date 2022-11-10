@@ -6,23 +6,23 @@ export default {
     getStatusLabel(status) {
       switch (status) {
         case statusObject.PENGAJUAN_MASUK.value:
-          return statusObject.PENGAJUAN_MASUK.text;
+          return statusObject.PENGAJUAN_MASUK.textStatus;
         case statusObject.PENGAJUAN_DITOLAK.value:
-          return statusObject.PENGAJUAN_DITOLAK.text;
+          return statusObject.PENGAJUAN_DITOLAK.textStatus;
         case statusObject.PENGAJUAN_DITERIMA.value:
-          return statusObject.PENGAJUAN_DITERIMA.text;
+          return statusObject.PENGAJUAN_DITERIMA.textStatus;
         case statusObject.PERMINTAAN_BARANG_MASUK.value:
-          return statusObject.PERMINTAAN_BARANG_MASUK.text;
+          return statusObject.PERMINTAAN_BARANG_MASUK.textStatus;
         case statusObject.PENGECEKAN_KELAYAKAN.value:
-          return statusObject.PENGECEKAN_KELAYAKAN.text;
+          return statusObject.PENGECEKAN_KELAYAKAN.textStatus;
         case statusObject.BARANG_SIAP_DIAMBIL.value:
-          return statusObject.BARANG_SIAP_DIAMBIL.text;
+          return statusObject.BARANG_SIAP_DIAMBIL.textStatus;
         case statusObject.BARANG_SUDAH_DIAMBIL.value:
-          return statusObject.BARANG_SUDAH_DIAMBIL.text;
+          return statusObject.BARANG_SUDAH_DIAMBIL.textStatus;
         case statusObject.PENGAJUAN_SELESAI.value:
-          return statusObject.PENGAJUAN_SELESAI.text;
+          return statusObject.PENGAJUAN_SELESAI.textStatus;
         case statusObject.PENGEMBALIAN_BARANG.value:
-          return statusObject.PENGEMBALIAN_BARANG.text;
+          return statusObject.PENGEMBALIAN_BARANG.textStatus;
         default:
           return "";
       }
@@ -54,7 +54,7 @@ export default {
 <template>
   <span
     :class="getColorLabel(status)"
-    class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg border-2"
+    class="textStatus-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg border-2"
     >{{ getStatusLabel(status) }}
   </span>
 </template>

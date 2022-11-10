@@ -13,7 +13,7 @@ export default {
   components: { TextError, Modal },
   data() {
     return {
-      titleModal: "Tambah Data - Permohonan Inventaris",
+      titleModal: "Form Pengajuan Permohonan Inventaris",
       isEvidence: false,
       formRequest: {
         request_type: "",
@@ -301,7 +301,7 @@ export default {
         class="text-blue-800 bg-transparent border border-solid border-blue-800 hover:bg-blue-800 hover:text-white active:bg-blue-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="handleSubmit"
       >
-        Tambahkan
+        Ajukan Permohonan
       </button>
     </template>
   </Modal>

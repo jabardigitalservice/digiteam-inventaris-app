@@ -279,12 +279,12 @@ export default {
         <input
           ref="bast"
           type="file"
-          accept=".doc, .docx, application/pdf"
+          accept=".docx, application/pdf"
           class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
           @change="onFileChange('bast', 'doc')"
         />
       </label>
-      <p class="mt-1 text-xs text-gray-500">.docx, .doc, .pdf (MAX. 2MB)</p>
+      <p class="mt-1 text-xs text-gray-500">.docx, .pdf (MAX. 2MB)</p>
       <TextError
         v-if="messageError.pickup_bast"
         :text-error="messageError.pickup_bast"
@@ -356,7 +356,7 @@ export default {
 
     <template v-else>
       <span class="block text-sm font-bold text-slate-700 mt-5">
-        Ubah Status Permohonan menjadi
+        Status Permohonan akan diubah menjadi
         <StatusRequest :status="status + 1" /> </span
     ></template>
   </div>
