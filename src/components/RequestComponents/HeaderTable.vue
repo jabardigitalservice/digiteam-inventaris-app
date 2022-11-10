@@ -30,6 +30,9 @@ export default {
     getSelectFilter() {
       this.$emit("get-select-filter", this.selectValue);
     },
+    getSearch(event) {
+      this.$emit("get-search", event.target.value);
+    },
   },
 };
 </script>
@@ -105,7 +108,7 @@ export default {
           :key="index"
           :value="status.value"
         >
-          {{ status.text }}
+          {{ status.textStatus }}
         </option>
       </select>
     </div>
@@ -123,11 +126,10 @@ export default {
             <!-- TODO: add icon search -->
           </div>
           <input
-            id="simple-search"
             type="text"
             class="bg-gray-50 border border-gray-300 text-blue-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
             placeholder="Cari Data"
-            required
+            @keyup="getSearch"
           />
         </div>
       </form>
