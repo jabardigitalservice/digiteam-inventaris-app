@@ -33,6 +33,7 @@ export default {
         division: "",
         status: "",
       },
+      searchValue: "",
       detailRequest: {},
       modalName: "",
     };
@@ -49,6 +50,7 @@ export default {
           request_type: this.selectFilter.request_type,
           division: this.selectFilter.division,
           status: this.selectFilter.status,
+          q: this.searchValue,
         };
         const response = await fetchList("/requests", "GET", params);
         this.dataRequest = response.data;
@@ -74,6 +76,11 @@ export default {
       this.detailRequest = data;
       this.modalName = modal_name;
     },
+    getSearch(valueSearch) {
+      this.searchValue = valueSearch;
+      this.$refs.changePagination.resetPagination();
+      this.getDataRequest();
+    },
   },
 };
 </script>
@@ -83,7 +90,11 @@ export default {
     <TitleCard :title-card="titleCard" :text-card="textCard" />
 
     <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
-      <HeaderTable v-if="isSuccess" @get-select-filter="getSelectFilter" />
+      <HeaderTable
+        v-if="isSuccess"
+        @get-select-filter="getSelectFilter"
+        @get-search="getSearch"
+      />
       <FormRequest @get-response-form="getDataRequest" />
 
       <TableRequest

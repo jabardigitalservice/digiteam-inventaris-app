@@ -34,7 +34,7 @@ export default {
           <div
             class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t"
           >
-            <h3 class="text-2xl font-semibold text-blue-gray-800">
+            <h3 class="text-2xl font-semibold text-blue-gray-800 uppercase">
               <slot name="header"> </slot>
             </h3>
             <button

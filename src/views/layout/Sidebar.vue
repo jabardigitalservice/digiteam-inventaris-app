@@ -23,7 +23,7 @@ export default {
 <template>
   <div class="flex">
     <div
-      class="bg-white text-[#788896] font-semibold absolute -translate-x-full md:-translate-x-0 space-y-6 px-2 py-4 inset-y-0 left-0 md:h-full p-5 pt-5 md:relative duration-200 ease-in-out"
+      class="bg-white text-[#788896] font-semibold absolute -translate-x-full md:-translate-x-0 space-y-6 px-2 py-4 inset-y-0 left-0 md:h-full p-5 pt-5 md:relative min-h-screen duration-200 ease-in-out"
       :class="showSidebar ? 'w-60 relative -translate-x-0' : 'w-24'"
     >
       <a href="" class="flex items-center px-4 space-x-2">

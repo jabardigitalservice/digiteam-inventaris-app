@@ -9,7 +9,7 @@ export default {
         limit: 10,
         page: 1,
       },
-      limit: [10, 15, 20, 25, 50, 100, "All"],
+      limit: [10, 15, 20, 25, 50, 100],
     };
   },
   methods: {

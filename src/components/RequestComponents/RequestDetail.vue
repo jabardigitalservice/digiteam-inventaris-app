@@ -161,6 +161,21 @@ export default {
     openModal(name) {
       this.$store.dispatch("modals/open", name);
     },
+    getTextRequest(status) {
+      if (status === statusObject.PENGAJUAN_MASUK.value) {
+        return statusObject.PENGAJUAN_MASUK;
+      } else if (status === statusObject.PENGAJUAN_DITERIMA.value) {
+        return statusObject.PENGAJUAN_DITERIMA;
+      } else if (status === statusObject.PERMINTAAN_BARANG_MASUK.value) {
+        return statusObject.PERMINTAAN_BARANG_MASUK;
+      } else if (status === statusObject.PENGECEKAN_KELAYAKAN.value) {
+        return statusObject.PENGECEKAN_KELAYAKAN;
+      } else if (status === statusObject.BARANG_SIAP_DIAMBIL.value) {
+        return statusObject.BARANG_SIAP_DIAMBIL;
+      } else if (status === statusObject.BARANG_SUDAH_DIAMBIL.value) {
+        return statusObject.BARANG_SUDAH_DIAMBIL;
+      }
+    },
     updateStatus(type, status) {
       if (
         type === "rejected" &&
@@ -308,7 +323,7 @@ export default {
         type="button"
         @click="openModal('verifikasi-request')"
       >
-        Verifikasi
+        {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
       </button>
 
       <button
@@ -317,7 +332,7 @@ export default {
         type="button"
         @click="openModal('verifikasi-request')"
       >
-        Verifikasi
+        {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
       </button>
     </div>
 
@@ -570,7 +585,9 @@ export default {
     </div>
 
     <Modal name="verifikasi-request">
-      <template #header>Verifikasi Data Permohonan</template>
+      <template #header>{{
+        getTextRequest(detailRequest.status).headerModal
+      }}</template>
 
       <template #body>
         <FormVerifikasiRequest
@@ -592,7 +609,7 @@ export default {
           class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitRejectedStatus('rejected', detailRequest.status)"
         >
-          Reject
+          Tolak Permohonan
         </button>
         <button
           v-if="btnApproveStatus"
@@ -601,7 +618,7 @@ export default {
             submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
-          Approve
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnReceived"
@@ -614,14 +631,14 @@ export default {
             )
           "
         >
-          Approve
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnFeasibleCheck"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi('notes')"
         >
-          Submit
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
 
         <button
@@ -629,15 +646,14 @@ export default {
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi('filename')"
         >
-          Submit
-          <!-- TODO: this code i was remove next, if API from backend done, because i want to use code in file inputFile.js -->
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnPickUpItem"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi('pickup')"
         >
-          Submit
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
       </template>
       <template v-else-if="btnRequestItem" #footer>
@@ -645,7 +661,7 @@ export default {
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi('item')"
         >
-          Submit
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
       </template>
       <template v-else-if="btnReturnItem" #footer>
@@ -655,7 +671,7 @@ export default {
             submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
           "
         >
-          Submit
+          {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
       </template>
     </Modal>

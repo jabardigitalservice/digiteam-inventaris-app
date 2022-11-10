@@ -48,15 +48,9 @@ export default {
         </div>
       </div>
       <div class="mt-10 flex justify-center">
-        <LoadSvg
-          name="logo-jds"
-          folder="logo"
-          class="w-auto h-28 m-auto md:w-36 md:m-0"
-        />
-
         <img
-          src="@/assets/img/jabar-logo.png"
-          class="w-auto h-28 m-auto md:w-36 md:m-0"
+          src="@/assets/img/logo-diskom-jabar-inventaris.png"
+          class="w-60 h-24 m-auto md:w-80 md:m-0"
           alt="Logo Pemprov Jabar"
         />
       </div>
