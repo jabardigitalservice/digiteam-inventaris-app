@@ -1,8 +1,10 @@
 <script>
+import IconSvg from "../../components/layouts/IconSvg.vue";
 import LoadSvg from "../../components/layouts/LoadSvg.vue";
 export default {
   components: {
     LoadSvg,
+    IconSvg,
   },
   data() {
     return {
@@ -28,6 +30,14 @@ export default {
       <LoadSvg
         name="arrow-right"
         folder="icons"
+        class="w-5 h-5 fill-[#788896]"
+        :class="show ? 'fill-[#1976D2] rotate-90' : 'text-[#788896]'"
+      />
+
+      <IconSvg
+        icon="/icons/arrow.svg"
+        :size="24"
+        fill-color="blue"
         class="w-5 h-5 fill-[#788896]"
         :class="show ? 'fill-[#1976D2] rotate-90' : 'text-[#788896]'"
       />
