@@ -128,6 +128,11 @@ export default {
         return true;
       }
     },
+    async onSubmit() {
+      const isValid = await this.$refs.form.validate();
+      console.log(isValid);
+      console.log(this.file);
+    },
   },
 };
 </script>
@@ -138,171 +143,233 @@ export default {
       {{ titleModal }}
     </template>
     <template #body>
-      <form>
-        <label
-          for="request_type"
-          class="block mb-2 text-sm font-bold text-slate-700"
-        >
-          Jenis Permohonan
-        </label>
-        <select
-          id="request_type"
-          v-model.number="formRequest.request_type"
-          required
-          class="select-form"
-        >
-          <option selected value="" disabled hidden>
-            Pilih Jenis Permohonan
-          </option>
-          <option
-            v-for="(typeRequest, index) in typeRequestObjectOption"
-            :key="index"
-            :value="typeRequest.value"
+      <ValidationObserver ref="form">
+        <form @submit.prevent="onSubmit">
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="Jenis Permohonan"
+            rules="required"
           >
-            {{ typeRequest.text }}
-          </option>
-        </select>
+            <label
+              for="request_type"
+              class="block mb-2 text-sm font-bold text-slate-700"
+            >
+              Jenis Permohonan
+            </label>
+            <select
+              id="request_type"
+              v-model.number="formRequest.request_type"
+              class="select-form"
+            >
+              <option selected value="" disabled hidden>
+                Pilih Jenis Permohonan
+              </option>
+              <option
+                v-for="(typeRequest, index) in typeRequestObjectOption"
+                :key="index"
+                :value="typeRequest.value"
+              >
+                {{ typeRequest.text }}
+              </option>
+            </select>
 
-        <TextError
-          v-if="messageError.request_type"
-          :text-error="messageError.request_type"
-        />
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
 
-        <label class="block mt-5">
-          <span class="block text-sm font-bold text-slate-700"
-            >Nama Pegawai</span
+          <!-- <TextError
+            v-if="messageError.request_type"
+            :text-error="messageError.request_type"
+          /> -->
+
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="Nama Pegawai"
+            rules="required"
           >
-          <input
-            v-model="$store.state.user.profile.name"
-            readonly
-            type="text"
-            placeholder="Nama pegawai"
-            class="input-form bg-gray-300"
-          />
-        </label>
+            <label class="block mt-5">
+              <span class="block text-sm font-bold text-slate-700"
+                >Nama Pegawai</span
+              >
+              <input
+                v-model="$store.state.user.profile.name"
+                readonly
+                type="text"
+                placeholder="Nama Pegawai"
+                class="input-form bg-gray-300"
+              />
+            </label>
 
-        <label class="block mt-5">
-          <span class="block text-sm font-bold text-slate-700">No Telepon</span>
-          <input
-            v-model="formRequest.phone_number"
-            type="text"
-            placeholder="No Telepon"
-            class="input-form"
-          />
-        </label>
-        <TextError
-          v-if="messageError.phone_number"
-          :text-error="messageError.phone_number"
-        />
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
 
-        <label
-          for="divisi"
-          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-        >
-          Unit / Divisi
-        </label>
-        <select id="divisi" v-model="formRequest.division" class="select-form">
-          <option selected value="" disabled hidden>
-            Pilih Team Unit / Divisi
-          </option>
-
-          <option
-            v-for="(divisi, index) in divisiArrayOption"
-            :key="index"
-            :value="divisi"
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="No Telepon"
+            rules="required"
           >
-            {{ divisi }}
-          </option>
-        </select>
-        <TextError
-          v-if="messageError.division"
-          :text-error="messageError.division"
-        />
+            <label class="block mt-5">
+              <span class="block text-sm font-bold text-slate-700"
+                >No Telepon</span
+              >
+              <input
+                v-model="formRequest.phone_number"
+                type="text"
+                placeholder="No Telepon"
+                class="input-form"
+              />
+            </label>
 
-        <label class="block mt-5">
-          <span class="block text-sm font-bold text-slate-700">
-            Barang yang diajukan
-          </span>
-          <input
-            v-model="formRequest.requested_item"
-            type="text"
-            placeholder="Masukkan barang yang diajukan"
-            class="input-form"
-          />
-        </label>
-        <TextError
-          v-if="messageError.requested_item"
-          :text-error="messageError.requested_item"
-        />
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
 
-        <label class="block mt-5">
-          <span class="block text-sm font-bold text-slate-700">
-            Alasan Pengajuan
-          </span>
-          <textarea
-            v-model="formRequest.purpose"
-            placeholder="Masukkan alasan pengajuan"
-            class="input-form"
-          ></textarea>
-        </label>
-        <TextError
-          v-if="messageError.purpose"
-          :text-error="messageError.purpose"
-        />
+          <!-- <TextError
+            v-if="messageError.phone_number"
+            :text-error="messageError.phone_number"
+          /> -->
 
-        <label
-          for="priorty"
-          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-        >
-          Tingkat Kebutuhan
-        </label>
-        <select
-          id="priorty"
-          v-model.number="formRequest.priority"
-          class="select-form"
-        >
-          <option value="" selected disabled hidden>Tingkat Kebutuhan</option>
-          <option
-            v-for="(priorty, index) in priortyObjectOption"
-            :key="index"
-            :value="priorty.value"
+          <ValidationProvider v-slot="{ errors }" name="Divisi">
+            <label
+              for="divisi"
+              class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+            >
+              Unit / Divisi
+            </label>
+            <select
+              id="divisi"
+              v-model="formRequest.division"
+              class="select-form"
+            >
+              <option selected value="" disabled hidden>
+                Pilih Team Unit / Divisi
+              </option>
+
+              <option
+                v-for="(divisi, index) in divisiArrayOption"
+                :key="index"
+                :value="divisi"
+              >
+                {{ divisi }}
+              </option>
+            </select>
+
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <!-- <TextError
+            v-if="messageError.division"
+            :text-error="messageError.division"
+          /> -->
+
+          <ValidationProvider v-slot="{ errors }" name="Barang yang diajukan">
+            <label class="block mt-5">
+              <span class="block text-sm font-bold text-slate-700">
+                Barang yang diajukan
+              </span>
+              <input
+                v-model="formRequest.requested_item"
+                type="text"
+                placeholder="Masukkan barang yang diajukan"
+                class="input-form"
+              />
+            </label>
+
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <!-- <TextError
+            v-if="messageError.requested_item"
+            :text-error="messageError.requested_item"
+          /> -->
+
+          <ValidationProvider v-slot="{ errors }" name="Alasan Pengajuan">
+            <label class="block mt-5">
+              <span class="block text-sm font-bold text-slate-700">
+                Alasan Pengajuan
+              </span>
+              <textarea
+                v-model="formRequest.purpose"
+                placeholder="Masukkan alasan pengajuan"
+                class="input-form"
+              ></textarea>
+            </label>
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <!-- <TextError
+            v-if="messageError.purpose"
+            :text-error="messageError.purpose"
+          /> -->
+
+          <ValidationProvider v-slot="{ errors }" name="Tingkat Kebutuhan">
+            <label
+              for="priorty"
+              class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+            >
+              Tingkat Kebutuhan
+            </label>
+            <select
+              id="priorty"
+              v-model.number="formRequest.priority"
+              class="select-form"
+            >
+              <option value="" selected disabled hidden>
+                Tingkat Kebutuhan
+              </option>
+              <option
+                v-for="(priorty, index) in priortyObjectOption"
+                :key="index"
+                :value="priorty.value"
+              >
+                {{ priorty.text }}
+              </option>
+            </select>
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+          <!-- <TextError
+            v-if="messageError.priority"
+            :text-error="messageError.priority"
+          /> -->
+
+          <ValidationProvider v-slot="{ errors }" name="Evidence">
+            <label
+              v-if="isEvidence"
+              for="evidence"
+              class="block mb-2 text-sm font-bold text-slate-700 mt-5"
+            >
+              Evidence
+            </label>
+
+            <label v-if="isEvidence" class="block mt-5">
+              <span class="sr-only">Tambah File +</span>
+              <input
+                ref="file"
+                type="file"
+                accept="image/png, image/jpeg"
+                class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
+                @change="onFileChange('image')"
+              />
+              <p class="mt-1 text-xs text-gray-500">.png, .jpeg (MAX. 1MB)</p>
+            </label>
+
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <button
+            class="bg-blue-500 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
+            type="submit"
           >
-            {{ priorty.text }}
-          </option>
-        </select>
-        <TextError
-          v-if="messageError.priority"
-          :text-error="messageError.priority"
-        />
-
-        <label
-          v-if="isEvidence"
-          for="evidence"
-          class="block mb-2 text-sm font-bold text-slate-700 mt-5"
-        >
-          Evidence
-        </label>
-
-        <label v-if="isEvidence" class="block mt-5">
-          <span class="sr-only">Tambah File +</span>
-          <input
-            ref="file"
-            type="file"
-            accept="image/png, image/jpeg"
-            class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-800 file:text-white hover:file:bg-blue-300"
-            @change="onFileChange('image')"
-          />
-          <p class="mt-1 text-xs text-gray-500">.png, .jpeg (MAX. 1MB)</p>
-        </label>
-      </form>
+            Sign In
+          </button>
+        </form>
+      </ValidationObserver>
     </template>
-    <template #footer>
+    <!-- <template #footer>
       <button
         class="text-blue-800 bg-transparent border border-solid border-blue-800 hover:bg-blue-800 hover:text-white active:bg-blue-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         @click="handleSubmit"
       >
         Ajukan Permohonan
       </button>
-    </template>
+    </template> -->
   </Modal>
 </template>
