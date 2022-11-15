@@ -1,5 +1,5 @@
 <script>
-import { patchRequest } from "@/api";
+import { putRequest } from "@/api";
 import TextError from "../layouts/TextError.vue";
 import { sendFile } from "@/utils/inputFile.js";
 import StatusRequest from "./StatusRequest.vue";
@@ -16,21 +16,21 @@ export default {
         item_name: "",
         item_brand: "",
         item_number: "",
-        status: 6,
-        notes: "",
-        pickup_signing: "",
-        pickup_evidence: "",
-        pickup_bast: "",
-        filename: "",
+        status: 0,
+        // notes: "",
+        // pickup_signing: "",
+        // pickup_evidence: "",
+        // pickup_bast: "",
+        // filename: "",
       },
       messageError: {},
-      response: "",
       fileImage: null,
       refsType: null,
     };
   },
   methods: {
-    submitFormVerifikasi(type) {
+    submitFormVerifikasi(status) {
+      this.formRequestDetail.status = status;
       this.$Swal
         .fire({
           title: "Ingin mengirim permohonan barang?",
@@ -44,41 +44,47 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            if (type === "item") {
-              this.response = patchRequest(
-                "/requests",
-                "PATCH",
-                "",
-                this.id,
-                this.formRequestDetail
-              );
-            } else if (type === "notes") {
-              this.response = patchRequest(
-                "/requests",
-                "PATCH",
-                `/${type}`,
-                this.id,
-                this.formRequestDetail
-              );
-            } else if (type === "filename") {
-              this.response = patchRequest(
-                "/requests",
-                "PATCH",
-                `/${type}`,
-                this.id,
-                this.formRequestDetail
-              );
-            } else if (type === "pickup") {
-              this.response = patchRequest(
-                "/requests",
-                "PATCH",
-                `/${type}`,
-                this.id,
-                this.formRequestDetail
-              );
-            }
+            // if (type === "item") {
+            //   this.response = putRequest(
+            //     "/requests",
+            //     "PATCH",
+            //     "",
+            //     this.id,
+            //     this.formRequestDetail
+            //   );
+            // } else if (type === "notes") {
+            //   this.response = putRequest(
+            //     "/requests",
+            //     "PATCH",
+            //     `/${type}`,
+            //     this.id,
+            //     this.formRequestDetail
+            //   );
+            // } else if (type === "filename") {
+            //   this.response = putRequest(
+            //     "/requests",
+            //     "PATCH",
+            //     `/${type}`,
+            //     this.id,
+            //     this.formRequestDetail
+            //   );
+            // } else if (type === "pickup") {
+            //   this.response = putRequest(
+            //     "/requests",
+            //     "PATCH",
+            //     `/${type}`,
+            //     this.id,
+            //     this.formRequestDetail
+            //   );
+            // }
 
-            this.response
+            const response = putRequest(
+              "/requests",
+              this.id,
+              this.formRequestDetail
+            );
+
+            response
               .then(() => {
                 this.$store
                   .dispatch("sweetalert/successAlert", {

@@ -2,7 +2,7 @@
 import TypeRequest from "./TypeRequest.vue";
 import StatusRequest from "./StatusRequest.vue";
 import Modal from "../layouts/Modal.vue";
-import { patchRequest, downloadFile } from "@/api";
+import { putRequest, downloadFile } from "@/api";
 import { formatInTimeZone } from "date-fns-tz";
 import FormVerifikasiRequest from "./FormVerifikasiRequest.vue";
 import { statusObject, priortyObjectOption } from "@/constants";
@@ -21,11 +21,8 @@ export default {
       priortyObjectOption,
       formUpdateStatus: {
         status: 1,
-        notes: "",
+        // notes: "",
       },
-      paramsUrlStatus: "/status",
-      paramsUrlNotes: "/notes",
-      paramsUrlReceived: "/received",
     };
   },
   computed: {
@@ -199,7 +196,7 @@ export default {
         this.formUpdateStatus.status = statusObject.PENGEMBALIAN_BARANG.value;
       }
     },
-    submitUpdateStatus(type, status, params_url) {
+    submitUpdateStatus(type, status) {
       this.$Swal
         .fire({
           title: "Ingin update status permohonan?",
@@ -213,7 +210,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.sendStatus(type, status, params_url);
+            this.sendStatus(type, status);
           }
         });
     },
@@ -239,7 +236,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed && result.value) {
             this.formUpdateStatus.notes = result.value;
-            this.sendStatus(type, status, this.paramsUrlNotes);
+            this.sendStatus(type, status);
           } else {
             this.$store.dispatch("sweetalert/errorAlert", {
               title: "Catatan tidak boleh kosong!",
@@ -248,13 +245,11 @@ export default {
           }
         });
     },
-    sendStatus(type, status, params_url) {
+    sendStatus(type, status) {
       this.updateStatus(type, status);
 
-      const response = patchRequest(
+      const response = putRequest(
         "/requests",
-        "PATCH",
-        params_url,
         this.detailRequest.id,
         this.formUpdateStatus
       );
@@ -614,29 +609,21 @@ export default {
         <button
           v-if="btnApproveStatus"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="
-            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
-          "
+          @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnReceived"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="
-            submitUpdateStatus(
-              'approve',
-              detailRequest.status,
-              paramsUrlReceived
-            )
-          "
+          @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnFeasibleCheck"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('notes')"
+          @click="submitFormVerifikasi(statusObject.BARANG_SIAP_DIAMBIL.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
@@ -644,14 +631,14 @@ export default {
         <button
           v-if="btnUploadList"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('filename')"
+          @click="submitFormVerifikasi(statusObject.PENGAJUAN_DITERIMA.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnPickUpItem"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('pickup')"
+          @click="submitFormVerifikasi(statusObject.BARANG_SUDAH_DIAMBIL.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
@@ -659,7 +646,9 @@ export default {
       <template v-else-if="btnRequestItem" #footer>
         <button
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi('item')"
+          @click="
+            submitFormVerifikasi(statusObject.PERMINTAAN_BARANG_MASUK.value)
+          "
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
@@ -667,9 +656,7 @@ export default {
       <template v-else-if="btnReturnItem" #footer>
         <button
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="
-            submitUpdateStatus('approve', detailRequest.status, paramsUrlStatus)
-          "
+          @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>

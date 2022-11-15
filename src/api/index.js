@@ -30,10 +30,10 @@ export function getDetail(url, method, id) {
   });
 }
 
-export function patchRequest(url, method, params_url, id, data) {
+export function putRequest(url, id, data) {
   return https({
-    url: `${url}/${id}${params_url}`,
-    method: method,
+    url: `${url}/${id}`,
+    method: "PUT",
     data,
   });
 }
