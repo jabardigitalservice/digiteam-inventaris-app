@@ -5,6 +5,7 @@ import store from "./store";
 import "./assets/tailwind.css";
 import Swal from "./plugins/swal.js";
 import keycloak from "./plugins/keycloak.js";
+import "./plugins/vee-validate";
 
 Vue.use(Swal);
 Vue.use(keycloak);

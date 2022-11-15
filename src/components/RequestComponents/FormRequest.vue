@@ -1,16 +1,17 @@
 <script>
-import TextError from "../layouts/TextError.vue";
 import Modal from "../layouts/Modal.vue";
 import { doPostUpdate } from "@/api";
 import { sendFile } from "@/utils/inputFile.js";
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 import {
   divisiArrayOption,
   priortyObjectOption,
   typeRequestObjectOption,
 } from "@/constants";
+
 export default {
   name: "FormRequest",
-  components: { TextError, Modal },
+  components: { Modal, ValidationProvider, ValidationObserver },
   data() {
     return {
       titleModal: "Form Pengajuan Permohonan Inventaris",
@@ -25,8 +26,6 @@ export default {
         replacement_evidence: "",
       },
       formRequestCopy: {},
-      messageError: {},
-      messageErrorCopy: {},
       divisiArrayOption,
       priortyObjectOption,
       typeRequestObjectOption,
@@ -44,72 +43,16 @@ export default {
   },
   mounted() {
     this.formRequestCopy = { ...this.formRequest };
-    this.messageErrorCopy = { ...this.messageError };
   },
   methods: {
     resetFormRequest() {
       this.formRequest = { ...this.formRequestCopy };
-      this.messageError = { ...this.messageErrorCopy };
     },
-    handleSubmit() {
-      this.$Swal
-        .fire({
-          title: "Ingin mengirim permohonan?",
-          text: "Permohonan akan dikirim ke team HR/GA!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Kirim!",
-          cancelButtonText: "Batalkan",
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            const checkFile = this.checkFile();
-            if (checkFile) {
-              const response = doPostUpdate(
-                "/requests",
-                "POST",
-                this.formRequest
-              );
-              response
-                .then(() => {
-                  this.$store
-                    .dispatch("sweetalert/successAlert", {
-                      title: "Success",
-                      text: "Berhasil mengirim permohonan",
-                    })
-                    .then(() => {
-                      this.$store.dispatch("modals/close", this.name);
-                      this.resetFormRequest();
-                      this.$emit("get-response-form");
-                    });
-                })
-                .catch((err) => {
-                  this.messageError = err.response.data.errors;
-                  if (err.response.data.errors) {
-                    this.$store.dispatch("sweetalert/errorAlert", {
-                      title: "Data kurang lengkap!",
-                      text: "Gagal mengirim permohonan",
-                    });
-                  } else {
-                    this.$store.dispatch("sweetalert/errorAlert", {
-                      title: "Server Error!",
-                      text: "Gagal mengirim permohonan",
-                    });
-                  }
-                });
-            } else {
-              this.$store.dispatch("sweetalert/errorAlert", {
-                title: "Data kurang lengkap!",
-                text: "Untuk penukaran barang harus melampirkan file Evidence!",
-              });
-            }
-          }
-        });
-    },
-    onFileChange(typeFile) {
-      if (this.$refs.file.files[0]) {
+
+    async onFileChange(typeFile) {
+      const { valid } = await this.$refs.provider.validate(event);
+
+      if (this.$refs.file.files[0] && valid) {
         const response = sendFile(this.$refs.file.files[0], typeFile);
         response.then((result) => {
           if (result) {
@@ -130,8 +73,63 @@ export default {
     },
     async onSubmit() {
       const isValid = await this.$refs.form.validate();
-      console.log(isValid);
-      console.log(this.file);
+
+      if (isValid) {
+        this.$Swal
+          .fire({
+            title: "Ingin mengirim permohonan?",
+            text: "Permohonan akan dikirim ke team HR/GA!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Kirim!",
+            cancelButtonText: "Batalkan",
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              const checkFile = this.checkFile();
+              if (checkFile) {
+                const response = doPostUpdate(
+                  "/requests",
+                  "POST",
+                  this.formRequest
+                );
+                response
+                  .then(() => {
+                    this.$store
+                      .dispatch("sweetalert/successAlert", {
+                        title: "Success",
+                        text: "Berhasil mengirim permohonan",
+                      })
+                      .then(() => {
+                        this.$store.dispatch("modals/close", this.name);
+                        this.resetFormRequest();
+                        this.$emit("get-response-form");
+                      });
+                  })
+                  .catch((err) => {
+                    if (err.response.data.errors) {
+                      this.$store.dispatch("sweetalert/errorAlert", {
+                        title: "Data kurang lengkap!",
+                        text: "Gagal mengirim permohonan",
+                      });
+                    } else {
+                      this.$store.dispatch("sweetalert/errorAlert", {
+                        title: "Server Error!",
+                        text: "Gagal mengirim permohonan",
+                      });
+                    }
+                  });
+              } else {
+                this.$store.dispatch("sweetalert/errorAlert", {
+                  title: "Data kurang lengkap!",
+                  text: "Untuk penukaran barang harus melampirkan file Evidence!",
+                });
+              }
+            }
+          });
+      }
     },
   },
 };
@@ -148,7 +146,7 @@ export default {
           <ValidationProvider
             v-slot="{ errors }"
             name="Jenis Permohonan"
-            rules="required"
+            rules="selected"
           >
             <label
               for="request_type"
@@ -173,19 +171,10 @@ export default {
               </option>
             </select>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
-          <!-- <TextError
-            v-if="messageError.request_type"
-            :text-error="messageError.request_type"
-          /> -->
-
-          <ValidationProvider
-            v-slot="{ errors }"
-            name="Nama Pegawai"
-            rules="required"
-          >
+          <ValidationProvider v-slot="{ errors }" name="Nama Pegawai">
             <label class="block mt-5">
               <span class="block text-sm font-bold text-slate-700"
                 >Nama Pegawai</span
@@ -199,13 +188,13 @@ export default {
               />
             </label>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
           <ValidationProvider
             v-slot="{ errors }"
             name="No Telepon"
-            rules="required"
+            rules="phone|numeric|required"
           >
             <label class="block mt-5">
               <span class="block text-sm font-bold text-slate-700"
@@ -219,15 +208,14 @@ export default {
               />
             </label>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
-          <!-- <TextError
-            v-if="messageError.phone_number"
-            :text-error="messageError.phone_number"
-          /> -->
-
-          <ValidationProvider v-slot="{ errors }" name="Divisi">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="selected"
+            name="Divisi"
+          >
             <label
               for="divisi"
               class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -252,15 +240,14 @@ export default {
               </option>
             </select>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
-          <!-- <TextError
-            v-if="messageError.division"
-            :text-error="messageError.division"
-          /> -->
-
-          <ValidationProvider v-slot="{ errors }" name="Barang yang diajukan">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            name="Barang yang diajukan"
+          >
             <label class="block mt-5">
               <span class="block text-sm font-bold text-slate-700">
                 Barang yang diajukan
@@ -273,15 +260,14 @@ export default {
               />
             </label>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
-          <!-- <TextError
-            v-if="messageError.requested_item"
-            :text-error="messageError.requested_item"
-          /> -->
-
-          <ValidationProvider v-slot="{ errors }" name="Alasan Pengajuan">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            name="Alasan Pengajuan"
+          >
             <label class="block mt-5">
               <span class="block text-sm font-bold text-slate-700">
                 Alasan Pengajuan
@@ -292,15 +278,14 @@ export default {
                 class="input-form"
               ></textarea>
             </label>
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
 
-          <!-- <TextError
-            v-if="messageError.purpose"
-            :text-error="messageError.purpose"
-          /> -->
-
-          <ValidationProvider v-slot="{ errors }" name="Tingkat Kebutuhan">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="selected"
+            name="Tingkat Kebutuhan"
+          >
             <label
               for="priorty"
               class="block mb-2 text-sm font-bold text-slate-700 mt-5"
@@ -323,23 +308,24 @@ export default {
                 {{ priorty.text }}
               </option>
             </select>
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
-          <!-- <TextError
-            v-if="messageError.priority"
-            :text-error="messageError.priority"
-          /> -->
 
-          <ValidationProvider v-slot="{ errors }" name="Evidence">
+          <ValidationProvider
+            v-if="isEvidence"
+            v-slot="{ errors }"
+            ref="provider"
+            rules="required|ext:png,jpg|size:1024"
+            name="Evidence"
+          >
             <label
-              v-if="isEvidence"
               for="evidence"
               class="block mb-2 text-sm font-bold text-slate-700 mt-5"
             >
               Evidence
             </label>
 
-            <label v-if="isEvidence" class="block mt-5">
+            <label class="block mt-5">
               <span class="sr-only">Tambah File +</span>
               <input
                 ref="file"
@@ -351,25 +337,18 @@ export default {
               <p class="mt-1 text-xs text-gray-500">.png, .jpeg (MAX. 1MB)</p>
             </label>
 
-            <span>{{ errors[0] }}</span>
+            <span class="text-red-700 text-sm">{{ errors[0] }}</span>
           </ValidationProvider>
-
-          <button
-            class="bg-blue-500 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            Sign In
-          </button>
         </form>
       </ValidationObserver>
     </template>
-    <!-- <template #footer>
+    <template #footer>
       <button
         class="text-blue-800 bg-transparent border border-solid border-blue-800 hover:bg-blue-800 hover:text-white active:bg-blue-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        @click="handleSubmit"
+        @click="onSubmit"
       >
         Ajukan Permohonan
       </button>
-    </template> -->
+    </template>
   </Modal>
 </template>
