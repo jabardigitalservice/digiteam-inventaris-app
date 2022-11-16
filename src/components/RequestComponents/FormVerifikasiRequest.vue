@@ -3,6 +3,7 @@ import { putRequest } from "@/api";
 import { sendFile } from "@/utils/inputFile.js";
 import StatusRequest from "./StatusRequest.vue";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { statusObject } from "@/constants";
 export default {
   components: {
     StatusRequest,
@@ -26,20 +27,28 @@ export default {
         pickup_evidence: "",
         pickup_bast: "",
         filename: "",
+        statusObject,
       },
+      textRoleAlert: "",
       fileImage: null,
       refsType: null,
     };
   },
   methods: {
     async submitFormVerifikasi(status) {
+      if (status === statusObject.PERMINTAAN_BARANG_MASUK.value) {
+        this.textRoleAlert = "Team HR/GA";
+      } else {
+        this.textRoleAlert = "Karyawan";
+      }
+
       const isValid = await this.$refs.form.validate();
       if (isValid) {
         this.formRequestDetail.status = status;
         this.$Swal
           .fire({
-            title: "Ingin mengirim permohonan barang?",
-            text: "Permohonan akan dikirim ke team HR/GA!",
+            title: "Ingin mengirim data?",
+            text: `Data akan dikirim ke ${this.textRoleAlert}!`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -60,7 +69,7 @@ export default {
                   this.$store
                     .dispatch("sweetalert/successAlert", {
                       title: "Success",
-                      text: "Berhasil mengirim permohonan barang",
+                      text: "Berhasil mengirim data",
                     })
                     .then(() => {
                       this.resetForm();
@@ -70,12 +79,12 @@ export default {
                   if (err.response.data.errors) {
                     this.$store.dispatch("sweetalert/errorAlert", {
                       title: "Data kurang lengkap!",
-                      text: "Gagal mengirim permohonan barang",
+                      text: "Gagal mengirim data",
                     });
                   } else {
                     this.$store.dispatch("sweetalert/errorAlert", {
                       title: "Server Error!",
-                      text: "Gagal mengirim permohonan barang",
+                      text: "Gagal mengirim data",
                     });
                   }
                 });
