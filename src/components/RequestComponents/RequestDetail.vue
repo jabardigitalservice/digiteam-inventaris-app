@@ -21,7 +21,7 @@ export default {
       priortyObjectOption,
       formUpdateStatus: {
         status: 1,
-        // notes: "",
+        notes: "",
       },
     };
   },
@@ -191,9 +191,9 @@ export default {
         this.formUpdateStatus.status = statusObject.BARANG_SIAP_DIAMBIL.value;
       } else if (
         type === "approve" &&
-        status === statusObject.PENGAJUAN_SELESAI.value
+        status === statusObject.BARANG_SIAP_DIAMBIL.value
       ) {
-        this.formUpdateStatus.status = statusObject.PENGEMBALIAN_BARANG.value;
+        this.formUpdateStatus.status = statusObject.BARANG_SUDAH_DIAMBIL.value;
       }
     },
     submitUpdateStatus(type, status) {
@@ -253,6 +253,7 @@ export default {
         this.detailRequest.id,
         this.formUpdateStatus
       );
+
       response
         .then(() => {
           this.$store
@@ -280,8 +281,8 @@ export default {
           }
         });
     },
-    submitFormVerifikasi(type) {
-      this.$refs.formVerifikasi.submitFormVerifikasi(type);
+    submitFormVerifikasi(status) {
+      this.$refs.formVerifikasi.submitFormVerifikasi(status);
     },
     getResponseForm() {
       this.$emit("get-response-form");
@@ -638,7 +639,7 @@ export default {
         <button
           v-if="btnPickUpItem"
           class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          @click="submitFormVerifikasi(statusObject.BARANG_SUDAH_DIAMBIL.value)"
+          @click="submitFormVerifikasi(statusObject.PENGAJUAN_SELESAI.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
