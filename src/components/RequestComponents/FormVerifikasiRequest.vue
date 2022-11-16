@@ -35,12 +35,15 @@ export default {
     };
   },
   methods: {
-    async submitFormVerifikasi(status) {
+    getTextAlertRole(status) {
       if (status === statusObject.PERMINTAAN_BARANG_MASUK.value) {
         this.textRoleAlert = "Team HR/GA";
       } else {
         this.textRoleAlert = "Karyawan";
       }
+    },
+    async submitFormVerifikasi(status) {
+      this.getTextAlertRole(status);
 
       const isValid = await this.$refs.form.validate();
       if (isValid) {
