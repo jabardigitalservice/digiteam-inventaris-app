@@ -1,17 +1,14 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import IconSvg from "../../components/layouts/IconSvg.vue";
 export default {
-  components: { LoadSvg },
+  components: { IconSvg },
   props: { showSidebar: { type: Boolean, default: false } },
   data() {
     return {
       menuSidebar: [
         {
           routerLinkName: "list-request",
-          icon: {
-            folder: "icons",
-            name: "book",
-          },
+          icon: "book.svg",
           nameRouter: "Permohonan",
         },
       ],
@@ -27,17 +24,20 @@ export default {
       :class="showSidebar ? 'w-60 relative -translate-x-0' : 'w-24'"
     >
       <a href="" class="flex items-center px-4 space-x-2">
-        <img
+        <IconSvg
           v-if="showSidebar"
-          src="@/assets/img/logo-inventaris.png"
-          class="w-84 h-10"
-          alt="Logo Inventaris"
+          icon="/logo/logo-inventaris.svg"
+          :height="40"
+          :width="320"
+          mode="image"
         />
-        <img
+
+        <IconSvg
           v-else
-          src="@/assets/img/logo-mini-inventaris.png"
-          class="w-84 h-10"
-          alt="Logo Inventaris"
+          icon="/logo/logo-mini-inventaris.svg"
+          :height="40"
+          :width="320"
+          mode="image"
         />
       </a>
 
@@ -46,11 +46,7 @@ export default {
           :to="{ name: menu.routerLinkName }"
           class="group flex items-center py-3 px-4 space-x-2 mt-2 hover:bg-blue-100 rounded-xl transition duration-500 ease-in-out"
         >
-          <LoadSvg
-            :name="menu.icon.name"
-            :folder="menu.icon.folder"
-            class="w-6 h-6 ml-2.5"
-          />
+          <IconSvg :icon="`/icons/${menu.icon}`" class="!w-6 !h-6 ml-2.5" />
           <span
             class="text-[#788896] duration-500 ease-in-out"
             :class="{ hidden: !showSidebar }"

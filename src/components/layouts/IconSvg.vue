@@ -45,7 +45,7 @@ export default {
         };
       } else {
         return {
-          background: `url(${this.icon}) no-repeat`,
+          background: `url(${this.icon}) 0% 0% / 100% 100% no-repeat`,
           "background-color": "transparent",
           "background-size": "100% 100%",
           height: `${this.height}px`,
