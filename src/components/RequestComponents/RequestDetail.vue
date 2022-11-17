@@ -217,8 +217,8 @@ export default {
     submitRejectedStatus(type, status) {
       this.$Swal
         .fire({
-          title: "Ingin update status permohonan?",
-          text: "Permohonan akan diubah statusnya!",
+          title: "Tolak Permohonan?",
+          text: "Masukan Alasan Penolakan Permohonan!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -226,7 +226,7 @@ export default {
           confirmButtonText: "Kirim!",
           cancelButtonText: "Batalkan",
           input: "textarea",
-          inputPlaceholder: "Masukkan detail catatan...",
+          inputPlaceholder: "Masukkan detail...",
           inputAttributes: {
             "aria-label": "Type your message here",
             autocapitalize: "off",
