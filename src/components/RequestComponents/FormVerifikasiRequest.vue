@@ -1,8 +1,9 @@
 <script>
-import { patchRequest } from "@/api";
+import { putRequest } from "@/api";
 import { sendFile } from "@/utils/inputFile.js";
 import StatusRequest from "./StatusRequest.vue";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { statusObject } from "@/constants";
 export default {
   components: {
     StatusRequest,
@@ -20,28 +21,37 @@ export default {
         item_name: "",
         item_brand: "",
         item_number: "",
-        status: 6,
+        status: 0,
         notes: "",
         pickup_signing: "",
         pickup_evidence: "",
         pickup_bast: "",
         filename: "",
+        statusObject,
       },
-      messageError: {},
-      response: "",
+      textRoleAlert: "",
       fileImage: null,
       refsType: null,
     };
   },
   methods: {
-    async submitFormVerifikasi(type) {
-      const isValid = await this.$refs.form.validate();
+    getTextAlertRole(status) {
+      if (status === statusObject.PERMINTAAN_BARANG_MASUK.value) {
+        this.textRoleAlert = "Team HR/GA";
+      } else {
+        this.textRoleAlert = "Karyawan";
+      }
+    },
+    async submitFormVerifikasi(status) {
+      this.getTextAlertRole(status);
 
+      const isValid = await this.$refs.form.validate();
       if (isValid) {
+        this.formRequestDetail.status = status;
         this.$Swal
           .fire({
-            title: "Ingin mengirim permohonan barang?",
-            text: "Permohonan akan dikirim ke team HR/GA!",
+            title: "Ingin mengirim data?",
+            text: `Data akan dikirim ke ${this.textRoleAlert}!`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -51,61 +61,33 @@ export default {
           })
           .then((result) => {
             if (result.isConfirmed) {
-              if (type === "item") {
-                this.response = patchRequest(
-                  "/requests",
-                  "PATCH",
-                  "",
-                  this.id,
-                  this.formRequestDetail
-                );
-              } else if (type === "notes") {
-                this.response = patchRequest(
-                  "/requests",
-                  "PATCH",
-                  `/${type}`,
-                  this.id,
-                  this.formRequestDetail
-                );
-              } else if (type === "filename") {
-                this.response = patchRequest(
-                  "/requests",
-                  "PATCH",
-                  `/${type}`,
-                  this.id,
-                  this.formRequestDetail
-                );
-              } else if (type === "pickup") {
-                this.response = patchRequest(
-                  "/requests",
-                  "PATCH",
-                  `/${type}`,
-                  this.id,
-                  this.formRequestDetail
-                );
-              }
-              this.response
+              const response = putRequest(
+                "/requests",
+                this.id,
+                this.formRequestDetail
+              );
+
+              response
                 .then(() => {
                   this.$store
                     .dispatch("sweetalert/successAlert", {
                       title: "Success",
-                      text: "Berhasil mengirim permohonan barang",
+                      text: "Berhasil mengirim data",
                     })
                     .then(() => {
                       this.resetForm();
                     });
                 })
                 .catch((err) => {
-                  this.messageError = err.response.data.errors;
                   if (err.response.data.errors) {
                     this.$store.dispatch("sweetalert/errorAlert", {
                       title: "Data kurang lengkap!",
-                      text: "Gagal mengirim permohonan barang",
+                      text: "Gagal mengirim data",
                     });
                   } else {
                     this.$store.dispatch("sweetalert/errorAlert", {
                       title: "Server Error!",
-                      text: "Gagal mengirim permohonan barang",
+                      text: "Gagal mengirim data",
                     });
                   }
                 });
