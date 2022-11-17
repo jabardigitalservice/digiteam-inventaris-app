@@ -27,7 +27,7 @@ export default {
 
       <IconSvg
         icon="/icons/arrow.svg"
-        class="!w-!5 h-5"
+        class="!w-5 !h-5"
         :class="show ? '!bg-[#1976D2] rotate-90' : '!text-[#788896]'"
       />
     </button>

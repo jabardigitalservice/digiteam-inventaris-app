@@ -26,7 +26,7 @@ export default {
           >
             <IconSvg
               icon="/icons/burger-button.svg"
-              class="!w-!5 h-5"
+              class="!w-5 !h-5"
               :class="showSidebar ? '!bg-[#0d47a1]' : '!bg-[#677887]'"
             />
           </button>
