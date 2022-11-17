@@ -1,7 +1,3 @@
-<template>
-  <span :style="computedStyle" aria-label="hidden" />
-</template>
-
 <script>
 export default {
   props: {
@@ -50,6 +46,8 @@ export default {
       } else {
         return {
           background: `url(${this.icon}) no-repeat`,
+          "background-color": "transparent",
+          "background-size": "100% 100%",
           height: `${this.height}px`,
           width: `${this.width}px`,
           display: "inline-block",
@@ -59,3 +57,7 @@ export default {
   },
 };
 </script>
+
+<template>
+  <span :style="computedStyle" aria-label="hidden" />
+</template>
