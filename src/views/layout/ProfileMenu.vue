@@ -1,8 +1,8 @@
 <script>
-import LoadSvg from "../../components/layouts/LoadSvg.vue";
+import IconSvg from "../../components/layouts/IconSvg.vue";
 export default {
   components: {
-    LoadSvg,
+    IconSvg,
   },
   data() {
     return {
@@ -25,11 +25,10 @@ export default {
     >
       <span class="mr-4 font-bold"> {{ $store.state.user.profile.name }}</span>
 
-      <LoadSvg
-        name="arrow-right"
-        folder="icons"
-        class="w-5 h-5 fill-[#788896]"
-        :class="show ? 'fill-[#1976D2] rotate-90' : 'text-[#788896]'"
+      <IconSvg
+        icon="/icons/arrow.svg"
+        class="!w-5 !h-5"
+        :class="show ? '!bg-[#1976D2] rotate-90' : '!text-[#788896]'"
       />
     </button>
 
