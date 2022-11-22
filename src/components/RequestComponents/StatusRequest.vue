@@ -54,7 +54,7 @@ export default {
 <template>
   <span
     :class="getColorLabel(status)"
-    class="textStatus-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg border-2"
+    class="textStatus-xs inline-block font-semibold mr-2 px-2.5 py-0.5 rounded-lg border-2"
     >{{ getStatusLabel(status) }}
   </span>
 </template>
