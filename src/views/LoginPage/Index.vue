@@ -54,9 +54,15 @@ export default {
       </div>
       <div class="mt-10 flex justify-center">
         <IconSvg
-          icon="/logo/logo-diskom-jabar-inventaris.png"
+          icon="/logo/diskominfo.png"
           mode="image"
-          class="!w-64 !h-32 !m-auto md:!w-80 md:!m-0"
+          class="!w-36 !h-16 md:!h-24 !m-auto md:!w-80 md:!m-0"
+        />
+
+        <IconSvg
+          icon="/logo/jds-logo.svg"
+          mode="image"
+          class="!w-36 !h-16 md:!h-24 !m-auto md:!w-80 md:!m-0"
         />
       </div>
     </div>
