@@ -128,7 +128,7 @@ export default {
           >
             <IconSvg
               icon="/icons/search.svg"
-              class="!w-4 !h-4 !mr-2 !bg-[#677887]"
+              class="!w-4 !h-4 !mr-2 !bg-gray-700"
             />
           </div>
           <input
