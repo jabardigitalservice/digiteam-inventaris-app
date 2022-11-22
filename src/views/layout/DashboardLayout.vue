@@ -1,15 +1,18 @@
 <script>
 import Sidebar from "./Sidebar.vue";
-import ProfileMenu from "./ProfileMenu.vue";
-
-import IconSvg from "../../components/layouts/IconSvg.vue";
+import NavbarMenu from "./NavbarMenu.vue";
 
 export default {
-  components: { Sidebar, ProfileMenu, IconSvg },
+  components: { Sidebar, NavbarMenu },
   data() {
     return {
-      showSidebar: false,
+      showSideBarValue: false,
     };
+  },
+  methods: {
+    showSideBar() {
+      this.showSideBarValue = !this.showSideBarValue;
+    },
   },
 };
 </script>
@@ -17,23 +20,9 @@ export default {
 <template>
   <div id="app">
     <div class="flex">
-      <Sidebar :show-sidebar="showSidebar"></Sidebar>
+      <Sidebar :show-sidebar="showSideBarValue"></Sidebar>
       <div class="h-full w-full">
-        <div class="justify-between items-center px-2 py-5 bg-white">
-          <button
-            class="text-blue-900 font-extrabold"
-            @click="showSidebar = !showSidebar"
-          >
-            <IconSvg
-              icon="/icons/burger-button.svg"
-              class="!w-5 !h-5 !bg-gray-700"
-            />
-          </button>
-
-          <div class="float-right">
-            <ProfileMenu></ProfileMenu>
-          </div>
-        </div>
+        <NavbarMenu @get-response-toggle-sidebar="showSideBar" />
 
         <div class="p-4">
           <router-view />

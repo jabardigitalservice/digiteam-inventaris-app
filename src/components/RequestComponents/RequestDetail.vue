@@ -308,203 +308,270 @@ export default {
 
 <template>
   <div>
-    <div class="px-5 mb-5 mt-5">
-      <p class="text-blue-gray-800 font-bold float-left mb-5">
-        Detail Permohonan Inventaris
-      </p>
+    <div class="max-full-screen">
+      <div class="px-5 mb-5 mt-5">
+        <p class="text-blue-gray-800 font-bold float-left mb-5">
+          Detail Permohonan Inventaris
+        </p>
 
-      <button
-        v-if="btnRequestItem"
-        class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
-        type="button"
-        @click="openModal('verifikasi-request')"
+        <button
+          v-if="btnRequestItem"
+          class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+          type="button"
+          @click="openModal('verifikasi-request')"
+        >
+          {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
+        </button>
+
+        <button
+          v-if="btnVerifikasi"
+          class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+          type="button"
+          @click="openModal('verifikasi-request')"
+        >
+          {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
+        </button>
+      </div>
+
+      <div class="sm:rounded-lg shadow-md">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">
+                Permohonan Barang
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table w-1/6">Nama Pemohon</th>
+              <td class="td-table">{{ detailRequest.username }}</td>
+            </tr>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table">Jenis Permohonan</th>
+              <td class="td-table">
+                <TypeRequest :request-type="detailRequest.request_type" />
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table">No Telepon</th>
+              <td class="td-table">{{ detailRequest.phone_number }}</td>
+            </tr>
+
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table">Unit / Divisi</th>
+              <td class="td-table">{{ detailRequest.division }}</td>
+            </tr>
+
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table">Barang yang diajukan</th>
+              <td class="td-table">{{ detailRequest.requested_item }}</td>
+            </tr>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table">Alasan Pengajuan</th>
+              <td class="td-table">{{ detailRequest.purpose }}</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table">Tingkat Kebutuhan</th>
+              <td class="td-table">
+                {{
+                  detailRequest.priority === priortyObjectOption.BIASA.value
+                    ? priortyObjectOption.BIASA.text
+                    : priortyObjectOption.URGENT.text
+                }}
+              </td>
+            </tr>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table">Status</th>
+              <td class="td-table">
+                <StatusRequest :status="detailRequest.status" />
+              </td>
+            </tr>
+
+            <tr
+              v-if="isReplacementRequestType"
+              class="bg-gray-100 border-b border-gray-200"
+            >
+              <th class="td-table">File Evidence</th>
+              <td class="td-table">
+                <button
+                  :class="
+                    detailRequest.replacement_evidence
+                      ? 'text-blue-500'
+                      : 'text-dark'
+                  "
+                  :disabled="!detailRequest.replacement_evidence"
+                  @click="getFile(detailRequest.replacement_evidence)"
+                >
+                  Download File
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        v-if="detailRejectedRequest"
+        class="sm:rounded-lg shadow-md mt-5 mb-5"
       >
-        {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
-      </button>
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-red-800">
+              <th scope="col" class="th-table" colspan="2">
+                Permohonan ditolak
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table w-1/6">Alasan</th>
+              <td class="td-table">{{ detailRequest.notes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <button
-        v-if="btnVerifikasi"
-        class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
-        type="button"
-        @click="openModal('verifikasi-request')"
-      >
-        {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
-      </button>
-    </div>
+      <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">File Inventaris</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table w-1/6">File Inventaris</th>
+              <td class="td-table">
+                <button
+                  :class="
+                    detailRequest.filename ? 'text-blue-500' : 'text-dark'
+                  "
+                  :disabled="!detailRequest.filename"
+                  @click="getFile(detailRequest.filename)"
+                >
+                  Download File
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="sm:rounded-lg shadow-md">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">Permohonan Barang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">Nama Pemohon</th>
-            <td class="td-table">{{ detailRequest.username }}</td>
-          </tr>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table">Jenis Permohonan</th>
-            <td class="td-table">
-              <TypeRequest :request-type="detailRequest.request_type" />
-            </td>
-          </tr>
+      <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">
+                Barang yang diminta
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table w-1/6">Merk Item</th>
+              <td class="td-table">{{ detailRequest.item_brand }}</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table w-1/6">Barang yang diminta</th>
+              <td class="td-table">{{ detailRequest.item_name }}</td>
+            </tr>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table w-1/6">No Barang Inventaris</th>
+              <td class="td-table">{{ detailRequest.item_number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table">No Telepon</th>
-            <td class="td-table">{{ detailRequest.phone_number }}</td>
-          </tr>
+      <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">Kondisi Barang</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b border-gray-200">
+              <th class="td-table w-1/6">Kondisi</th>
+              <td class="td-table">{{ detailRequest.notes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table">Unit / Divisi</th>
-            <td class="td-table">{{ detailRequest.division }}</td>
-          </tr>
+      <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">
+                Pengambilan Barang
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table w-1/6">Tanggal Pengambilan</th>
+              <td class="td-table">{{ pickUpTime }}</td>
+            </tr>
 
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table">Barang yang diajukan</th>
-            <td class="td-table">{{ detailRequest.requested_item }}</td>
-          </tr>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table">Alasan Pengajuan</th>
-            <td class="td-table">{{ detailRequest.purpose }}</td>
-          </tr>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table">Tingkat Kebutuhan</th>
-            <td class="td-table">
-              {{
-                detailRequest.priority === priortyObjectOption.BIASA.value
-                  ? priortyObjectOption.BIASA.text
-                  : priortyObjectOption.URGENT.text
-              }}
-            </td>
-          </tr>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table">Status</th>
-            <td class="td-table">
-              <StatusRequest :status="detailRequest.status" />
-            </td>
-          </tr>
+            <template v-if="detailPickUpItem">
+              <tr class="bg-white border-b border-gray-200">
+                <th class="td-table w-1/6">Penanda Tangan BAST</th>
+                <td class="td-table">{{ detailRequest.pickup_signing }}</td>
+              </tr>
+              <tr class="bg-gray-100 border-b border-gray-200">
+                <th class="td-table w-1/6">File Evidence</th>
+                <td class="td-table">
+                  <button
+                    :class="
+                      detailRequest.pickup_evidence
+                        ? 'text-blue-500'
+                        : 'text-dark'
+                    "
+                    :disabled="!detailRequest.pickup_evidence"
+                    @click="getFile(detailRequest.pickup_evidence)"
+                  >
+                    Download File
+                  </button>
+                </td>
+              </tr>
+              <tr class="bg-white border-b border-gray-200">
+                <th class="td-table w-1/6">File Bast</th>
+                <td class="td-table">
+                  <button
+                    :class="
+                      detailRequest.pickup_evidence
+                        ? 'text-blue-500'
+                        : 'text-dark'
+                    "
+                    :disabled="!detailRequest.pickup_evidence"
+                    @click="getFile(detailRequest.pickup_bast)"
+                  >
+                    Download File
+                  </button>
+                </td>
+              </tr></template
+            >
+          </tbody>
+        </table>
+      </div>
 
-          <tr
-            v-if="isReplacementRequestType"
-            class="bg-gray-100 border-b border-gray-200"
-          >
-            <th class="td-table">File Evidence</th>
-            <td class="td-table">
-              <button
-                :class="
-                  detailRequest.replacement_evidence
-                    ? 'text-blue-500'
-                    : 'text-dark'
-                "
-                :disabled="!detailRequest.replacement_evidence"
-                @click="getFile(detailRequest.replacement_evidence)"
-              >
-                Download File
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailRejectedRequest" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-red-800">
-            <th scope="col" class="th-table" colspan="2">Permohonan ditolak</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">Alasan</th>
-            <td class="td-table">{{ detailRequest.notes }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">File Inventaris</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">File Inventaris</th>
-            <td class="td-table">
-              <button
-                :class="detailRequest.filename ? 'text-blue-500' : 'text-dark'"
-                :disabled="!detailRequest.filename"
-                @click="getFile(detailRequest.filename)"
-              >
-                Download File
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">
-              Barang yang diminta
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table w-1/6">Merk Item</th>
-            <td class="td-table">{{ detailRequest.item_brand }}</td>
-          </tr>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">Barang yang diminta</th>
-            <td class="td-table">{{ detailRequest.item_name }}</td>
-          </tr>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table w-1/6">No Barang Inventaris</th>
-            <td class="td-table">{{ detailRequest.item_number }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">Kondisi Barang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">Kondisi</th>
-            <td class="td-table">{{ detailRequest.notes }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">Pengambilan Barang</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table w-1/6">Tanggal Pengambilan</th>
-            <td class="td-table">{{ pickUpTime }}</td>
-          </tr>
-
-          <template v-if="detailPickUpItem">
+      <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+        <table class="w-full text-sm text-left text-gray-800">
+          <thead>
+            <tr class="text-xs text-white uppercase bg-blue-800">
+              <th scope="col" class="th-table" colspan="2">
+                Pengembalian Barang
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-gray-100 border-b border-gray-200">
+              <th class="td-table w-1/6">Tanggal Pengembalian</th>
+              <td class="td-table">{{ pickUpTime }}</td>
+            </tr>
             <tr class="bg-white border-b border-gray-200">
               <th class="td-table w-1/6">Penanda Tangan BAST</th>
               <td class="td-table">{{ detailRequest.pickup_signing }}</td>
@@ -512,72 +579,18 @@ export default {
             <tr class="bg-gray-100 border-b border-gray-200">
               <th class="td-table w-1/6">File Evidence</th>
               <td class="td-table">
-                <button
-                  :class="
-                    detailRequest.pickup_evidence
-                      ? 'text-blue-500'
-                      : 'text-dark'
-                  "
-                  :disabled="!detailRequest.pickup_evidence"
-                  @click="getFile(detailRequest.pickup_evidence)"
-                >
-                  Download File
-                </button>
+                <button class="text-blue-500">Download File</button>
               </td>
             </tr>
             <tr class="bg-white border-b border-gray-200">
               <th class="td-table w-1/6">File Bast</th>
               <td class="td-table">
-                <button
-                  :class="
-                    detailRequest.pickup_evidence
-                      ? 'text-blue-500'
-                      : 'text-dark'
-                  "
-                  :disabled="!detailRequest.pickup_evidence"
-                  @click="getFile(detailRequest.pickup_bast)"
-                >
-                  Download File
-                </button>
+                <button class="text-blue-500">Download File</button>
               </td>
-            </tr></template
-          >
-        </tbody>
-      </table>
-    </div>
-
-    <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
-      <table class="w-full text-sm text-left text-gray-800">
-        <thead>
-          <tr class="text-xs text-white uppercase bg-blue-800">
-            <th scope="col" class="th-table" colspan="2">
-              Pengembalian Barang
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table w-1/6">Tanggal Pengembalian</th>
-            <td class="td-table">{{ pickUpTime }}</td>
-          </tr>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">Penanda Tangan BAST</th>
-            <td class="td-table">{{ detailRequest.pickup_signing }}</td>
-          </tr>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="td-table w-1/6">File Evidence</th>
-            <td class="td-table">
-              <button class="text-blue-500">Download File</button>
-            </td>
-          </tr>
-          <tr class="bg-white border-b border-gray-200">
-            <th class="td-table w-1/6">File Bast</th>
-            <td class="td-table">
-              <button class="text-blue-500">Download File</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <Modal name="verifikasi-request">
