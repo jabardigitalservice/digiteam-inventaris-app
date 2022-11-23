@@ -20,7 +20,7 @@ export default {
 <template>
   <div class="flex">
     <div
-      class="bg-white text-[#788896] font-semibold absolute -translate-x-full md:-translate-x-0 space-y-6 px-2 py-4 inset-y-0 left-0 md:h-full p-5 pt-5 md:relative min-h-screen duration-200 ease-in-out"
+      class="bg-white text-gray-700 font-semibold absolute -translate-x-full md:-translate-x-0 space-y-6 px-2 py-4 inset-y-0 left-0 md:h-full p-5 pt-5 md:relative min-h-screen duration-200 ease-in-out"
       :class="showSidebar ? 'w-60 relative -translate-x-0' : 'w-24'"
     >
       <a href="" class="flex items-center px-4 space-x-2">
@@ -46,9 +46,12 @@ export default {
           :to="{ name: menu.routerLinkName }"
           class="group flex items-center py-3 px-4 space-x-2 mt-2 hover:bg-blue-100 rounded-xl transition duration-500 ease-in-out"
         >
-          <IconSvg :icon="`/icons/${menu.icon}`" class="!w-6 !h-6 ml-2.5" />
+          <IconSvg
+            :icon="`/icons/${menu.icon}`"
+            class="!w-6 !h-6 ml-2.5 !bg-gray-700 icon group-hover:!bg-blue-900"
+          />
           <span
-            class="text-[#788896] duration-500 ease-in-out"
+            class="text-gray-700 duration-500 ease-in-out group-hover:!text-blue-900"
             :class="{ hidden: !showSidebar }"
             >{{ menu.nameRouter }}</span
           >
@@ -68,5 +71,9 @@ a.router-link-active {
 a.router-link-active span {
   color: #0d47a1;
   background-color: #bbdefb;
+}
+
+a.router-link-active .icon {
+  background-color: #0d47a1 !important;
 }
 </style>
