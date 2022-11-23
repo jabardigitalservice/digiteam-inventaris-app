@@ -56,13 +56,13 @@ export default {
         <IconSvg
           icon="/logo/diskominfo.png"
           mode="image"
-          class="!w-36 !h-16 md:!h-20 !m-auto md:!w-80 md:!m-0"
+          class="!h-[40px] !w-[90px] !md:w-[170px] md:!h-[50px] !m-auto md:!m-0"
         />
 
         <IconSvg
           icon="/logo/jds-logo.svg"
           mode="image"
-          class="!w-36 !h-16 md:!h-20 !m-auto md:!w-80 md:!m-0"
+          class="!h-[40px] !w-[90px] !md:w-[170px] md:!h-[50px] !m-auto md:!m-0"
         />
       </div>
     </div>
