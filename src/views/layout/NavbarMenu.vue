@@ -14,7 +14,9 @@ export default {
 </script>
 
 <template>
-  <div class="justify-between items-center px-2 py-5 bg-white">
+  <div
+    class="sticky top-0 z-50 justify-between items-center px-2 py-5 bg-white"
+  >
     <button
       class="text-blue-900 font-extrabold"
       @click="getResponseToggleSidebar"

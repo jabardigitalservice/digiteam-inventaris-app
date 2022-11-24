@@ -38,15 +38,13 @@ export default {
 </script>
 
 <template>
-  <div>
-    <div class="bg-gray-50 rounded-lg border h-full">
-      <RequestDetail
-        v-if="isSuccess"
-        :detail-request="detailRequest"
-        @get-response-form="getDetailData"
-      />
+  <div class="rounded-lg border">
+    <RequestDetail
+      v-if="isSuccess"
+      :detail-request="detailRequest"
+      @get-response-form="getDetailData"
+    />
 
-      <DataError v-if="!isSuccess" />
-    </div>
+    <DataError v-if="!isSuccess" />
   </div>
 </template>
