@@ -310,7 +310,7 @@ export default {
   <div>
     <div class="max-full-screen">
       <div class="flex flex-col">
-        <div class="px-5 mb-5 mt-5 sticky top-[65px] z-50 bg-gray-50">
+        <div class="px-5 mb-5 mt-5 bg-gray-50">
           <p class="text-blue-gray-800 font-bold float-left mb-5 mt-5">
             Detail Permohonan Inventaris
           </p>
@@ -333,7 +333,7 @@ export default {
             {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
           </button>
         </div>
-        <div class="h-full flex-row flex-grow">
+        <div class="h-[500px] overflow-y-auto flex-row flex-grow">
           <div class="sm:rounded-lg shadow-md">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
