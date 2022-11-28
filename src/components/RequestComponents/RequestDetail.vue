@@ -310,14 +310,14 @@ export default {
   <div>
     <div class="max-full-screen">
       <div class="flex flex-col">
-        <div class="px-5 mb-5 mt-5 bg-gray-50">
-          <p class="text-blue-gray-800 font-bold float-left mb-5 mt-5">
+        <div class="px-5 my-5 bg-gray-50">
+          <p class="text-blue-gray-800 font-bold float-left my-5">
             Detail Permohonan Inventaris
           </p>
 
           <button
             v-if="btnRequestItem"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-5 mt-5 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
@@ -326,7 +326,7 @@ export default {
 
           <button
             v-if="btnVerifikasi"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-5 mt-5 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
@@ -415,7 +415,7 @@ export default {
 
           <div
             v-if="detailRejectedRequest"
-            class="sm:rounded-lg shadow-md mt-5 mb-5"
+            class="sm:rounded-lg shadow-md my-5"
           >
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
@@ -434,7 +434,7 @@ export default {
             </table>
           </div>
 
-          <div v-if="detailListItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+          <div v-if="detailListItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
                 <tr class="text-xs text-white uppercase bg-blue-800">
@@ -462,10 +462,7 @@ export default {
             </table>
           </div>
 
-          <div
-            v-if="detailRequestItem"
-            class="sm:rounded-lg shadow-md mt-5 mb-5"
-          >
+          <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
                 <tr class="text-xs text-white uppercase bg-blue-800">
@@ -491,7 +488,7 @@ export default {
             </table>
           </div>
 
-          <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md mt-5 mb-5">
+          <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
                 <tr class="text-xs text-white uppercase bg-blue-800">
@@ -509,10 +506,7 @@ export default {
             </table>
           </div>
 
-          <div
-            v-if="detailReceivedItem"
-            class="sm:rounded-lg shadow-md mt-5 mb-5"
-          >
+          <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
                 <tr class="text-xs text-white uppercase bg-blue-800">
@@ -569,10 +563,7 @@ export default {
             </table>
           </div>
 
-          <div
-            v-if="detailReturnItem"
-            class="sm:rounded-lg shadow-md mt-5 mb-5"
-          >
+          <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
                 <tr class="text-xs text-white uppercase bg-blue-800">

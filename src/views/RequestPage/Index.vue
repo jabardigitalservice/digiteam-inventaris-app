@@ -101,7 +101,7 @@ export default {
         v-if="isSuccess"
         :data-request="dataRequest"
         :is-success="isSuccess"
-        class="mt-5 mb-5"
+        class="my-5"
       />
 
       <DataError v-if="!isSuccess" />
