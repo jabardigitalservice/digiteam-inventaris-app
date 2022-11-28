@@ -317,7 +317,7 @@ export default {
 
           <button
             v-if="btnRequestItem"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-5 mt-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
@@ -326,7 +326,7 @@ export default {
 
           <button
             v-if="btnVerifikasi"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-5 mt-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
