@@ -40,12 +40,12 @@ export default {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2">
+  <div class="grid grid-cols-1 md:grid-cols-2 inline-flex">
     <div class="">
       <span class="mr-2">Tampilkan </span>
       <select
         v-model="selectPagination.limit"
-        class="mr-2 w-14"
+        class="mr-2 w-14 font-bold"
         @change="getPagination('change-limit')"
       >
         <option v-for="limits in limit" :key="limits" :value="limits">
@@ -85,7 +85,7 @@ export default {
         <span class="mr-2">Halaman</span>
         <select
           v-model="selectPagination.page"
-          class="mr-2 w-14"
+          class="mr-2 w-14 font-bold"
           @change="getPagination('change-page')"
         >
           <option
@@ -96,6 +96,7 @@ export default {
             {{ page }}
           </option>
         </select>
+        <span>dari {{ pagination.last_page }}</span>
       </div>
     </div>
   </div>

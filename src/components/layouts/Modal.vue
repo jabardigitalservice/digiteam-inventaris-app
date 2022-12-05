@@ -31,7 +31,7 @@ export default {
         class="flex flex-col overflow-hidden bg-white rounded w-full max-h-full"
       >
         <div class="flex items-center justify-between p-4 border-b">
-          <h5 class="text-xl font-semibold text-blue-gray-800 uppercase">
+          <h5 class="text-xl font-semibold text-blue-gray-800 capitalize">
             <slot name="header"> </slot>
           </h5>
           <button
@@ -56,7 +56,7 @@ export default {
           class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
         >
           <button
-            class="text-red-800 border border-solid border-red-800 hover:bg-red-800 hover:text-white active:bg-red-900 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            class="text-red-800 border border-solid border-red-800 hover:bg-red-800 hover:text-white active:bg-red-900 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
             @click="close"
           >

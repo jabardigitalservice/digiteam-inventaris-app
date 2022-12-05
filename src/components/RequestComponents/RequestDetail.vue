@@ -311,13 +311,13 @@ export default {
     <div class="max-full-screen">
       <div class="flex flex-col">
         <div class="px-5 my-5 bg-gray-50">
-          <p class="text-blue-gray-800 font-bold float-left my-5">
+          <h1 class="text-blue-gray-800 font-bold float-left my-5">
             Detail Permohonan Inventaris
-          </p>
+          </h1>
 
           <button
             v-if="btnRequestItem"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold capitalize text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
@@ -326,18 +326,18 @@ export default {
 
           <button
             v-if="btnVerifikasi"
-            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
+            class="bg-green-700 text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-bold capitalize text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 my-5 ease-linear transition-all duration-150 float-right"
             type="button"
             @click="openModal('verifikasi-request')"
           >
             {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
           </button>
         </div>
-        <div class="h-[500px] overflow-y-auto flex-row flex-grow">
+        <div class="h-[500px] overflow-y-auto flex-row flex-grow bg-gray-50">
           <div class="sm:rounded-lg shadow-md">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     Permohonan Barang
                   </th>
@@ -419,7 +419,7 @@ export default {
           >
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-red-800">
+                <tr class="text-xs text-white capitalize bg-red-800">
                   <th scope="col" class="th-table" colspan="2">
                     Permohonan ditolak
                   </th>
@@ -437,7 +437,7 @@ export default {
           <div v-if="detailListItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     File Inventaris
                   </th>
@@ -465,7 +465,7 @@ export default {
           <div v-if="detailRequestItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     Barang yang diminta
                   </th>
@@ -491,7 +491,7 @@ export default {
           <div v-if="detailCheckItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     Kondisi Barang
                   </th>
@@ -509,7 +509,7 @@ export default {
           <div v-if="detailReceivedItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     Pengambilan Barang
                   </th>
@@ -566,7 +566,7 @@ export default {
           <div v-if="detailReturnItem" class="sm:rounded-lg shadow-md my-5">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
-                <tr class="text-xs text-white uppercase bg-blue-800">
+                <tr class="text-xs text-white capitalize bg-blue-800">
                   <th scope="col" class="th-table" colspan="2">
                     Pengembalian Barang
                   </th>
@@ -622,28 +622,28 @@ export default {
       <template v-if="btnApprovalAdmin" #footer>
         <button
           v-if="detailRequest.status === statusObject.PENGAJUAN_MASUK.value"
-          class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-red-800 border border-solid hover:bg-red-400 active:bg-red-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitRejectedStatus('rejected', detailRequest.status)"
         >
           Tolak Permohonan
         </button>
         <button
           v-if="btnApproveStatus"
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnReceived"
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnFeasibleCheck"
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi(statusObject.BARANG_SIAP_DIAMBIL.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
@@ -651,14 +651,14 @@ export default {
 
         <button
           v-if="btnUploadList"
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi(statusObject.PENGAJUAN_DITERIMA.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
         </button>
         <button
           v-if="btnPickUpItem"
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitFormVerifikasi(statusObject.PENGAJUAN_SELESAI.value)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}
@@ -666,7 +666,7 @@ export default {
       </template>
       <template v-else-if="btnRequestItem" #footer>
         <button
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="
             submitFormVerifikasi(statusObject.PERMINTAAN_BARANG_MASUK.value)
           "
@@ -676,7 +676,7 @@ export default {
       </template>
       <template v-else-if="btnReturnItem" #footer>
         <button
-          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          class="text-white bg-blue-800 border border-solid hover:bg-blue-400 active:bg-blue-400 font-bold capitalize text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           @click="submitUpdateStatus('approve', detailRequest.status)"
         >
           {{ getTextRequest(detailRequest.status).textBtnSubmitVerifikasi }}

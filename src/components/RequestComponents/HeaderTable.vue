@@ -47,7 +47,7 @@ export default {
           icon="/icons/plus.svg"
           fill-color="green"
           mode="mask"
-          class="!w-4 !h-4 !mr-2 hover:!bg-white"
+          class="!w-4 !h-4 !mr-2 !my-auto hover:!bg-white"
         />
         <span>Tambah Permohonan</span>
       </button>
@@ -110,9 +110,9 @@ export default {
     </div>
 
     <div>
-      <label class="text-sm font-medium text-gray-900"> Search : </label>
+      <label class="text-sm font-medium text-gray-900"> Cari Data : </label>
       <form class="flex items-center">
-        <label for="simple-search" class="sr-only">Cari Data</label>
+        <label for="simple-search" class="sr-only">Cari data....</label>
         <div class="relative w-full">
           <div
             class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
