@@ -34,7 +34,7 @@ export default {
 
     <div
       v-show="show"
-      class="absolute right-0 py-2 bg-white rounded-md shadow-xl w-40 p-2"
+      class="absolute right-0 bg-white rounded-md shadow-xl w-40 p-2"
     >
       <button
         class="w-full inline-flex items-center text-sm hover:bg-blue-50 hover:rounded-md group p-1"
