@@ -28,15 +28,15 @@ export default {
           v-if="showSidebar"
           icon="/logo/logo-inventaris.svg"
           :height="40"
-          :width="320"
+          :width="176"
           mode="image"
         />
 
         <IconSvg
           v-else
           icon="/logo/logo-mini-inventaris.svg"
-          :height="40"
-          :width="320"
+          :height="50"
+          :width="46"
           mode="image"
         />
       </a>
@@ -48,10 +48,10 @@ export default {
         >
           <IconSvg
             :icon="`/icons/${menu.icon}`"
-            class="!w-6 !h-6 ml-2.5 !bg-gray-700 icon group-hover:!bg-blue-900"
+            class="!w-6 !h-3.5 ml-2.5 !bg-gray-700 icon group-hover:!bg-blue-900"
           />
           <span
-            class="text-gray-700 duration-500 ease-in-out group-hover:!text-blue-900"
+            class="text-gray-700 duration-500 ease-in-out group-hover:!text-blue-900 text-sm"
             :class="{ hidden: !showSidebar }"
             >{{ menu.nameRouter }}</span
           >
