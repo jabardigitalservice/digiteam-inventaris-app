@@ -64,7 +64,7 @@ export const priortyObjectOption = Object.freeze({
   },
   URGENT: {
     value: 2,
-    text: "Urgent",
+    text: "Menndesak",
   },
 });
 

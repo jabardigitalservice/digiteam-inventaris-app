@@ -62,7 +62,7 @@ export default {
         class="select-filter-table"
         @change="getSelectFilter()"
       >
-        <option value="">All</option>
+        <option value="">Semua</option>
         <option
           v-for="(typeRequest, index) in typeRequestObjectOption"
           :key="index"
@@ -80,7 +80,7 @@ export default {
         class="select-filter-table"
         @change="getSelectFilter()"
       >
-        <option value="">All</option>
+        <option value="">Semua</option>
         <option
           v-for="(divisi, index) in divisiArrayOption"
           :key="index"
@@ -98,7 +98,7 @@ export default {
         class="select-filter-table"
         @change="getSelectFilter()"
       >
-        <option value="">All</option>
+        <option value="">Semua</option>
         <option
           v-for="(status, index) in statusObject"
           :key="index"
