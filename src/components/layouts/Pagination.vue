@@ -40,8 +40,8 @@ export default {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 inline-flex">
-    <div class="">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="my-auto">
       <span class="mr-2">Tampilkan </span>
       <select
         v-model="selectPagination.limit"
@@ -55,33 +55,8 @@ export default {
       <span> Item dari total {{ pagination.total }}</span>
     </div>
 
-    <div>
-      <div class="inline-block float-right text-blue-gray-800">
-        <nav>
-          <ul class="inline-flex -space-x-px">
-            <li>
-              <button
-                class="py-2 px-3 ml-0 leading-tight rounded-l-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
-                :disabled="pagination.page === 1"
-                @click="changePage('decrement')"
-              >
-                &lt;
-              </button>
-            </li>
-
-            <li>
-              <button
-                class="py-2 px-3 leading-tight rounded-r-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
-                :disabled="pagination.page === pagination.last_page"
-                @click="changePage('increment')"
-              >
-                &gt;
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="inline-block float-right mr-2">
+    <div class="flex justify-self-end text-blue-gray-800 my-auto">
+      <div class="float-right mr-2 my-auto">
         <span class="mr-2">Halaman</span>
         <select
           v-model="selectPagination.page"
@@ -98,6 +73,30 @@ export default {
         </select>
         <span>dari {{ pagination.last_page }}</span>
       </div>
+
+      <nav class="float-right">
+        <ul class="inline-flex -space-x-px">
+          <li>
+            <button
+              class="py-2 px-3 ml-0 leading-tight rounded-l-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
+              :disabled="pagination.page === 1"
+              @click="changePage('decrement')"
+            >
+              &lt;
+            </button>
+          </li>
+
+          <li>
+            <button
+              class="py-2 px-3 leading-tight rounded-r-lg border border-gray-300 hover:bg-white hover:text-gray-700 disabled:bg-gray-400"
+              :disabled="pagination.page === pagination.last_page"
+              @click="changePage('increment')"
+            >
+              &gt;
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>

@@ -333,7 +333,9 @@ export default {
             {{ getTextRequest(detailRequest.status).textBtnVerifikasi }}
           </button>
         </div>
-        <div class="h-[500px] overflow-y-auto flex-row flex-grow bg-gray-50">
+        <div
+          class="h-[500px] overflow-y-auto flex-row flex-grow bg-gray-50 p-6"
+        >
           <div class="sm:rounded-lg shadow-md">
             <table class="w-full text-sm text-left text-gray-800">
               <thead>
