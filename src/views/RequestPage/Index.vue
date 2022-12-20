@@ -89,7 +89,7 @@ export default {
   <div>
     <TitleCard :title-card="titleCard" :text-card="textCard" />
 
-    <div class="p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-md">
+    <div class="rounded-lg border border-gray-200 bg-gray-50 p-6 shadow-md">
       <HeaderTable
         v-if="isSuccess"
         @get-select-filter="getSelectFilter"
