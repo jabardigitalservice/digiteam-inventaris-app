@@ -19,34 +19,34 @@ export default {
 <template>
   <div class="relative">
     <button
-      class="bg-white focus:outline-none font-medium rounded-lg text-sm text-center inline-flex items-center"
-      :class="show ? 'text-blue-700 font-bold' : 'text-gray-800'"
+      class="inline-flex items-center rounded-lg bg-white text-center text-sm font-medium focus:outline-none"
+      :class="show ? 'font-bold text-blue-700' : 'text-gray-800'"
       @click="show = !show"
     >
       <span class="mr-3"> {{ $store.state.user.profile.name }}</span>
 
       <IconSvg
         icon="/icons/arrow.svg"
-        class="!w-5 !h-5"
-        :class="show ? '!bg-blue-700 rotate-90' : '!bg-gray-800'"
+        class="!h-5 !w-5"
+        :class="show ? 'rotate-90 !bg-blue-700' : '!bg-gray-800'"
       />
     </button>
 
     <div
       v-show="show"
-      class="absolute right-0 bg-white rounded-md shadow-xl w-40 p-2"
+      class="absolute right-0 w-40 rounded-md bg-white p-2 shadow-xl"
     >
       <button
-        class="w-full inline-flex items-center text-sm hover:bg-blue-50 hover:rounded-md group p-1"
+        class="group inline-flex w-full items-center p-1 text-sm hover:rounded-md hover:bg-blue-50"
         @click="logout"
       >
         <IconSvg
-          class="!bg-gray-800 group-hover:!bg-blue-700 ml-3 mr-3"
+          class="mx-3 !bg-gray-800 group-hover:!bg-blue-700"
           icon="/icons/Logout.svg"
         />
 
         <span
-          class="text-gray-800 group-hover:text-blue-700 group-hover:font-bold"
+          class="text-gray-800 group-hover:font-bold group-hover:text-blue-700"
           >Keluar</span
         >
       </button>

@@ -18,12 +18,12 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen sticky top-0">
+  <div class="sticky top-0 h-screen">
     <div
-      class="bg-white text-gray-700 font-semibold absolute -translate-x-full md:-translate-x-0 space-y-6 px-2 py-4 inset-y-0 left-0 md:h-full p-5 pt-5 md:relative min-h-screen duration-200 ease-in-out"
-      :class="showSidebar ? 'w-60 relative -translate-x-0' : 'w-24'"
+      class="absolute inset-y-0 left-0 min-h-screen -translate-x-full space-y-6 bg-white p-5 px-2 py-4 pt-5 font-semibold text-gray-700 duration-200 ease-in-out md:relative md:h-full md:-translate-x-0"
+      :class="showSidebar ? 'relative w-60 -translate-x-0' : 'w-24'"
     >
-      <a href="" class="flex items-center px-4 space-x-2">
+      <a href="" class="flex items-center space-x-2 px-4">
         <IconSvg
           v-if="showSidebar"
           icon="/logo/logo-inventaris.svg"
@@ -44,14 +44,14 @@ export default {
       <nav v-for="(menu, index) in menuSidebar" :key="index">
         <router-link
           :to="{ name: menu.routerLinkName }"
-          class="group flex items-center py-3 px-4 space-x-2 mt-2 hover:bg-blue-100 rounded-xl transition duration-500 ease-in-out"
+          class="group mt-2 flex items-center space-x-2 rounded-xl py-3 px-4 transition duration-500 ease-in-out hover:bg-blue-100"
         >
           <IconSvg
             :icon="`/icons/${menu.icon}`"
-            class="!w-6 !h-3.5 ml-2.5 !bg-gray-700 icon group-hover:!bg-blue-900"
+            class="icon ml-2.5 !h-3.5 !w-6 !bg-gray-700 group-hover:!bg-blue-900"
           />
           <span
-            class="text-gray-700 duration-500 ease-in-out group-hover:!text-blue-900 text-sm"
+            class="text-sm text-gray-700 duration-500 ease-in-out group-hover:!text-blue-900"
             :class="{ hidden: !showSidebar }"
             >{{ menu.nameRouter }}</span
           >
