@@ -41,7 +41,7 @@ export default {
         @click="logout"
       >
         <IconSvg
-          class="ml-3 mr-3 !bg-gray-800 group-hover:!bg-blue-700"
+          class="mx-3 !bg-gray-800 group-hover:!bg-blue-700"
           icon="/icons/Logout.svg"
         />
 
