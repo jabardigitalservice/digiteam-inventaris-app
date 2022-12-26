@@ -27,11 +27,16 @@ export default {
           Selamat datang di
         </h1>
 
-        <div class="m-auto flex justify-center">
+        <div
+          class="m-auto flex justify-center"
+          aria-label="Digiteam Inventaris"
+          role="text"
+        >
           <IconSvg
             icon="/logo/logo-inventaris.svg"
             :width="450"
             :height="100"
+            is-hidden="true"
             mode="image"
           />
         </div>
@@ -45,6 +50,7 @@ export default {
             <IconSvg
               icon="/icons/key.svg"
               fill-color="white"
+              is-hidden="true"
               class="!m-auto !mr-2 !h-5 !w-5"
             />
 
@@ -56,12 +62,14 @@ export default {
         <IconSvg
           icon="/logo/diskominfo.png"
           mode="image"
+          is-hidden="true"
           class="!m-auto !h-[40px] !w-[90px] md:!m-0 md:!h-[50px] md:!w-[170px]"
         />
 
         <IconSvg
           icon="/logo/jds-logo.svg"
           mode="image"
+          is-hidden="true"
           class="!m-auto !h-[40px] !w-[90px] md:!m-0 md:!h-[50px] md:!w-[170px]"
         />
       </div>

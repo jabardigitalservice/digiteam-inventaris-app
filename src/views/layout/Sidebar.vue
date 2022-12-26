@@ -10,6 +10,7 @@ export default {
           routerLinkName: "list-request",
           icon: "book.svg",
           nameRouter: "Permohonan",
+          label: "Daftar Permohonan",
         },
       ],
     };
@@ -23,7 +24,12 @@ export default {
       class="absolute inset-y-0 left-0 min-h-screen -translate-x-full space-y-6 bg-white p-5 px-2 py-4 pt-5 font-semibold text-gray-700 duration-200 ease-in-out md:relative md:h-full md:-translate-x-0"
       :class="showSidebar ? 'relative w-60 -translate-x-0' : 'w-24'"
     >
-      <a href="" class="flex items-center space-x-2 px-4">
+      <a
+        href=""
+        class="flex items-center space-x-2 px-4"
+        role="link"
+        aria-label="Daftar Permohonan"
+      >
         <IconSvg
           v-if="showSidebar"
           icon="/logo/logo-inventaris.svg"
@@ -44,6 +50,8 @@ export default {
       <nav v-for="(menu, index) in menuSidebar" :key="index">
         <router-link
           :to="{ name: menu.routerLinkName }"
+          role="link"
+          aria-label="Daftar Permohonan"
           class="group mt-2 flex items-center space-x-2 rounded-xl py-3 px-4 transition duration-500 ease-in-out hover:bg-blue-100"
         >
           <IconSvg
