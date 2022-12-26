@@ -27,7 +27,6 @@ export default {
       <a
         href=""
         class="flex items-center space-x-2 px-4"
-        role="link"
         aria-label="Daftar Permohonan"
       >
         <IconSvg
@@ -50,7 +49,6 @@ export default {
       <nav v-for="(menu, index) in menuSidebar" :key="index">
         <router-link
           :to="{ name: menu.routerLinkName }"
-          role="link"
           aria-label="Daftar Permohonan"
           class="group mt-2 flex items-center space-x-2 rounded-xl py-3 px-4 transition duration-500 ease-in-out hover:bg-blue-100"
         >
