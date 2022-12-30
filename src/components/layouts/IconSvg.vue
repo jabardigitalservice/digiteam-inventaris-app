@@ -27,14 +27,6 @@ export default {
       default: "mask",
       validator: (value) => ["mask", "image"].includes(value),
     },
-    label: {
-      type: String,
-      default: "",
-    },
-    isHidden: {
-      type: Boolean,
-      default: false,
-    },
   },
   computed: {
     computedStyle() {
@@ -67,10 +59,5 @@ export default {
 </script>
 
 <template>
-  <span
-    :style="computedStyle"
-    :aria-label="label"
-    :aria-hidden="isHidden"
-    role="img"
-  />
+  <span :style="computedStyle" role="img" />
 </template>
