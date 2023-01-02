@@ -19,6 +19,8 @@ export default {
   >
     <button
       class="font-extrabold text-blue-900"
+      type="button"
+      aria-label="Menu"
       @click="getResponseToggleSidebar"
     >
       <IconSvg icon="/icons/burger-button.svg" class="!h-5 !w-5 !bg-gray-700" />

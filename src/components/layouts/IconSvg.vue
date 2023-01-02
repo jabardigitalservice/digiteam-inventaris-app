@@ -59,5 +59,5 @@ export default {
 </script>
 
 <template>
-  <span :style="computedStyle" aria-label="hidden" />
+  <span :style="computedStyle" role="img" />
 </template>
